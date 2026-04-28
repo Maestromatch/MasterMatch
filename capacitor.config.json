@@ -1,0 +1,6 @@
+{
+  "appId": "cl.mastermatch.app",
+  "appName": "MasterMatch",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}

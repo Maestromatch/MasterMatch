@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MasterMatch — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#00C9B1;--od:#00A896;--ol:#E0F9F5;
+  --dk:#1A1D1E;--bg:#F3F6F5;--bd:#E5E9E8;
+  --mu:#7A8C87;--wh:#fff;--deep:#0C0F10;
+  --gold:#C9A84C;--red:#EF4444;--green:#10B981;
+  --radius:12px;--shadow:0 1px 3px rgba(0,0,0,.08);
+}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--dk);min-height:100vh;font-size:14px}
+
+/* TOPBAR */
+.topbar{background:var(--deep);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
+.tb-brand{font-weight:800;font-size:20px;color:#fff;letter-spacing:-0.02em}
+.tb-brand span{color:var(--o)}
+.tb-badge{background:rgba(239,68,68,.15);color:#FCA5A5;border:1px solid rgba(239,68,68,.3);padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.05em}
+.tb-user{font-size:12px;color:rgba(255,255,255,.5)}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 60px)}
+.login-box{background:#fff;border-radius:16px;padding:2.5rem;width:100%;max-width:380px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.login-icon{font-size:48px;text-align:center;margin-bottom:1rem}
+.login-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--mu);text-align:center;margin-bottom:1.5rem}
+.fi{width:100%;border:1.5px solid var(--bd);border-radius:var(--radius);padding:13px 15px;font-family:inherit;font-size:14px;background:#fff;margin-bottom:12px;transition:border-color .2s;outline:none}
+.fi:focus{border-color:var(--o)}
+.btn{width:100%;padding:14px;border-radius:var(--radius);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-p{background:var(--o);color:#fff}.btn-p:hover{background:var(--od)}
+.btn-s{background:transparent;color:var(--mu);border:1.5px solid var(--bd)}.btn-s:hover{border-color:var(--o);color:var(--o)}
+.err{color:var(--red);font-size:13px;text-align:center;margin-top:8px;display:none}
+
+/* DASHBOARD */
+.dash{display:none;max-width:1280px;margin:0 auto;padding:24px}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:24px}
+.stat{background:#fff;border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow);border:1px solid var(--bd)}
+.stat-num{font-size:28px;font-weight:800;color:var(--o);margin-bottom:2px}
+.stat-lbl{font-size:12px;color:var(--mu);font-weight:500}
+
+/* TABS */
+.tabs{display:flex;background:#fff;border-radius:var(--radius);border:1px solid var(--bd);overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow)}
+.tab{flex:1;padding:12px 16px;text-align:center;font-size:13px;font-weight:600;color:var(--mu);cursor:pointer;border:none;background:transparent;font-family:inherit;transition:all .2s;border-right:1px solid var(--bd)}
+.tab:last-child{border-right:none}
+.tab.active{background:var(--o);color:#fff}
+.tab:hover:not(.active){background:var(--ol);color:var(--o)}
+
+/* CONTENT */
+.content{background:#fff;border-radius:var(--radius);border:1px solid var(--bd);box-shadow:var(--shadow);overflow:hidden}
+
+/* TABLA */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{background:var(--bg);font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;padding:10px 14px;text-align:left;border-bottom:1px solid var(--bd)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--bg);font-size:13px;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#FAFBFB}
+.badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600}
+.bg-green{background:#D1FAE5;color:#065F46}
+.bg-yellow{background:#FEF3C7;color:#92400E}
+.bg-red{background:#FEE2E2;color:#991B1B}
+.bg-teal{background:var(--ol);color:var(--od)}
+.bg-gray{background:var(--bg);color:var(--mu)}
+.bg-gold{background:#FEF3C7;color:#92400E}
+
+/* ACTIONS */
+.act-btn{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s;margin-right:4px}
+.ab-green{background:#D1FAE5;color:#065F46}.ab-green:hover{background:#A7F3D0}
+.ab-red{background:#FEE2E2;color:#991B1B}.ab-red:hover{background:#FECACA}
+.ab-blue{background:var(--ol);color:var(--od)}.ab-blue:hover{background:#C0F0EA}
+
+/* VERIF CARD */
+.verif-card{border:1px solid var(--bd);border-radius:var(--radius);padding:1rem;margin-bottom:12px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.verif-doc{flex:1;min-width:200px}
+.verif-doc-title{font-weight:700;margin-bottom:4px}
+.verif-doc-meta{font-size:12px;color:var(--mu);line-height:1.5}
+.verif-actions{display:flex;gap:8px;align-items:center}
+
+/* EMPTY */
+.empty{text-align:center;padding:3rem 2rem;color:var(--mu)}
+.empty-i{font-size:48px;margin-bottom:12px}
+
+/* LOADING */
+.loading{text-align:center;padding:2rem;color:var(--mu);font-size:14px}
+
+/* BUSCADOR */
+.search-bar{display:flex;gap:10px;margin-bottom:16px}
+.search-bar input{flex:1}
+.search-bar select{padding:10px 14px;border:1.5px solid var(--bd);border-radius:var(--radius);font-family:inherit;font-size:13px;background:#fff;outline:none;cursor:pointer}
+
+/* SESIÓN */
+.logout-btn{background:rgba(239,68,68,.1);color:#EF4444;border:1px solid rgba(239,68,68,.2);padding:7px 16px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.logout-btn:hover{background:rgba(239,68,68,.2)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-brand">Master<span>Match</span> <span class="tb-badge">ADMIN</span></div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <span class="tb-user" id="admin-user">No autenticado</span>
+    <button class="logout-btn" onclick="cerrarSesion()" style="display:none" id="logout-btn">Cerrar sesión</button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-box">
+    <div class="login-icon">🔐</div>
+    <div class="login-title">Panel de Administración</div>
+    <div class="login-sub">Acceso exclusivo. MasterMatch.</div>
+    <input class="fi" type="password" id="admin-pass" placeholder="Contraseña de administrador" onkeydown="if(event.key==='Enter')loginAdmin()">
+    <button class="btn btn-p" onclick="loginAdmin()">Ingresar →</button>
+    <div class="err" id="err-login">❌ Contraseña incorrecta</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dash">
+
+  <!-- Stats -->
+  <div class="stats-row" id="stats-row">
+    <div class="stat"><div class="stat-num" id="s-pros">—</div><div class="stat-lbl">Profesionales</div></div>
+    <div class="stat"><div class="stat-num" id="s-sols">—</div><div class="stat-lbl">Solicitudes</div></div>
+    <div class="stat"><div class="stat-num" id="s-leads">—</div><div class="stat-lbl">Leads</div></div>
+    <div class="stat"><div class="stat-num" id="s-mrr" style="color:var(--gold)">$—</div><div class="stat-lbl">MRR</div></div>
+    <div class="stat"><div class="stat-num" id="s-pend" style="color:var(--red)">—</div><div class="stat-lbl">Verif. pend.</div></div>
+    <div class="stat"><div class="stat-num" id="s-pro-plans" style="color:var(--o)">—</div><div class="stat-lbl">Planes Pro+</div></div>
+  </div>
+
+  <!-- v10.8.8: Herramientas de Mantenimiento -->
+  <div style="margin-bottom:24px;background:rgba(239,68,68,0.05);border:1px dashed var(--red);padding:1.5rem;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div>
+      <div style="font-weight:700;color:var(--red);font-size:16px;margin-bottom:4px">Limpieza Profunda (Anti-Pruebas)</div>
+      <div style="font-size:13px;color:var(--mu)">Elimina automáticamente perfiles duplicados y solicitudes que contengan "test" o "prueba".</div>
+    </div>
+    <button class="btn" style="background:var(--red);color:#fff;max-width:200px" onclick="ejecutarLimpieza()">🚀 Limpiar DB Ahora</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="tab('pros',this)">👷 Profesionales</button>
+    <button class="tab" onclick="tab('clientes',this)">👤 Clientes</button>
+    <button class="tab" onclick="tab('verif',this)">🔵 Verificar</button>
+    <button class="tab" onclick="tab('sols',this)">📋 Solicitudes</button>
+    <button class="tab" onclick="tab('pagos',this)">💳 Pagos</button>
+    <button class="tab" onclick="tab('cupones',this)">🎁 Cupones</button>
+    <button class="tab" onclick="tab('inactivos',this)">⚠️ Inactivos</button>
+    <button class="tab" onclick="tab('stats',this)">📊 Stats</button>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+    <div class="loading">Cargando...</div>
+  </div>
+
+</div>
+
+<script>
+var _pass = '';
+var _tab = 'pros';
+
+async function loginAdmin(){
+  var pass = document.getElementById('admin-pass').value.trim();
+  if(!pass){return;}
+  try {
+    var res = await fetch('/api/admin', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password: pass})
+    });
+    var data = await res.json();
+    if(data.success){
+      _pass = pass;
+      document.getElementById('login-wrap').style.display = 'none';
+      document.getElementById('dash').style.display = 'block';
+      document.getElementById('admin-user').textContent = 'Admin autenticado ✓';
+      document.getElementById('logout-btn').style.display = 'block';
+      cargarStats();
+      cargarTab('pros');
+    } else {
+      document.getElementById('err-login').style.display = 'block';
+      setTimeout(function(){ document.getElementById('err-login').style.display='none'; }, 3000);
+    }
+  } catch(e){
+    document.getElementById('err-login').textContent = '❌ Error de conexión';
+    document.getElementById('err-login').style.display = 'block';
+  }
+}
+
+function cerrarSesion(){
+  _pass = '';
+  location.reload();
+}
+
+// v10.8.8: Función de Limpieza Profunda
+async function ejecutarLimpieza(){
+  if(!confirm('🚨 ¿EJECUTAR LIMPIEZA PROFUNDA?\n\nSe eliminarán perfiles duplicados y solicitudes de prueba definitivamente.\nEsta acción no se puede deshacer.')) return;
+  
+  try {
+    const btn = event.target;
+    btn.disabled = true;
+    btn.textContent = '⏳ Limpiando...';
+    
+    const res = await fetch('/api/clean?secret=masterclean2026', { method: 'POST' });
+    const d = await res.json();
+    
+    if(d.success) {
+      alert(`✅ Limpieza completada con éxito:\n\n- Profesionales eliminados: ${d.removedPros.length}\n- Profesionales restantes: ${d.prosRemaining}\n- Solicitudes restantes: ${d.solsRemaining}`);
+      cargarStats();
+      cargarTab(_tab);
+    } else {
+      alert('❌ Error: ' + (d.error || 'No se pudo completar la limpieza'));
+    }
+  } catch(e) {
+    alert('❌ Error de conexión al servidor de limpieza');
+  } finally {
+    const btn = document.querySelector('button[onclick="ejecutarLimpieza()"]');
+    btn.disabled = false;
+    btn.textContent = '🚀 Limpiar DB Ahora';
+  }
+}
+
+async function cargarStats(){
+  try {
+    var res = await fetch('/api/admin?action=stats&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    if(!d.success) return;
+    var s = d.stats;
+    document.getElementById('s-pros').textContent = s.totalPros || 0;
+    document.getElementById('s-sols').textContent = s.totalSolicitudes || 0;
+    document.getElementById('s-leads').textContent = s.totalLeads || 0;
+    document.getElementById('s-mrr').textContent = '$'+(s.mrr||0).toLocaleString('es-CL');
+    document.getElementById('s-pend').textContent = s.pendientesVerificacion || 0;
+    document.getElementById('s-pro-plans').textContent = s.prosConPlan || 0;
+  } catch(e){ console.error(e); }
+}
+
+function tab(nombre, btn){
+  _tab = nombre;
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  cargarTab(nombre);
+}
+
+async function cargarTab(nombre){
+  document.getElementById('content').innerHTML = '<div class="loading">⏳ Cargando...</div>';
+  if(nombre === 'pros') await cargarPros();
+  else if(nombre === 'clientes') await cargarClientes();
+  else if(nombre === 'verif') await cargarVerif();
+  else if(nombre === 'sols') await cargarSols();
+  else if(nombre === 'pagos') await cargarPagos();
+  else if(nombre === 'cupones') await cargarCupones();
+  else if(nombre === 'inactivos') await cargarInactivos();
+  else if(nombre === 'stats') cargarStatsTab();
+}
+
+async function cargarPros(){
+  try {
+    var res = await fetch('/api/admin?action=pros&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    if(!d.success){ content('<div class="empty"><div class="empty-i">⚠️</div>Error al cargar</div>'); return; }
+    var pros = d.data || [];
+    if(!pros.length){ content('<div class="empty"><div class="empty-i">👷</div>Sin profesionales registrados</div>'); return; }
+    var html = '<div style="padding:14px 14px 0"><div class="search-bar"><input class="fi" style="margin:0" placeholder="🔍 Buscar por nombre, oficio o email..." oninput="filtrarTabla(this.value,\'tbl-pros\')" /><select onchange="filtrarPlan(this.value)"><option value="">Todos los planes</option><option value="gratis">Gratis</option><option value="pro">Pro</option><option value="premium">Premium</option></select></div></div>';
+    html += '<div style="overflow-x:auto"><table class="tbl" id="tbl-pros"><thead><tr><th>Nombre</th><th>Oficio</th><th>Región</th><th>Plan</th><th>Verificado</th><th>Creado</th><th>Acciones</th></tr></thead><tbody>';
+    pros.forEach(function(p){
+      var plan = p.plan||'gratis';
+      var planBadge = plan==='premium'?'bg-gold':plan==='pro'?'bg-teal':'bg-gray';
+      var verifBadge = p.verificado?'bg-green':'bg-yellow';
+      var verifTxt = p.verificado?'✓ Verificado':(p.verificacionEstado==='pendiente'?'⏳ Pendiente':'Sin enviar');
+      html += '<tr data-search="'+(p.nombre+' '+(p.oficios||[]).join(' ')+' '+p.email).toLowerCase()+'" data-plan="'+plan+'">';
+      html += '<td><strong>'+esc(p.nombre)+'</strong><br><span style="font-size:11px;color:var(--mu)">'+esc(p.email||'')+'</span></td>';
+      html += '<td>'+(p.oficios||[]).slice(0,2).join(', ')+'</td>';
+      html += '<td>'+(p.region||'—')+'</td>';
+      html += '<td><span class="badge '+planBadge+'">'+plan.toUpperCase()+'</span></td>';
+      html += '<td><span class="badge '+verifBadge+'">'+verifTxt+'</span></td>';
+      html += '<td style="font-size:11px;color:var(--mu)">'+(p.createdAt?new Date(p.createdAt).toLocaleDateString('es-CL'):'—')+'</td>';
+      html += '<td>';
+      html += '<button class="act-btn ab-blue" onclick="verDetalle(\''+p.id+'\',\'pro\')">Ver</button>';
+      if(!p.verificado && p.verificacionEstado==='pendiente') html += '<button class="act-btn ab-green" onclick="aprobarVerif(\''+p.id+'\',true)">✓ Aprobar</button><button class="act-btn ab-red" onclick="aprobarVerif(\''+p.id+'\',false)">✕ Rechazar</button>';
+      html += '<button class="act-btn ab-red" onclick="eliminarPro(\''+p.id+'\',\''+esc(p.nombre)+'\')">Eliminar</button>';
+      html += '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    content(html);
+  } catch(e){ content('<div class="empty"><div class="empty-i">⚠️</div>Error: '+e.message+'</div>'); }
+}
+
+async function cargarClientes(){
+  try {
+    var res = await fetch('/api/admin?action=clientes&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    if(!d.success){ content('<div class="empty"><div class="empty-i">⚠️</div>Error al cargar</div>'); return; }
+    var clis = d.data || [];
+    if(!clis.length){ content('<div class="empty"><div class="empty-i">👤</div>Sin clientes registrados</div>'); return; }
+    var html = '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Nombre</th><th>Email/WA</th><th>Región</th><th>Verificado</th><th>Solicitudes</th><th>Plan</th><th>Acciones</th></tr></thead><tbody>';
+    clis.forEach(function(c){
+      var verifBadge = c.verificado?'bg-green':(c.verificacionEstado==='pendiente'?'bg-yellow':'bg-gray');
+      var verifTxt = c.verificado?'✓ Verificado':(c.verificacionEstado==='pendiente'?'⏳ Pendiente':'Sin verificar');
+      var plan = c.plan||'gratis';
+      var planBadge = plan==='premium'?'bg-gold':'bg-gray';
+      html += '<tr>';
+      html += '<td><strong>'+esc(c.nombre)+'</strong></td>';
+      html += '<td style="font-size:11px">'+esc(c.email||c.whatsapp||'—')+'</td>';
+      html += '<td>'+(c.region||'—')+'</td>';
+      html += '<td><span class="badge '+verifBadge+'">'+verifTxt+'</span></td>';
+      html += '<td style="text-align:center">'+(c.totalSolicitudes||0)+'</td>';
+      html += '<td><span class="badge '+planBadge+'">'+plan.toUpperCase()+'</span></td>';
+      html += '<td><button class="act-btn ab-red" onclick="eliminarCli(\''+c.id+'\',\''+esc(c.nombre)+'\')">Eliminar</button></td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+    content(html);
+  } catch(e){ content('<div class="empty"><div class="empty-i">⚠️</div>Error</div>'); }
+}
+
+async function cargarVerif(){
+  try {
+    var res = await fetch('/api/verificacion?action=pendientes&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    var pendientes = d.pendientes || [];
+    if(!pendientes.length){ content('<div class="empty"><div class="empty-i">✅</div><strong>Sin verificaciones pendientes</strong><p style="margin-top:8px">Todos los documentos han sido revisados.</p></div>'); return; }
+    var html = '<div style="padding:16px">';
+    pendientes.forEach(function(p){
+      html += '<div class="verif-card">';
+      html += '<div style="font-size:36px">'+( p.tipo==='cliente'?'👤':'👷')+'</div>';
+      html += '<div class="verif-doc">';
+      html += '<div class="verif-doc-title">'+esc(p.nombre)+' <span class="badge bg-gray" style="font-size:10px">'+( p.tipo||'pro')+'</span></div>';
+      html += '<div class="verif-doc-meta">';
+      html += '📧 '+esc(p.email||'—')+'<br>';
+      html += '🗂️ Documentos: '+(p.documentos||['carnet']).join(', ')+'<br>';
+      html += '📅 Enviado: '+(p.fechaEnvio?new Date(p.fechaEnvio).toLocaleDateString('es-CL'):'—')+'<br>';
+      if(p.archivos && p.archivos.length){
+        html += '📎 Archivos: ';
+        p.archivos.forEach(function(a,i){ html += '<a href="'+a.url+'" target="_blank" style="color:var(--o)">Ver archivo '+(i+1)+'</a> '; });
+      }
+      html += '</div></div>';
+      html += '<div class="verif-actions">';
+      html += '<button class="act-btn ab-green" onclick="aprobarVerif(\''+p.id+'\',true,\''+( p.tipo||'pro')+'\')">✓ Aprobar</button>';
+      html += '<button class="act-btn ab-red" onclick="rechazarVerif(\''+p.id+'\',\''+( p.tipo||'pro')+'\')">✕ Rechazar</button>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+    content(html);
+  } catch(e){ content('<div class="empty"><div class="empty-i">⚠️</div>Error: '+e.message+'</div>'); }
+}
+
+async function cargarSols(){
+  try {
+    var res = await fetch('/api/solicitudes?limit=50&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    var sols = d.solicitudes || [];
+    if(!sols.length){ content('<div class="empty"><div class="empty-i">📋</div>Sin solicitudes aún</div>'); return; }
+    var html = '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>ID</th><th>Oficio</th><th>Zona</th><th>Presupuesto</th><th>Estado</th><th>Fecha</th></tr></thead><tbody>';
+    sols.forEach(function(s){
+      var estadoBadge = s.estado==='abierta'?'bg-green':s.estado==='cerrada'?'bg-gray':'bg-yellow';
+      html += '<tr>';
+      html += '<td style="font-size:11px;color:var(--mu)">'+s.id.slice(-6)+'</td>';
+      html += '<td><strong>'+(s.tipo||'—')+'</strong></td>';
+      html += '<td>'+(s.zona||'—')+' · '+(s.region||'')+'</td>';
+      html += '<td>'+(s.ppto||'A cotizar')+'</td>';
+      html += '<td><span class="badge '+estadoBadge+'">'+(s.estado||'abierta')+'</span></td>';
+      html += '<td style="font-size:11px;color:var(--mu)">'+(s.createdAt?new Date(s.createdAt).toLocaleDateString('es-CL'):'—')+'</td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+    content(html);
+  } catch(e){ content('<div class="empty"><div class="empty-i">⚠️</div>Error</div>'); }
+}
+
+async function cargarPagos(){
+  try {
+    var res = await fetch('/api/pagos?action=list&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    var pagos = d.pagos || [];
+    if(!pagos.length){ content('<div class="empty"><div class="empty-i">💳</div>Sin pagos registrados</div>'); return; }
+    var html = '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>ID MP</th><th>Pro</th><th>Plan</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr></thead><tbody>';
+    pagos.forEach(function(p){
+      var estadoBadge = p.estado==='approved'?'bg-green':p.estado==='pending'?'bg-yellow':'bg-red';
+      html += '<tr>';
+      html += '<td style="font-size:11px;color:var(--mu)">'+(p.paymentId||p.id||'—')+'</td>';
+      html += '<td>'+(p.proNombre||p.proId||'—')+'</td>';
+      html += '<td><span class="badge bg-teal">'+(p.plan||'—').toUpperCase()+'</span></td>';
+      html += '<td style="font-weight:600">$'+(p.monto||0).toLocaleString('es-CL')+'</td>';
+      html += '<td><span class="badge '+estadoBadge+'">'+(p.estado||'—')+'</span></td>';
+      html += '<td style="font-size:11px;color:var(--mu)">'+(p.createdAt?new Date(p.createdAt).toLocaleDateString('es-CL'):'—')+'</td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+    content(html);
+  } catch(e){ content('<div class="empty"><div class="empty-i">⚠️</div>Error</div>'); }
+}
+
+function cargarStatsTab(){
+  content('<div style="padding:2rem;text-align:center"><div style="font-size:48px;margin-bottom:16px">📊</div><p style="color:var(--mu)">Stats detallados próximamente.<br>Por ahora revisa los contadores superiores.</p><button class="btn btn-p" style="max-width:200px;margin-top:1rem" onclick="cargarStats();alert(\'Stats actualizados\')">Actualizar stats</button></div>');
+}
+
+// ============ v10.5 — CUPONES ============
+async function cargarCupones(){
+  try {
+    var res = await fetch('/api/cupones?action=list&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    var cupones = d.cupones || [];
+
+    var html = '<div style="padding:16px 18px 0">';
+    // Generador
+    html += '<div style="background:linear-gradient(135deg,#FEF3C7 0%,#FDE68A 100%);border:1.5px solid #F59E0B;border-radius:14px;padding:1.25rem;margin-bottom:1.25rem">';
+    html += '<div style="font-weight:700;font-size:16px;color:#92400E;margin-bottom:6px">🎁 Generar Cupón de Reactivación</div>';
+    html += '<div style="font-size:12px;color:#78350F;line-height:1.55;margin-bottom:14px">Crea un código único para reactivar a clientes inactivos. Otórgales 1 solicitud extra o 1 mes Premium gratis.</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px">';
+    html += '<div><label style="font-size:11px;color:#78350F;font-weight:600">Prefijo del código</label><input class="fi" id="cup-prefix" value="VUELVE-MASTER" style="margin-bottom:0"></div>';
+    html += '<div><label style="font-size:11px;color:#78350F;font-weight:600">Beneficio</label><select class="fi" id="cup-beneficio" style="margin-bottom:0"><option value="solicitud_extra">+1 Solicitud gratis</option><option value="solicitud_extra" data-valor="2">+2 Solicitudes gratis</option><option value="mes_premium">1 mes Premium</option></select></div>';
+    html += '<div><label style="font-size:11px;color:#78350F;font-weight:600">Expira en (días)</label><input class="fi" id="cup-expira" type="number" value="30" min="1" max="365" style="margin-bottom:0"></div>';
+    html += '<div><label style="font-size:11px;color:#78350F;font-weight:600">Cliente específico (opcional)</label><input class="fi" id="cup-destinatario" placeholder="ID o vacío" style="margin-bottom:0"></div>';
+    html += '</div>';
+    html += '<button class="btn btn-p" style="background:#EA580C;max-width:280px" onclick="generarCupon()">✨ Generar Cupón →</button>';
+    html += '</div>';
+
+    // Lista
+    if (!cupones.length) {
+      html += '<div class="empty"><div class="empty-i">🎁</div><strong>Sin cupones generados aún</strong><p style="margin-top:8px">Crea el primero con el formulario de arriba.</p></div>';
+    } else {
+      html += '<h3 style="margin:1rem 0 .75rem;font-size:14px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.06em">Cupones recientes ('+cupones.length+')</h3>';
+      html += '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Código</th><th>Beneficio</th><th>Expira</th><th>Estado</th><th>Canjeado por</th><th>Acciones</th></tr></thead><tbody>';
+      cupones.forEach(function(c){
+        var estado = c.canjeado ? '<span class="badge bg-gray">✓ Canjeado</span>' : (c.fechaExpira && new Date(c.fechaExpira) < new Date() ? '<span class="badge bg-red">Expirado</span>' : '<span class="badge bg-green">✓ Activo</span>');
+        var benTxt = c.beneficio === 'solicitud_extra' ? '+'+c.valor+' solicitud' : c.beneficio === 'mes_premium' ? c.valor+' mes Premium' : c.beneficio;
+        html += '<tr>';
+        html += '<td><strong style="font-family:monospace">'+c.codigo+'</strong> <button class="act-btn ab-blue" style="padding:2px 8px;font-size:10px" onclick="copiarCodigo(\''+c.codigo+'\')">📋</button></td>';
+        html += '<td>'+benTxt+'</td>';
+        html += '<td style="font-size:11px;color:var(--mu)">'+(c.fechaExpira ? new Date(c.fechaExpira).toLocaleDateString('es-CL') : 'Sin expiración')+'</td>';
+        html += '<td>'+estado+'</td>';
+        html += '<td style="font-size:11px;color:var(--mu)">'+(c.canjeadoPor || '—')+'</td>';
+        html += '<td>'+(c.canjeado ? '—' : '<button class="act-btn ab-red" onclick="eliminarCupon(\''+c.codigo+'\')">Eliminar</button>')+'</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+    html += '</div>';
+    content(html);
+  } catch(e) {
+    content('<div class="empty"><div class="empty-i">⚠️</div>Error: '+e.message+'</div>');
+  }
+}
+
+async function cargarInactivos(){
+  try {
+    var res = await fetch('/api/cupones?action=inactivos&password='+encodeURIComponent(_pass));
+    var d = await res.json();
+    var clis = d.clientes || [];
+
+    var html = '<div style="padding:16px 18px 0">';
+    html += '<div style="background:linear-gradient(135deg,#FEE2E2 0%,#FCA5A5 30%,#FECACA 100%);border:1.5px solid #DC2626;border-radius:14px;padding:1.25rem;margin-bottom:1.25rem">';
+    html += '<div style="font-weight:700;font-size:16px;color:#7F1D1D;margin-bottom:6px">⚠️ Clientes Inactivos — Win-Back</div>';
+    html += '<div style="font-size:12px;color:#991B1B;line-height:1.55">Estos clientes agotaron sus 2 solicitudes gratis y NO compraron Plan Premium. Genérales un cupón de reactivación para recuperarlos.</div>';
+    html += '</div>';
+
+    if (!clis.length) {
+      html += '<div class="empty"><div class="empty-i">✨</div><strong>Sin clientes inactivos</strong><p style="margin-top:8px">Todos los clientes están activos o han comprado Premium.</p></div>';
+    } else {
+      html += '<h3 style="margin:1rem 0 .75rem;font-size:14px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.06em">'+clis.length+' clientes para win-back</h3>';
+      html += '<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Cliente</th><th>Contacto</th><th>Región</th><th>Solicitudes</th><th>Última actividad</th><th>Acción</th></tr></thead><tbody>';
+      clis.forEach(function(c){
+        html += '<tr>';
+        html += '<td><strong>'+esc(c.nombre)+'</strong><br><span style="font-size:11px;color:var(--mu)">ID: '+c.id.slice(-8)+'</span></td>';
+        html += '<td style="font-size:11px">'+esc(c.email||'—')+(c.whatsapp?'<br>📱 '+esc(c.whatsapp):'')+'</td>';
+        html += '<td>'+(c.region||'—')+'</td>';
+        html += '<td style="text-align:center"><strong>'+c.totalSolicitudes+'</strong></td>';
+        html += '<td style="font-size:11px;color:var(--mu)">'+(c.ultimaActividad?new Date(c.ultimaActividad).toLocaleDateString('es-CL'):'—')+'</td>';
+        html += '<td><button class="act-btn ab-green" onclick="cuponInactivo(\''+c.id+'\',\''+esc(c.nombre)+'\')">🎁 Generar Cupón</button></td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+    html += '</div>';
+    content(html);
+  } catch(e) {
+    content('<div class="empty"><div class="empty-i">⚠️</div>Error: '+e.message+'</div>');
+  }
+}
+
+async function generarCupon(destinatarioOpcional){
+  var prefix = document.getElementById('cup-prefix').value.trim() || 'VUELVE-MASTER';
+  var beneficio = document.getElementById('cup-beneficio').value;
+  var expira = parseInt(document.getElementById('cup-expira').value) || 30;
+  var dest = destinatarioOpcional || document.getElementById('cup-destinatario').value.trim() || null;
+  var valor = beneficio === 'solicitud_extra' ? 1 : 1;
+
+  try {
+    var res = await fetch('/api/cupones', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'generar', adminPassword:_pass, prefix, beneficio, valor, expiraEnDias:expira, destinatario:dest})
+    });
+    var d = await res.json();
+    if (d.success) {
+      var msg = '✅ Cupón generado:\n\n'+d.cupon.codigo+'\n\nBeneficio: '+(beneficio==='solicitud_extra'?'+1 solicitud gratis':'1 mes Premium')+'\nExpira en: '+expira+' días';
+      if (dest) msg += '\n\nDirigido al cliente: '+dest;
+      msg += '\n\n¿Copiar código al portapapeles?';
+      if (confirm(msg)) {
+        copiarCodigo(d.cupon.codigo);
+      }
+      cargarTab(_tab);
+    } else {
+      alert('Error: '+(d.error||'Desconocido'));
+    }
+  } catch(e) {
+    alert('Error de conexión');
+  }
+}
+
+async function cuponInactivo(clienteId, nombre){
+  if (!confirm('¿Generar cupón de reactivación para '+nombre+'?\n\nLe darás +1 solicitud gratis adicional (válida 30 días).\nEl cupón será dirigido específicamente a este cliente.')) return;
+
+  try {
+    var res = await fetch('/api/cupones', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'generar', adminPassword:_pass, prefix:'WIN-BACK', beneficio:'solicitud_extra', valor:1, expiraEnDias:30, destinatario:clienteId})
+    });
+    var d = await res.json();
+    if (d.success) {
+      var mensajeWa = '¡Hola '+nombre+'!%20Tenemos un regalo para ti en MasterMatch%20%F0%9F%8E%81%0A%0ATe damos%20%2B1%20solicitud gratis adicional para que encuentres al profesional ideal.%0A%0ATu c%C3%B3digo:%20'+d.cupon.codigo+'%0A%0AC%C3%A1njealo en master-match.vercel.app';
+      var msg = '✅ Cupón generado para '+nombre+'\n\nCódigo: '+d.cupon.codigo+'\n\n¿Copiar código?';
+      if (confirm(msg)) copiarCodigo(d.cupon.codigo);
+      // Ofrecer abrir WhatsApp si tiene número
+      var clis = await (await fetch('/api/admin?action=clientes&password='+encodeURIComponent(_pass))).json();
+      var cli = (clis.data||[]).find(function(x){return x.id===clienteId;});
+      if (cli && cli.whatsapp) {
+        if (confirm('¿Enviar el cupón por WhatsApp a +'+cli.whatsapp+'?')) {
+          window.open('https://wa.me/'+cli.whatsapp.replace(/\D/g,'')+'?text='+mensajeWa, '_blank');
+        }
+      }
+      cargarTab(_tab);
+    } else {
+      alert('Error: '+(d.error||'Desconocido'));
+    }
+  } catch(e) {
+    alert('Error de conexión');
+  }
+}
+
+async function eliminarCupon(codigo){
+  if (!confirm('¿Eliminar el cupón '+codigo+'?')) return;
+  try {
+    var res = await fetch('/api/cupones', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'eliminar', adminPassword:_pass, codigo})
+    });
+    var d = await res.json();
+    if (d.success) { alert('Cupón eliminado'); cargarTab('cupones'); }
+    else alert('Error: '+d.error);
+  } catch(e) { alert('Error'); }
+}
+
+function copiarCodigo(codigo){
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(codigo).then(function(){
+      var n = document.createElement('div');
+      n.style.cssText = 'position:fixed;top:24px;right:24px;background:var(--green);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 14px rgba(0,0,0,.2)';
+      n.textContent = '✓ Código copiado: '+codigo;
+      document.body.appendChild(n);
+      setTimeout(function(){ n.remove(); }, 2500);
+    });
+  } else {
+    prompt('Copia el código:', codigo);
+  }
+}
+
+// Acciones
+async function aprobarVerif(id, aprobado, tipo){
+  var motivo = !aprobado ? prompt('Motivo del rechazo (aparecerá al profesional):','Imagen no clara o datos no coinciden') : null;
+  if(!aprobado && !motivo) return;
+  try {
+    var res = await fetch('/api/verificacion', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'review', proId:id, aprobado:aprobado, motivo:motivo, adminPassword:_pass, tipo:tipo||'pro'})
+    });
+    var d = await res.json();
+    if(d.success){ alert(aprobado?'✅ Verificación aprobada':'✕ Rechazado'); cargarTab(_tab); }
+    else alert('Error: '+d.error);
+  } catch(e){ alert('Error de conexión'); }
+}
+
+async function rechazarVerif(id, tipo){
+  var motivo = prompt('Motivo del rechazo:','Imagen no clara o datos no coinciden con el perfil');
+  if(!motivo) return;
+  aprobarVerif(id, false, tipo);
+}
+
+async function eliminarPro(id, nombre){
+  if(nombre.toLowerCase().includes('verónica') || nombre.toLowerCase().includes('veronica')){
+    alert('⛔ Esta cuenta no puede eliminarse. Es una excepción protegida del sistema.');
+    return;
+  }
+  if(!confirm('¿Eliminar definitivamente al profesional "'+nombre+'"?\n\nEsta acción es irreversible.')) return;
+  try {
+    var res = await fetch('/api/profesionales', {
+      method:'DELETE',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({proId:id, adminPassword:_pass})
+    });
+    var d = await res.json();
+    if(d.success){ alert('Profesional eliminado'); cargarTab(_tab); }
+    else alert('Error: '+d.error);
+  } catch(e){ alert('Error de conexión'); }
+}
+
+async function eliminarCli(id, nombre){
+  if(!confirm('¿Eliminar al cliente "'+nombre+'"?\n\nEsta acción es irreversible.')) return;
+  try {
+    var res = await fetch('/api/clientes', {
+      method:'DELETE',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({clienteId:id, adminPassword:_pass})
+    });
+    var d = await res.json();
+    if(d.success){ alert('Cliente eliminado'); cargarTab(_tab); }
+    else alert('Error: '+d.error);
+  } catch(e){ alert('Error de conexión'); }
+}
+
+function verDetalle(id, tipo){
+  alert('Detalle del profesional ID: '+id+'\n\nEsta función mostrará el perfil completo en la próxima versión.\n\nPor ahora ve a:\n'+window.location.origin+'/#perfil-'+id);
+}
+
+// Helpers
+function content(html){ document.getElementById('content').innerHTML = html; }
+function esc(str){ return String(str||'').replace(/[<>&"]/g, function(c){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; }); }
+function filtrarTabla(q, tblId){
+  var tbl = document.getElementById(tblId);
+  if(!tbl) return;
+  tbl.querySelectorAll('tbody tr').forEach(function(tr){
+    tr.style.display = tr.dataset.search && tr.dataset.search.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+function filtrarPlan(plan){
+  var tbl = document.getElementById('tbl-pros');
+  if(!tbl) return;
+  tbl.querySelectorAll('tbody tr').forEach(function(tr){
+    tr.style.display = (!plan || tr.dataset.plan === plan) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
