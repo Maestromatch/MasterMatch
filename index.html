@@ -936,8 +936,7 @@ input:checked+.slider:before{transform:translateX(20px)}
     </div>
     <div class="tb-nav">
       <span class="tb-link" onclick="go('client')">🔍 Buscar profesional</span>
-      <span class="tb-link" onclick="go('blog')">📊 Guía de precios</span>
-      <span class="tb-link" onclick="go('blog-premium')" style="color:var(--gold)">💎 Blog Premium</span>
+      <span class="tb-link" onclick="go('blog')" style="color:var(--gold)">💎 Blog & Precios 2026</span>
       <span class="tb-link" onclick="go('planes')">💼 Planes</span>
     </div>
     <div class="tb-actions">
@@ -1604,39 +1603,47 @@ input:checked+.slider:before{transform:translateX(20px)}
 
     <!-- CONTENT -->
     <div class="dash-content">
-      <!-- BRIEFING (se muestra solo en Oportunidades) -->
-      <div id="briefing-block" class="briefing">
+      <!-- BRIEFING v11.0 INTEGRADO -->
+      <div id="briefing-block" class="briefing" style="background:var(--dkd)">
         <div class="briefing-hola-block">
           <div class="brief-hola" id="brief-hola">Hola 👋</div>
-          <div class="brief-sub" id="brief-sub">Cargando tu panel...</div>
+          <div class="brief-sub" id="brief-sub">Este es el resumen de tu actividad en 2026</div>
         </div>
+        
         <div class="brief-cards">
           <div class="brief-card primary" onclick="irSeccion('oportunidades')">
             <span class="bc-icon">🔔</span>
-            <div class="bc-num" id="bc-sols">—</div>
-            <div class="bc-lbl">Solicitudes nuevas</div>
-            <div class="bc-meta">Ver todas →</div>
+            <div class="bc-num" id="bc-sols">0</div>
+            <div class="bc-lbl">Matchs Activos</div>
+            <div class="bc-meta">Ver solicitudes →</div>
           </div>
-          <div class="brief-card">
+          <div class="brief-card" onclick="go('planes')">
             <span class="bc-icon">💰</span>
-            <div class="bc-num" id="bc-mes">$0</div>
-            <div class="bc-lbl">Ganado este mes</div>
-            <div class="bc-meta" id="bc-trab-meta">0 trabajos cerrados</div>
+            <div class="bc-num" id="bc-billetera">$0</div>
+            <div class="bc-lbl">Billetera Escrow</div>
+            <div class="bc-meta">Pagos protegidos</div>
           </div>
-          <div class="brief-card" onclick="irSeccion('perfil')">
-            <span class="bc-icon">✨</span>
-            <div class="bc-num" id="bc-completo">0%</div>
-            <div class="bc-lbl">Perfil completo</div>
-            <div class="bc-meta">Más completo = más contactos</div>
+          <div class="brief-card" onclick="irSeccion('verificar')">
+            <span class="bc-icon">⭐</span>
+            <div class="bc-num" id="bc-rating">4.98</div>
+            <div class="bc-lbl">Reputación 2026</div>
+            <div class="bc-meta">Verificación legal</div>
           </div>
         </div>
+
         <div class="brief-content-after">
-          <!-- Gatillo "solicitudes perdidas" para plan Gratis (se inyecta dinámicamente) -->
-          <div id="lost-opps-banner"></div>
+          <!-- Guía de Precios Premium -->
+          <div style="margin-top:1.5rem;background:linear-gradient(135deg,rgba(0,201,177,0.1) 0%,transparent 100%);border:1px solid rgba(0,201,177,0.2);border-radius:12px;padding:1rem;display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--o);margin-bottom:2px">💎 CONTENIDO EXCLUSIVO</div>
+              <div style="font-size:14px;font-weight:700;color:#fff">Guía de Precios 2026</div>
+            </div>
+            <button onclick="go('blog')" style="background:var(--o);color:#000;border:none;border-radius:6px;padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer">CONSULTAR</button>
+          </div>
           <div class="ia-banner">
             <div class="ia-banner-icon">🤖</div>
             <div class="ia-banner-txt">
-              <strong>Solicitudes filtradas por IA</strong> — Cada solicitud que ves aquí ya pasó nuestro análisis automático: cliente identificado, presupuesto real, descripción completa. No pierdes tiempo con curiosos.
+              <strong>Solicitudes filtradas por IA</strong> — Cada solicitud que ves aquí ya pasó nuestro análisis automático para que no pierdas tiempo con curiosos.
             </div>
           </div>
         </div>
