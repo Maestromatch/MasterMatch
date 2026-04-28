@@ -6,16 +6,16 @@
 <!-- Vercel Analytics + Speed Insights (HTML puro) -->
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<title>MasterMatch v11.0 Executive — Soluciones de primera, profesionales de verdad</title>
-<meta name="description" content="Plataforma chilena que conecta clientes con profesionales verificados. IA filtra solicitudes. Pago Protegido con Mercado Pago.">
-<meta name="version" content="11.0">
+<title>MasterMatch v12.0 — Conectamos la élite de los servicios con la excelencia</title>
+<meta name="description" content="Plataforma chilena para servicios de alto estándar. Profesionales verificados, IA de filtrado y pagos protegidos.">
+<meta name="version" content="12.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta property="og:title" content="MasterMatch">
-<meta property="og:description" content="Soluciones de primera, profesionales de verdad">
+<meta property="og:title" content="MasterMatch: Excelencia en Servicios">
+<meta property="og:description" content="Conectamos la élite de los servicios con quienes buscan excelencia.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://master-match.vercel.app/og-image.jpg">
+<meta property="og:image" content="https://master-match.vercel.app/og-image-v12.jpg">
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
@@ -27,66 +27,68 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+:root {
+  /* Paleta MasterMatch v12.0 — Executive Dark */
+  --bg-deep: #080A0B;
+  --surface: #121519;
+  --border: rgba(255,255,255,0.08);
+  --o: #00C9B1; /* Turquesa solo para acentos de confianza */
+  --gold: #C9A84C; /* Oro para Premium */
+  --mu: #94A3B8;
+  --text-white: #FFFFFF;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .htitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+/* Forzado de estética en elementos clave */
+.htitle { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1; margin-bottom: 1.5rem; background: linear-gradient(to bottom, #fff 50%, rgba(255,255,255,0.5)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hsub { font-size: 1.1rem; color: var(--mu); max-width: 600px; margin-bottom: 2.5rem; }
+.btn-p { background: var(--o); color: #000; font-weight: 700; border-radius: 12px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--o); }
+.btn-p:hover { background: #fff; border-color: #fff; transform: translateY(-2px); }
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  /* Paleta MasterMatch v10.8 — Turquesa brillante */
-  --o:#00C9B1;--od:#00A896;--ol:#E0F9F5;            /* Turquesa primario */
-  --teal-dark:#006666;                              /* Teal oscuro para profundidad */
-  --teal-light:#0DCEB6;                             /* Hover */
-  --trust:#0C1714;--trustl:#E6F0EE;                 /* Negro profundo */
-  --sage:#7A8C87;--sagel:#F3F6F5;                   /* Gris medio */
-  --dk:#1A1D1E;--dkd:#0C1714;                       /* Dark Grey + profundo */
-  --bg-deep:#0C0F10;                                /* Background dark premium */
-  --g:#00A896;--gl:#E0F9F5;                         /* Success */
-  --bd:#E5E9E8;--bg:#F3F6F5;--mu:#7A8C87;--wsp:#25D366;
-  --gold:#C9A84C;--goldd:#B09333;--goldl:#F7EFD9;
-  /* Executive Theme v11.0 */
-  --dark-bg: #0a0a0c;
-  --surface: #16161a;
-  --border: #2a2a2e;
-  --purple:#5a3e9b;--blue:#006666;
-  --red-alert:#EF4444;
-
-  /* Sistema */
-  --color-primary:       #00C9B1;
-  --color-primary-hover: #00A896;
-  --color-primary-tint:  #E0F9F5;
-  --color-primary-dark:  #006666;
-  --color-dark:    #1A1D1E;
-  --color-dark-deep:#0C0F10;
-  --color-surface: #F3F6F5;
-  --color-white:   #FFFFFF;
-  --color-border:  #E5E9E8;
-  --color-muted:   #7A8C87;
-  --color-star:    #C9A84C;
-  --color-success: #00A896;
-  --color-error:   #EF4444;
-  --color-gold:    #C9A84C;
-  --color-gold-dark:#B09333;
-
-  /* Escala tipográfica fluida */
-  --text-hero:    clamp(38px, 5vw, 56px);
-  --text-h2:      clamp(26px, 3vw, 36px);
-  --text-h3:      20px;
-  --text-body:    15px;
-  --text-small:   13px;
-  --text-caption: 11px;
-
-  /* Espaciado */
-  --space-xs:  4px; --space-sm:  8px; --space-md:  16px;
-  --space-lg:  24px; --space-xl:  32px; --space-2xl: 48px; --space-3xl: 80px;
-
-  /* Bordes */
-  --radius-sm:   8px; --radius-md:   12px; --radius-lg:   16px;
-  --radius-xl:   24px; --radius-pill: 100px;
-
-  /* Sombras turquesa */
-  --shadow-card:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-hover: 0 4px 12px rgba(0,201,177,0.15);
-  --shadow-lg:    0 10px 30px rgba(0,0,0,0.12);
-  --shadow-teal:  0 4px 14px rgba(0,201,177,0.3);
-  --shadow-gold:  0 4px 14px rgba(201,168,76,0.25);
+  /* Paleta MasterMatch v12.0 — Executive Dark */
+  --o:#00C9B1;                      /* Turquesa solo para acentos de acción */
+  --bg-deep:#080A0B;                /* Fondo negro profundo absoluto */
+  --surface:#111418;                /* Superficies de tarjetas */
+  --border:rgba(255,255,255,0.08);  /* Bordes sutiles */
+  --gold:#C9A84C;                   /* Oro para Premium */
+  --mu:#64748B;                     /* Texto secundario */
+  --text-white:#FFFFFF;
+  
+  /* Sistema de diseño */
+  --dark-bg: var(--bg-deep);
+  --color-primary: var(--o);
+  --color-gold: var(--gold);
 }
+
+body{font-family:'Inter',sans-serif;background:var(--bg-deep);color:#fff;line-height:1.6}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-0.04em;color:#fff}
+
+/* HERO v12.0 */
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.6));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--dark-bg);color:var(--color-dark);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.55;font-size:var(--text-body);letter-spacing:-0.01em}
 
