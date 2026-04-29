@@ -29,18 +29,13 @@
 <style>
 :root {
   /* Paleta MasterMatch v12.3.1 — Executive Dark (Clean) */
-  --bg-deep: #080A0B;      /* Fondo base */
-  --surface: #121519;      /* Capa 1: Secciones */
-  --surface-2: #1A1E23;    /* Capa 2: Tarjetas */
+  --bg-deep: #080A0B;
+  --surface: #111418;
+  --surface-2: #1A1E23;
   --border: rgba(255,255,255,0.08);
-  --o: #00A38E;            /* Esmeralda Mate */
-  --gold: #C9A84C;         /* Oro */
-  --mu: #94A3B8;           /* Texto secundario */
-  --text-main: #FFFFFF;    /* Texto principal */
-
-  /* Compatibilidad Legacy */
-  --dkd: var(--bg-deep);
-  --bd: var(--border);
+  --o: #00A38E;
+  --text-main: #FFFFFF;
+  --mu: #94A3B8;
 }
 
 body {
@@ -51,20 +46,37 @@ body {
   padding: 0;
 }
 
-/* Forzar contraste en secciones y tarjetas */
-.section, .screen { background-color: var(--bg-deep); }
+/* Forzar contraste en pantallas y secciones */
+.screen, .section { background-color: var(--bg-deep) !important; }
 .section-surface { background-color: var(--surface) !important; color: var(--text-main) !important; }
-.card, .pc, .lc, .review-card, .plan-card, .stat-card, .wait-card, .sumb, .of, .trust { 
-  background-color: var(--surface-2) !important; 
+
+/* Fix global para botones de oficios (osb), tarjetas de categorías (cat-card) y planes */
+.osb, .cat-card, .of, .plan-card, .cli-info-card, .blog-card-dark, .card, .pc, .lc, .review-card, .stat-card {
+  background-color: var(--surface-2) !important;
   color: var(--text-main) !important;
   border: 1px solid var(--border) !important;
+  transition: all .2s;
+}
+
+.osb:hover, .cat-card:hover {
+  background-color: var(--surface) !important;
+  border-color: var(--o) !important;
+  transform: translateY(-2px);
+}
+
+/* Estado seleccionado (Active/Selected) */
+.osb.sel, .cat-tab.active, .cli-tab.active, .ptg-btn.active {
+  background-color: var(--o) !important;
+  color: #000 !important;
+  border-color: var(--o) !important;
+  font-weight: 700 !important;
 }
 
 /* Texto que debe ser siempre visible */
-h1, h2, h3, h4, .htitle, .ph-name, .bc-num, .nav-t { color: #FFFFFF !important; }
+h1, h2, h3, h4, .htitle, .ph-name, .bc-num, .nav-t, .cat-name { color: #FFFFFF !important; }
 p, .lead, .hsub, .mu, .sl { color: var(--mu) !important; }
 
-/* Botón Google Auth v12.3.1 (Asegurar visibilidad) */
+/* Botón Google Auth v12.3.1 (Contraste Máximo) */
 .btn-google-auth {
   background-color: #FFFFFF !important;
   color: #1F1F1F !important;
@@ -77,15 +89,18 @@ p, .lead, .hsub, .mu, .sl { color: var(--mu) !important; }
   justify-content: center;
   gap: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
 }
 
 /* Tag de versión al final de la página */
 .mm-version-tag {
   text-align: center;
-  font-size: 10px;
-  color: rgba(255,255,255,0.2);
-  padding: 20px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  padding: 40px 20px;
   font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   pointer-events: none;
 }
 
@@ -2722,32 +2737,39 @@ function go(id) {
     if (id === appHistory[appHistory.length - 1] && appHistory.length > 1) return;
     appHistory.push(id);
 
+    // Ocultar todas las pantallas (Usa el ID real del elemento)
     document.querySelectorAll('.screen').forEach(function(x) { 
       x.classList.remove('active'); 
-      x.style.display = 'none'; // Asegurar que se oculte físicamente
+      x.style.display = 'none';
     });
     
+    // Buscar por ID exacto (s-id)
     var el = document.getElementById('s-' + id);
+    if (!el) el = document.getElementById(id); // Fallback si no tiene prefijo s-
+
     if (el) {
       el.classList.add('active');
       el.style.display = 'block';
+    } else {
+      console.warn('[MM] Pantalla no encontrada:', id);
     }
     window.scrollTo(0, 0);
 
     // Anuncio de accesibilidad
     const announcer = document.getElementById('aria-live-announcer');
-    if (announcer) announcer.textContent = 'Cargando pantalla ' + id;
+    if (announcer) announcer.textContent = 'Cargando ' + id;
 
-    // Limpiar input del chat IA al salir de esa pantalla
+    // Limpiar input del chat IA al salir
     if (id !== 'client') { var ci = document.getElementById('ci'); if (ci) ci.value = ''; }
     
-    // Ocultar bottombar si no estamos en dash o perfiles
+    // Mostrar/Ocultar bottombar
     var bb = document.getElementById('bottombar');
     if (bb) {
         if (id === 'dash' || id === 'perfil-cli') bb.classList.add('show');
         else bb.classList.remove('show');
     }
 
+    // Inicializaciones específicas
     if (id !== 'chat-match') detenerPollingChat(); 
     if (id === 'client') initChat();
     if (id === 'dash') cargarDash();
@@ -2756,15 +2778,11 @@ function go(id) {
     if (id === 'registro') { 
       actualizarComunas(); 
       setMaxDate(); 
-      // Forzar render de comunas si ya hay región
-      setTimeout(actualizarComunas, 100);
     }
     if (id === 'registro-cli') { 
       actualizarComunasCliente(); 
       setMaxDateCliente(); 
       generarCaptcha(); 
-      // Forzar render de comunas si ya hay región
-      setTimeout(actualizarComunasCliente, 100);
     }
     if (id === 'perfil-cli') cargarPerfilCliente();
     if (id === 'perfil-edit-form') cargarPerfilEdit();
