@@ -19,17 +19,22 @@ Eres el ingeniero principal de MasterMatch (master-match.vercel.app), misión v1
 - **Limpieza:** Eliminadas múltiples funciones redundantes y variables huérfanas.
 - **Prioridades Próximas:** Mercado Pago, Testing de Registro Social y Auditoría de Accesibilidad Profunda.
 ### KIT-SKILLS INTEGRADAS (v12.3.1)
-
-#### 🎨 00. UX Designer (Gana-Gana) — [NUEVO]
-- **Filosofía:** Cada cambio debe beneficiar tanto al profesional (más ventas, mejor organización) como al cliente (mejor servicio, confianza).
-- **Prioridades:** 
-  1. Investigación real de usuarios.
-  2. Accesibilidad WCAG AA (Contraste 4.5:1, targets 44px).
-  3. Navegación fluida (máx 5-7 items).
-  4. Microcopy persuasivo y claro.
+#### 🎨 00. UX Designer (Gana-Gana)
+...
 - **Archivos:** `ux-designer/`
 
+#### 💎 00b. CKM Design (Layering & Brand) — [NUEVO]
+- **Filosofía:** Diseño por capas (Layering). Nunca superponer elementos del mismo color.
+- **Tokens v12.3.1:** 
+  - `--bg-deep`: Fondo base absoluto.
+  - `--surface-1`: Secciones (ligera elevación).
+  - `--surface-2`: Cards/Modales (máxima elevación).
+- **Color:** Turquesa refinado (Esmeralda Mate), evitar saturación excesiva.
+- **Archivos:** `ckmdesign/`
+
 #### 🔍 01. Auditoría SEO Pro
+...
+
 - **Capacidad:** Análisis 360° (Meta, Headings, Imágenes, Links, Schema, Técnico).
 ...
 

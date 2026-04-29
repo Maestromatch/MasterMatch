@@ -28,19 +28,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Paleta MasterMatch v12.3.1 — Executive Dark (UX Optimized) */
-  --bg-deep: #080A0B;
-  --surface: #121519;
-  --border: rgba(255,255,255,0.08);
-  --o: #00C9B1; /* Turquesa de acción (Accesibilidad: Contraste OK) */
-  --gold: #C9A84C; /* Oro para Premium */
-  --mu: #94A3B8; /* Gris azulado (Texto secundario) */
+  /* Paleta MasterMatch v12.3.1 — Executive Dark (Refined by CKMDesign) */
+  --bg-deep: #080A0B;      /* Capa 0: Fondo base */
+  --surface: #111418;      /* Capa 1: Secciones elevadas */
+  --surface-2: #1A1E23;    /* Capa 2: Tarjetas y modales */
+  --border: rgba(255,255,255,0.06);
+  --o: #00A38E;            /* Turquesa Esmeralda Mate (más elegante) */
+  --gold: #C9A84C;         /* Oro para Premium */
+  --mu: #94A3B8;           /* Gris azulado (Texto secundario) */
   --text-white: #FFFFFF;
 
-  /* Diseño de Interacción y Estados */
-  --focus-ring: 0 0 0 3px rgba(0, 201, 177, 0.4);
-  --error: #FF4D4D;
-  --success: #00C9B1;
+  /* Diseño de Interacción */
+  --focus-ring: 0 0 0 3px rgba(0, 163, 142, 0.3);
   
   /* Mapeo de compatibilidad */
   --dark-bg: var(--bg-deep);
@@ -69,7 +68,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ACCESIBILIDAD: Foco visible para navegación por teclado (UX Priority 2) */
+/* ACCESIBILIDAD: Foco visible para navegación por teclado */
 :focus-visible {
   outline: 2px solid var(--o);
   outline-offset: 4px;
@@ -94,7 +93,7 @@ h1, h2, h3, .htitle {
   color: #fff;
 }
 
-/* Secciones con contraste garantizado */
+/* Secciones con contraste garantizado (UX Layering) */
 .section-surface {
   background: var(--surface);
   color: var(--text-white);
@@ -106,7 +105,37 @@ h1, h2, h3, .htitle {
 .section-surface h2, .section-surface h3 { color: #FFFFFF; }
 .section-surface p, .section-surface .lead { color: var(--mu); }
 
-/* Botones con Touch Targets de 44px (UX Priority 2) */
+/* Card con elevación sutil para evitar blanco sobre blanco */
+.card-premium {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Botón Social de Google (Contraste garantizado v12.3.1) */
+.btn-google-auth {
+  background: #FFFFFF !important;
+  color: #1F1F1F !important;
+  border: 1px solid #DADCE0 !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-google-auth:hover {
+  background: #F8F9FA !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+}
+
+/* Botones con Touch Targets de 44px */
 .btn-p {
   min-height: 48px;
   padding: 0 var(--space-lg);
