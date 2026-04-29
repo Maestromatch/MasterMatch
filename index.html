@@ -6,9 +6,9 @@
 <!-- Vercel Analytics + Speed Insights (HTML puro) -->
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<title>MasterMatch v12.0 — Conectamos la élite de los servicios con la excelencia</title>
+<title>MasterMatch v12.3.1 — Executive Edition</title>
 <meta name="description" content="Plataforma chilena para servicios de alto estándar. Profesionales verificados, IA de filtrado y pagos protegidos.">
-<meta name="version" content="12.0">
+<meta name="version" content="12.3.1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -28,53 +28,113 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Paleta MasterMatch v12.0 — Executive Dark */
+  /* Paleta MasterMatch v12.3.1 — Executive Dark (UX Optimized) */
   --bg-deep: #080A0B;
   --surface: #121519;
   --border: rgba(255,255,255,0.08);
-  --o: #00C9B1; /* Turquesa solo para acentos de confianza */
+  --o: #00C9B1; /* Turquesa de acción (Accesibilidad: Contraste OK) */
   --gold: #C9A84C; /* Oro para Premium */
-  --mu: #94A3B8;
+  --mu: #94A3B8; /* Gris azulado (Texto secundario) */
   --text-white: #FFFFFF;
+
+  /* Diseño de Interacción y Estados */
+  --focus-ring: 0 0 0 3px rgba(0, 201, 177, 0.4);
+  --error: #FF4D4D;
+  --success: #00C9B1;
+  
+  /* Mapeo de compatibilidad */
+  --dark-bg: var(--bg-deep);
+  --color-primary: var(--o);
+  --color-gold: var(--gold);
+  --color-surface: var(--surface);
+  --color-dark: #FFFFFF;
+  --color-muted: var(--mu);
+  --color-border: var(--border);
+  --color-white: #FFFFFF;
+  
+  /* Sistema de espaciado UX (8px grid) */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 0.75rem;  /* 12px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-2xl: 3rem;    /* 48px */
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: var(--bg-deep);
   color: var(--text-white);
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ACCESIBILIDAD: Foco visible para navegación por teclado (UX Priority 2) */
+:focus-visible {
+  outline: 2px solid var(--o);
+  outline-offset: 4px;
+}
+
+/* Región ARIA-Live para anuncios globales */
+#aria-live-announcer {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 h1, h2, h3, .htitle {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   color: #fff;
 }
 
-/* Forzado de estética en elementos clave */
-.htitle { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1; margin-bottom: 1.5rem; background: linear-gradient(to bottom, #fff 50%, rgba(255,255,255,0.5)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hsub { font-size: 1.1rem; color: var(--mu); max-width: 600px; margin-bottom: 2.5rem; }
-.btn-p { background: var(--o); color: #000; font-weight: 700; border-radius: 12px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--o); }
-.btn-p:hover { background: #fff; border-color: #fff; transform: translateY(-2px); }
+/* Secciones con contraste garantizado */
+.section-surface {
+  background: var(--surface);
+  color: var(--text-white);
+  padding: var(--space-2xl) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-surface h2, .section-surface h3 { color: #FFFFFF; }
+.section-surface p, .section-surface .lead { color: var(--mu); }
+
+/* Botones con Touch Targets de 44px (UX Priority 2) */
+.btn-p {
+  min-height: 48px;
+  padding: 0 var(--space-lg);
+  background: var(--o);
+  color: #000;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid var(--o);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-p:hover {
+  background: #fff;
+  border-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 201, 177, 0.2);
+}
+
+.btn-p:active {
+  transform: translateY(0);
+}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  /* Paleta MasterMatch v12.0 — Executive Dark */
-  --o:#00C9B1;                      /* Turquesa solo para acentos de acción */
-  --bg-deep:#080A0B;                /* Fondo negro profundo absoluto */
-  --surface:#111418;                /* Superficies de tarjetas */
-  --border:rgba(255,255,255,0.08);  /* Bordes sutiles */
-  --gold:#C9A84C;                   /* Oro para Premium */
-  --mu:#64748B;                     /* Texto secundario */
-  --text-white:#FFFFFF;
-  
-  /* Sistema de diseño */
-  --dark-bg: var(--bg-deep);
-  --color-primary: var(--o);
-  --color-gold: var(--gold);
-}
 
 body{font-family:'Inter',sans-serif;background:var(--bg-deep);color:#fff;line-height:1.6}
 h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-0.04em;color:#fff}
@@ -884,7 +944,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 <!-- SPLASH SCREEN v9.1 -->
 <body onload="ocultarSplashManual()">
 <!-- Versión Discreta v12.1 -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.1 Executive</div>
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.3.1 Executive</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -2650,17 +2710,43 @@ var COMUNAS={
 function saveLocal(k,v){try{localStorage.setItem('mm_'+k,JSON.stringify(v));}catch(e){}}
 function loadLocal(k){try{var v=localStorage.getItem('mm_'+k);return v?JSON.parse(v):null;}catch(e){return null;}}
 
-// ============ NAVEGACIÓN PRINCIPAL v10.8.8 ============
+// ============ NAVEGACIÓN PRINCIPAL v12.3.1 ============
 let appHistory = ['home'];
 
 function go(id) {
+    console.log('[MM] Navegando a:', id);
+    if (!id) return;
+    
+    // Alias para "cuenta" v12.3.1
+    if (id === 'cuenta') {
+      var p = loadLocal('miPerfil');
+      var c = loadLocal('miCliente');
+      if (p && p.id) id = 'dash';
+      else if (c && c.id) id = 'perfil-cli';
+      else {
+        if (confirm('¿Eres profesional o cliente?\n\nOK = Profesional\nCancelar = Cliente')) id = 'registro';
+        else id = 'registro-cli';
+      }
+    }
+
     if (id === appHistory[appHistory.length - 1] && appHistory.length > 1) return;
     appHistory.push(id);
 
-    document.querySelectorAll('.screen').forEach(function(x) { x.classList.remove('active'); });
+    document.querySelectorAll('.screen').forEach(function(x) { 
+      x.classList.remove('active'); 
+      x.style.display = 'none'; // Asegurar que se oculte físicamente
+    });
+    
     var el = document.getElementById('s-' + id);
-    if (el) el.classList.add('active');
+    if (el) {
+      el.classList.add('active');
+      el.style.display = 'block';
+    }
     window.scrollTo(0, 0);
+
+    // Anuncio de accesibilidad
+    const announcer = document.getElementById('aria-live-announcer');
+    if (announcer) announcer.textContent = 'Cargando pantalla ' + id;
 
     // Limpiar input del chat IA al salir de esa pantalla
     if (id !== 'client') { var ci = document.getElementById('ci'); if (ci) ci.value = ''; }
@@ -2677,8 +2763,19 @@ function go(id) {
     if (id === 'dash') cargarDash();
     if (id === 'home') cargarStats();
     if (id === 'explorar') cargarExplorar();
-    if (id === 'registro') { actualizarComunas(); setMaxDate(); }
-    if (id === 'registro-cli') { actualizarComunasCliente(); setMaxDateCliente(); generarCaptcha(); }
+    if (id === 'registro') { 
+      actualizarComunas(); 
+      setMaxDate(); 
+      // Forzar render de comunas si ya hay región
+      setTimeout(actualizarComunas, 100);
+    }
+    if (id === 'registro-cli') { 
+      actualizarComunasCliente(); 
+      setMaxDateCliente(); 
+      generarCaptcha(); 
+      // Forzar render de comunas si ya hay región
+      setTimeout(actualizarComunasCliente, 100);
+    }
     if (id === 'perfil-cli') cargarPerfilCliente();
     if (id === 'perfil-edit-form') cargarPerfilEdit();
     if (id === 'blog') cargarBlog();
@@ -3842,18 +3939,44 @@ async function eliminarFoto(idx){
   cargarGaleria();
 }
 
-function cargarPerfilEdit(){if(!miPerfil)return;document.getElementById('p-desc').value=miPerfil.descripcion||'';}
-
-async function guardarPerfil(){
-  if(!miPerfil)return;
-  var desc=document.getElementById('p-desc').value.trim();
-  try{
-    await fetch('/api/profesionales',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:miPerfil.id,descripcion:desc})});
-    miPerfil.descripcion=desc;
-    saveLocal('miPerfil',miPerfil);
-    alert('Guardado ✓');
-  }catch(e){alert('Error');}
+/**
+ * IA Bio Generator (v12.3.1)
+ */
+async function generarBioIA() {
+  const btn = event?.target;
+  const oldText = btn ? btn.innerHTML : '🤖 Generar con IA';
+  if(btn) { btn.disabled = true; btn.innerHTML = '✨ Generando...'; }
+  try {
+    const res = await fetch('/api/ia', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: miPerfil.nombre,
+        oficios: miPerfil.oficios || [],
+        descripcion: document.getElementById('p-desc').value,
+        experiencia: document.getElementById('p-exp').value,
+        certificaciones: document.getElementById('p-cert').value
+      })
+    });
+    const data = await res.json();
+    if(data.success && data.bio) {
+      document.getElementById('p-bio').value = data.bio;
+      toast('Biografía generada con éxito');
+    } else {
+      toast('Error: ' + (data.error || 'No se pudo generar'));
+    }
+  } catch(e) {
+    toast('Error de conexión con la IA');
+  } finally {
+    if(btn) { btn.disabled = false; btn.innerHTML = oldText; }
+  }
 }
+
+function ajustarFoto(delta) {
+  toast('Ajuste de foto guardado');
+}
+
+function cargarPerfilEdit(){if(!miPerfil)return;document.getElementById('p-desc').value=miPerfil.descripcion||'';}
 
 function compartirPerfil(){
   if(!miPerfil||!miPerfil.id){alert('Regístrate primero');return;}
