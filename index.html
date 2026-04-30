@@ -25,70 +25,162 @@
   "url": "https://master-match.vercel.app"
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Paleta MasterMatch v12.3.1 — Executive Dark (Clean) */
-  --bg-deep: #080A0B;
-  --surface: #111418;
-  --surface-2: #1A1E23;
+  /* === Paleta MasterMatch v12.4 — Editorial Executive ===
+     Dirección: minimalista sofisticada. Champagne dorado como acento principal.
+     Turquesa reservado para verificación/IA (acento secundario, mínimo). */
+
+  /* Base neutra (off-black cálido, no negro puro) */
+  --bg-deep: #0A0A0B;
+  --dark-bg: #0A0A0B;
+  --surface: #131315;
+  --surface-2: #1C1C20;
+  --surface-3: #26262C;
   --border: rgba(255,255,255,0.08);
-  --o: #00A38E;
-  --text-main: #FFFFFF;
-  --mu: #94A3B8;
+  --bd: rgba(255,255,255,0.08);
+
+  /* Texto */
+  --text-main: #F5F5F4;
+  --color-dark: #F5F5F4;
+  --color-white: #FFFFFF;
+  --dk: #F5F5F4;
+  --color-muted: #A1A1A6;
+  --mu: #A1A1A6;
+  --color-border: rgba(255,255,255,0.08);
+
+  /* Acento principal: Champagne dorado (Executive) — dominante en CTAs */
+  --accent: #C9A84C;
+  --accent-hover: #D9B967;
+  --accent-tint: rgba(201,168,76,0.10);
+  --accent-deep: #8C7332;
+  --color-primary: var(--accent);
+  --color-primary-tint: var(--accent-tint);
+  --ol: var(--accent-tint);
+
+  /* Alias: --o ahora apunta a champagne para que los 203 usos previos
+     adopten el dorado sin tener que migrar selector por selector. */
+  --o: var(--accent);
+  --o-soft: var(--accent-tint);
+
+  /* Acento secundario: Turquesa (RESERVADO — solo logo, badge verificado, chat IA) */
+  --teal: #00C9B1;
+  --teal-soft: rgba(0,201,177,0.12);
+  --teal-deep: #006666;
+
+  /* Estados semánticos */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: var(--o);
+
+  /* Tipografía */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Fraunces', 'Times New Roman', Georgia, serif;
+
+  /* Escala tipográfica (ratio 1.250 — major third) */
+  --text-caption: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;       /* 14px */
+  --text-body: 1rem;         /* 16px */
+  --text-lg: 1.25rem;        /* 20px */
+  --text-xl: 1.563rem;       /* 25px */
+  --text-2xl: 1.953rem;      /* 31px */
+  --text-3xl: 2.441rem;      /* 39px */
+  --text-4xl: 3.052rem;      /* 49px */
+
+  /* Espaciado base 4px */
+  --space-xs: 0.25rem;       /* 4px */
+  --space-sm: 0.5rem;        /* 8px */
+  --space-md: 1rem;          /* 16px */
+  --space-lg: 1.5rem;        /* 24px */
+  --space-xl: 2rem;          /* 32px */
+  --space-2xl: 3rem;         /* 48px */
+  --space-3xl: 5rem;         /* 80px */
+  --space-4xl: 7.5rem;       /* 120px */
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* Sombras (sutiles, dirección minimalista) */
+  --shadow-soft: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.35);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-accent: 0 8px 24px rgba(201,168,76,0.18);
+  --shadow-teal: 0 8px 24px rgba(201,168,76,0.18);
+
+  /* Transiciones */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-deep) !important;
-  color: var(--text-main) !important;
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-main);
   margin: 0;
   padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Forzar contraste en pantallas y secciones */
-.screen, .section { background-color: var(--bg-deep) !important; }
-.section-surface { background-color: var(--surface) !important; color: var(--text-main) !important; }
+/* Pantallas y secciones (sin !important — la cascada manda) */
+.screen, .section { background-color: var(--bg-deep); }
+.section-surface { background-color: var(--surface); color: var(--text-main); }
 
-/* Fix global para botones de oficios (osb), tarjetas de categorías (cat-card) y planes */
+/* Tarjetas base unificadas */
 .osb, .cat-card, .of, .plan-card, .cli-info-card, .blog-card-dark, .card, .pc, .lc, .review-card, .stat-card {
-  background-color: var(--surface-2) !important;
-  color: var(--text-main) !important;
-  border: 1px solid var(--border) !important;
-  transition: all .2s;
+  background-color: var(--surface-2);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  transition: background-color .2s var(--ease-out), border-color .2s var(--ease-out), transform .2s var(--ease-out);
 }
 
 .osb:hover, .cat-card:hover {
-  background-color: var(--surface) !important;
-  border-color: var(--o) !important;
+  background-color: var(--surface);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
-/* Estado seleccionado (Active/Selected) */
+/* Estado seleccionado */
 .osb.sel, .cat-tab.active, .cli-tab.active, .ptg-btn.active {
-  background-color: var(--o) !important;
-  color: #000 !important;
-  border-color: var(--o) !important;
-  font-weight: 700 !important;
+  background-color: var(--accent);
+  color: #0A0A0B;
+  border-color: var(--accent);
+  font-weight: 700;
 }
 
-/* Texto que debe ser siempre visible */
-h1, h2, h3, h4, .htitle, .ph-name, .bc-num, .nav-t, .cat-name { color: #FFFFFF !important; }
-p, .lead, .hsub, .mu, .sl { color: var(--mu) !important; }
+/* Texto principal y silenciado (Fraunces para titulares) */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-main);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  font-weight: 600;
+}
+.htitle, .ph-name, .bc-num, .nav-t, .cat-name { color: var(--text-main); }
+p, .lead, .hsub, .sl { color: var(--mu); }
 
-/* Botón Google Auth v12.3.1 (Contraste Máximo) */
+/* Botón Google Auth (queda blanco por convención de marca Google) */
 .btn-google-auth {
-  background-color: #FFFFFF !important;
-  color: #1F1F1F !important;
-  border: 1px solid #DADCE0 !important;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  border: 1px solid #DADCE0;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-soft);
   cursor: pointer;
 }
 
@@ -98,7 +190,7 @@ p, .lead, .hsub, .mu, .sl { color: var(--mu) !important; }
   font-size: 11px;
   color: rgba(255,255,255,0.25);
   padding: 40px 20px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   letter-spacing: 1px;
   text-transform: uppercase;
   pointer-events: none;
@@ -125,7 +217,7 @@ p, .lead, .hsub, .mu, .sl { color: var(--mu) !important; }
   background: #fff;
   border-color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 201, 177, 0.2);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.2);
 }
 
 .btn-p:active {
@@ -135,7 +227,7 @@ p, .lead, .hsub, .mu, .sl { color: var(--mu) !important; }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
 body{font-family:'Inter',sans-serif;background:var(--bg-deep);color:#fff;line-height:1.6}
-h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-0.04em;color:#fff}
+h1,h2,h3{font-family:var(--font-display);font-weight:800;letter-spacing:-0.04em;color:#fff}
 
 /* HERO v12.0 */
 .hero-title {
@@ -150,15 +242,15 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-
 
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--dark-bg);color:var(--color-dark);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.55;font-size:var(--text-body);letter-spacing:-0.01em}
 
-h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.2;letter-spacing:-0.02em;color:var(--color-dark);font-weight:700}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.2;letter-spacing:-0.02em;color:var(--color-dark);font-weight:700}
 p{line-height:1.6}
 
 /* ============ SPLASH SCREEN v11.7 (SEO LUXURY) ============ */
 #splash{position:fixed;inset:0;z-index:10000;background:#0A0C0E;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .8s cubic-bezier(0.4, 0, 0.2, 1), visibility .8s;opacity:1;visibility:visible;overflow:hidden}
 #splash::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,201,177,.2) 0%,transparent 70%);animation:splashGlow 3s ease-in-out infinite;pointer-events:none}
 #splash.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.splash-brand{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:48px;letter-spacing:-0.04em;color:#fff;animation:splash-in .8s cubic-bezier(0.16, 1, 0.3, 1) forwards;position:relative;z-index:1;text-align:center}
-.splash-brand span{color:var(--o);text-shadow:0 0 40px rgba(0,201,177,0.5)}
+.splash-brand{font-family:var(--font-display);font-weight:800;font-size:48px;letter-spacing:-0.04em;color:#fff;animation:splash-in .8s cubic-bezier(0.16, 1, 0.3, 1) forwards;position:relative;z-index:1;text-align:center}
+.splash-brand span{color:var(--teal);text-shadow:0 0 40px rgba(0,201,177,0.5)}
 .splash-tag{font-size:14px;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-top:12px;animation:splash-in .8s ease .4s both;position:relative;z-index:1;font-weight:600;font-family:'Inter',sans-serif}
 .splash-loader{margin-top:50px;width:30px;height:30px;border:2px solid rgba(255,255,255,.05);border-top-color:var(--o);border-radius:50%;animation:spin 1s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;position:relative;z-index:1}
 
@@ -174,12 +266,12 @@ p{line-height:1.6}
 #loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:none;align-items:center;justify-content:center;color:#fff;flex-direction:column;backdrop-filter:blur(8px)}
 #loading-overlay.show{display:flex}
 .spinner{border:4px solid rgba(255,255,255,0.18);border-top:4px solid var(--o);border-radius:50%;width:48px;height:48px;animation:spin 0.8s linear infinite;margin-bottom:18px}
-#load-msg{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px}
+#load-msg{font-family:var(--font-display);font-weight:600;font-size:16px}
 
 /* ============ AUTH SOCIAL v9.1 ============ */
 .auth-container{max-width:500px;margin-bottom:1.5rem}
 .btn-social{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:14px 20px;border-radius:12px;background:#fff;border:1.5px solid rgba(255,255,255,0.18);color:#1A1D1E;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;min-height:50px;letter-spacing:-0.01em}
-.btn-social:hover{background:#f5f5f5;border-color:var(--o);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,201,177,0.18)}
+.btn-social:hover{background:#f5f5f5;border-color:var(--o);transform:translateY(-1px);box-shadow:0 6px 18px rgba(201,168,76,0.18)}
 .btn-social svg{flex-shrink:0}
 
 /* ============ AUTH DIVIDER + BOTÓN GOOGLE EN FORMULARIOS v10.7 ============ */
@@ -191,7 +283,7 @@ p{line-height:1.6}
 .btn-social-light svg{flex-shrink:0}
 
 /* ============ HERO BADGE + TRUST ROW v9.1 ============ */
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:rgba(0,201,177,0.12);border:1px solid rgba(0,201,177,0.25);color:var(--o);font-size:12px;font-weight:600;letter-spacing:0.01em;margin-bottom:24px;backdrop-filter:blur(8px)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);color:var(--o);font-size:12px;font-weight:600;letter-spacing:0.01em;margin-bottom:24px;backdrop-filter:blur(8px)}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--o);box-shadow:0 0 8px var(--o);animation:pulse-dot 2s infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
 
@@ -202,7 +294,7 @@ p{line-height:1.6}
 .htr-icon{font-size:18px;flex-shrink:0}
 
 /* ============ CONTADOR EN VIVO + TESTIMONIALES v10.7 ============ */
-.live-counter{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;background:rgba(0,201,177,0.08);border:1px solid rgba(0,201,177,0.2);font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:1.5rem;letter-spacing:0.01em}
+.live-counter{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:1.5rem;letter-spacing:0.01em}
 .live-counter strong{color:#fff;font-weight:700}
 .live-dot{width:8px;height:8px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;animation:pulse-dot 1.5s infinite;flex-shrink:0}
 
@@ -214,33 +306,33 @@ p{line-height:1.6}
 
 /* ============ SECCIÓN CATEGORÍAS DARK v9.1 ============ */
 .section-cats-dark{background:linear-gradient(135deg,#0C0F10 0%,#1A2826 40%,#003D3D 100%);position:relative;overflow:hidden}
-.section-cats-dark::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,201,177,.15) 0%,transparent 70%);pointer-events:none}
+.section-cats-dark::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);pointer-events:none}
 .section-cats-dark::after{content:'';position:absolute;bottom:-150px;left:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,168,150,.1) 0%,transparent 70%);pointer-events:none}
 .section-cats-dark .container{position:relative;z-index:1}
 
-.section-head-dark h2{color:#fff !important}
-.section-head-dark .lead{color:rgba(255,255,255,0.7) !important}
+.section-head-dark h2{color:#fff}
+.section-head-dark .lead{color:rgba(255,255,255,0.7)}
 
-.cat-tabs-dark{background:rgba(255,255,255,0.05) !important;border:1px solid rgba(255,255,255,0.1) !important;backdrop-filter:blur(8px)}
-.cat-tabs-dark .cat-tab{color:rgba(255,255,255,0.6) !important;background:transparent !important}
-.cat-tabs-dark .cat-tab.active{color:#fff !important;background:var(--o) !important;box-shadow:var(--shadow-teal) !important}
-.cat-tabs-dark .cat-tab:hover:not(.active){color:#fff !important}
+.cat-tabs-dark{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(8px)}
+.cat-tabs-dark .cat-tab{color:rgba(255,255,255,0.6);background:transparent}
+.cat-tabs-dark .cat-tab.active{color:#0A0A0B;background:var(--accent);box-shadow:var(--shadow-accent)}
+.cat-tabs-dark .cat-tab:hover:not(.active){color:#fff}
 
 /* Cat-cards en sección dark */
-.section-cats-dark .cat-card{background:rgba(255,255,255,0.04) !important;border:1px solid rgba(255,255,255,0.08) !important;backdrop-filter:blur(8px)}
-.section-cats-dark .cat-card:hover{background:rgba(0,201,177,0.08) !important;border-color:var(--o) !important;transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,201,177,0.2)}
-.section-cats-dark .cat-card .cat-icon{background:rgba(0,201,177,0.12) !important;border:1px solid rgba(0,201,177,0.2)}
-.section-cats-dark .cat-card:hover .cat-icon{background:var(--o) !important;border-color:var(--o)}
-.section-cats-dark .cat-card .cat-name{color:rgba(255,255,255,0.9) !important}
-.section-cats-dark .cat-card:hover .cat-name{color:#fff !important}
+.section-cats-dark .cat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(8px)}
+.section-cats-dark .cat-card:hover{background:rgba(201,168,76,0.08);border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px rgba(201,168,76,0.2)}
+.section-cats-dark .cat-card .cat-icon{background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.2)}
+.section-cats-dark .cat-card:hover .cat-icon{background:var(--accent);border-color:var(--accent)}
+.section-cats-dark .cat-card .cat-name{color:rgba(255,255,255,0.9)}
+.section-cats-dark .cat-card:hover .cat-name{color:#fff}
 
-/* ============ LOGO MasterMatch v9.0 ============ */
+/* ============ LOGO MasterMatch (turquesa identitario) ============ */
 .mm-logo{display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;transition:opacity .2s}
 .mm-logo:hover{opacity:.85}
-.mm-logo-mark{flex-shrink:0;color:var(--o)}
-.mm-logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.02em;color:var(--o);line-height:1}
+.mm-logo-mark{flex-shrink:0;color:var(--teal)}
+.mm-logo-text{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-0.02em;color:var(--teal);line-height:1}
 .mm-logo-text span{color:var(--color-dark);font-weight:700}
-.mm-logo-text.on-dark{color:var(--o)}
+.mm-logo-text.on-dark{color:var(--teal)}
 .mm-logo-text.on-dark span{color:#fff}
 .mm-logo-sm .mm-logo-text{font-size:16px}
 .mm-logo-sm .mm-logo-mark{width:24px;height:24px}
@@ -248,7 +340,7 @@ p{line-height:1.6}
 .mm-logo-lg .mm-logo-mark{width:40px;height:40px}
 
 /* ============ ESTILOS LOGO en NAV (sustituye MM) ============ */
-.nav-l{display:flex !important;align-items:center;gap:6px;margin-left:auto}
+.nav-l{display:flex;align-items:center;gap:6px;margin-left:auto}
 
 /* Focus rings accesibles */
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
@@ -309,7 +401,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 
 /* Stats dark strip */
 .stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-xl);text-align:center}
-.stat-big{font-size:48px;font-weight:700;color:var(--color-primary);font-family:'Syne',sans-serif;letter-spacing:-0.02em;line-height:1}
+.stat-big{font-size:48px;font-weight:700;color:var(--color-primary);font-family:var(--font-display);letter-spacing:-0.02em;line-height:1}
 @media (min-width:768px){.stat-big{font-size:56px}}
 .stat-lbl{font-size:14px;color:rgba(255,255,255,.6);margin-top:var(--space-sm);text-transform:uppercase;letter-spacing:0.08em;font-weight:500}
 
@@ -325,7 +417,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .tb-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:16px}
 .tb-logo{display:flex;align-items:center;gap:10px;cursor:pointer;transition:opacity .2s;flex-shrink:0}
 .tb-logo:hover{opacity:.85}
-.tb-logo-txt{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;color:#fff;letter-spacing:-0.02em;line-height:1}
+.tb-logo-txt{font-family:var(--font-display);font-weight:700;font-size:22px;color:#fff;letter-spacing:-0.02em;line-height:1}
 .tb-logo-txt span{color:var(--o)}
 .tb-nav{display:none;gap:24px;flex:1;justify-content:center}
 @media (min-width:768px){.tb-nav{display:flex}}
@@ -334,7 +426,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .tb-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .tb-btn-cuenta{background:var(--o);color:#fff;border:none;border-radius:var(--radius-pill);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;box-shadow:var(--shadow-teal)}
 .tb-btn-cuenta:hover{background:var(--od);transform:translateY(-1px)}
-.tb-ver{color:rgba(255,255,255,.35);font-size:10px;font-family:'Space Grotesk',sans-serif}
+.tb-ver{color:rgba(255,255,255,.35);font-size:10px;font-family:var(--font-display)}
 @media (max-width:767px){.tb-ver{display:none}}
 
 /* MOBILE FIRST container */
@@ -345,15 +437,15 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
   body{background:#0C0F10;font-size:16px;line-height:1.65}
   .app{max-width:100%;margin:0 auto;border-radius:0;overflow:visible;min-height:100vh;box-shadow:none}
   .chat{height:calc(100vh - 180px)}
-  .hero-in{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-2xl);align-items:center;padding:var(--space-3xl) var(--space-2xl) var(--space-2xl) !important;max-width:1280px;margin:0 auto}
+  .hero-in{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-2xl);align-items:center;padding:var(--space-3xl) var(--space-2xl) var(--space-2xl);max-width:1280px;margin:0 auto}
   .hero-in .hero-left{grid-column:1}
   .hero-in .hero-right{grid-column:2;display:flex;flex-direction:column;gap:var(--space-md);background:rgba(255,255,255,.04);padding:var(--space-xl);border-radius:var(--radius-lg);border:1px solid rgba(13,128,128,.2);backdrop-filter:blur(10px)}
-  .hero-in .hero-right h3{color:#0D8080;font-family:'Space Grotesk',sans-serif;font-size:var(--text-h3);margin-bottom:var(--space-sm);font-weight:700}
+  .hero-in .hero-right h3{color:#0D8080;font-family:var(--font-display);font-size:var(--text-h3);margin-bottom:var(--space-sm);font-weight:700}
   .hero-in .hero-right .fr-item{display:flex;gap:14px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.9);line-height:1.65}
   .hero-in .hero-right .fr-emoji{font-size:24px;flex-shrink:0;line-height:1}
-  .hacts{max-width:none !important;grid-template-columns:1fr 1fr !important}
-  .btn-o{max-width:none !important}
-  .sec{padding:var(--space-3xl) var(--space-2xl) !important}
+  .hacts{max-width:none;grid-template-columns:1fr 1fr}
+  .btn-o{max-width:none}
+  .sec{padding:var(--space-3xl) var(--space-2xl)}
 }
 @media (max-width:767px){
   .hero-in .hero-right{display:none}
@@ -370,10 +462,10 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .hero::after{content:'';position:absolute;bottom:-150px;left:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,102,102,.2) 0%,transparent 70%);pointer-events:none}
 .hero-in{padding:3rem 1.5rem 2rem;position:relative;z-index:1;width:100%}
 @media (min-width:768px){.hero-in{padding:5rem 3rem 4rem}}
-.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;color:#fff;letter-spacing:-0.02em;margin-bottom:4px}
+.logo{font-family:var(--font-display);font-weight:700;font-size:32px;color:#fff;letter-spacing:-0.02em;margin-bottom:4px}
 .logo span{color:var(--o)}
 .tag{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:2px;text-transform:uppercase;margin:8px 0 2.5rem;font-weight:500}
-.htitle{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;line-height:1.1;margin-bottom:18px;letter-spacing:-0.03em;color:#fff}
+.htitle{font-family:var(--font-display);font-size:36px;font-weight:700;line-height:1.1;margin-bottom:18px;letter-spacing:-0.03em;color:#fff}
 @media (min-width:768px){.htitle{font-size:56px;max-width:780px;margin-bottom:24px}}
 .htitle em{color:#0D8080;font-style:normal}
 .hsub{font-size:16px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:2rem;max-width:560px}
@@ -383,17 +475,17 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .rpick:hover{border-color:var(--o);background:rgba(232,129,48,.1);color:#fff}
 .rpick.sel{background:var(--o);border-color:var(--o);color:#fff;font-weight:600}
 .hacts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;max-width:500px}
-.btn-p{background:var(--o);color:#fff;border:none;padding:16px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;width:100%;cursor:pointer;letter-spacing:.3px}
+.btn-p{background:var(--o);color:#fff;border:none;padding:16px;border-radius:12px;font-family:var(--font-display);font-weight:700;font-size:14px;width:100%;cursor:pointer;letter-spacing:.3px}
 .btn-p:hover{background:var(--od);transform:translateY(-1px);box-shadow:0 4px 20px rgba(232,129,48,.3)}
 .btn-p:disabled{background:#ccc;cursor:not-allowed;transform:none;box-shadow:none}
-.btn-s{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.2);padding:16px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;width:100%;cursor:pointer}
+.btn-s{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.2);padding:16px;border-radius:12px;font-family:var(--font-display);font-weight:700;font-size:14px;width:100%;cursor:pointer}
 .btn-s:hover{border-color:var(--o);color:var(--o);background:rgba(232,129,48,.05)}
-.btn-o{background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.12);padding:13px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:600;font-size:13px;width:100%;margin-bottom:1.5rem;max-width:500px;cursor:pointer}
+.btn-o{background:transparent;color:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.12);padding:13px;border-radius:12px;font-family:var(--font-display);font-weight:600;font-size:13px;width:100%;margin-bottom:1.5rem;max-width:500px;cursor:pointer}
 .btn-o:hover{border-color:var(--o);color:var(--o)}
 .hstats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,.08)}
 .hstat{padding:1.25rem 0;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
 .hstat:last-child{border:none}
-.hstn{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--o)}
+.hstn{font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--o)}
 .hstl{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.5px}
 
 /* SECTIONS */
@@ -401,7 +493,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 @media (min-width:768px){.sec{padding:3rem}}
 .sec-dk{background:var(--dkd);color:#fff;text-align:center}
 .sec-bg{background:var(--bg)}
-.sec-t{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em;line-height:1.25}
+.sec-t{font-family:var(--font-display);font-size:24px;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em;line-height:1.25}
 @media (min-width:768px){.sec-t{font-size:32px;margin-bottom:12px}}
 .sec-s{font-size:15px;color:var(--mu);margin-bottom:2rem;line-height:1.7}
 @media (min-width:768px){.sec-s{font-size:16px;margin-bottom:2.5rem}}
@@ -427,7 +519,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 /* TRUST BOXES */
 .trust{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:1.1rem;margin-top:12px;display:flex;gap:14px;align-items:flex-start;cursor:default}
 .trust-i{font-size:26px;flex-shrink:0;background:var(--trustl);width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center}
-.trust-t{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:4px;color:var(--dk)}
+.trust-t{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:4px;color:var(--dk)}
 .trust-d{font-size:13px;color:var(--mu);line-height:1.55}
 
 /* NAV */
@@ -435,8 +527,8 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 @media (min-width:768px){.nav{padding:1rem 2rem}}
 .back{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--mu);cursor:pointer;font-weight:500}
 .back:hover{border-color:var(--o);color:var(--o);background:var(--ol)}
-.nav-t{font-family:'Syne',sans-serif;font-weight:700;font-size:15px}
-.nav-l{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--o);margin-left:auto}
+.nav-t{font-family:var(--font-display);font-weight:700;font-size:15px}
+.nav-l{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--o);margin-left:auto}
 
 /* CHAT */
 .chat{display:flex;flex-direction:column;height:calc(100vh - 55px)}
@@ -460,7 +552,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 
 /* RESULTS */
 .rtop{background:linear-gradient(135deg,var(--dkd),var(--trust));color:#fff;padding:1.75rem 1.5rem}
-.rtop h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:10px}
+.rtop h2{font-family:var(--font-display);font-size:22px;font-weight:800;margin-bottom:10px}
 .bdg{font-size:11px;padding:5px 11px;border-radius:20px;font-weight:600;display:inline-block}
 .bo{background:var(--o);color:#fff}
 .sumb{margin:1rem;background:#fff;border:1px solid var(--bd);border-radius:14px;padding:1.1rem}
@@ -473,7 +565,7 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .pp-card{background:linear-gradient(135deg,var(--trustl) 0%,#fff 100%);border:2px solid var(--trust);border-radius:14px;padding:1.2rem;margin:1rem}
 .pp-h{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .pp-i{font-size:32px}
-.pp-t{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--trust)}
+.pp-t{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--trust)}
 .pp-d{font-size:13px;color:var(--mu);line-height:1.55;margin-bottom:12px}
 .pp-toggle{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:14px;font-weight:500}
 .switch{position:relative;display:inline-block;width:46px;height:26px}
@@ -491,19 +583,19 @@ input:checked+.slider:before{transform:translateX(20px)}
 .plan-ribbon{position:absolute;top:-8px;right:14px;background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:.5px}
 .plan-ribbon.pro-badge{background:var(--purple)}
 .pt{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.pav{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:#fff;flex-shrink:0;background-size:cover;background-position:center}
-.pn{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pav{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:15px;color:#fff;flex-shrink:0;background-size:cover;background-position:center}
+.pn{font-family:var(--font-display);font-weight:700;font-size:15px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .verif-badge{background:var(--trust);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600}
 .psp{font-size:12px;color:var(--mu);margin-top:2px}
-.mp{font-family:'Syne',sans-serif;font-weight:800;font-size:17px}
+.mp{font-family:var(--font-display);font-weight:800;font-size:17px}
 .pm{display:flex;gap:14px;font-size:12px;color:var(--mu);margin-bottom:11px;flex-wrap:wrap}
 .pm strong{color:var(--dk)}
 .mbar{height:4px;background:#f0ece5;border-radius:4px;overflow:hidden;margin-bottom:11px}
 .mf{height:100%;border-radius:4px;transition:width 1.2s ease}
 .pbs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.wb{background:var(--wsp);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+.wb{background:var(--wsp);color:#fff;border:none;border-radius:10px;padding:12px;font-family:var(--font-display);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
 .wb:hover{background:#1da851}
-.vb{background:var(--bg);color:var(--dk);border:1px solid var(--bd);border-radius:10px;padding:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+.vb{background:var(--bg);color:var(--dk);border:1px solid var(--bd);border-radius:10px;padding:12px;font-family:var(--font-display);font-weight:700;font-size:13px;cursor:pointer}
 .vb:hover{border-color:var(--o);color:var(--o)}
 .preview-fotos{display:flex;gap:6px;margin-bottom:11px;overflow-x:auto;padding-bottom:4px}
 .preview-fotos img{width:74px;height:74px;border-radius:10px;object-fit:cover;flex-shrink:0}
@@ -535,21 +627,21 @@ input:checked+.slider:before{transform:translateX(20px)}
 
 /* PRO HEADER v9.0 — rediseño premium */
 .pro-header{background:linear-gradient(135deg,#0C1714 0%,#1A2822 50%,#0F3A35 100%);color:#fff;padding:0;position:relative;overflow:hidden;border-bottom:3px solid var(--o)}
-.pro-header::before{content:'';position:absolute;top:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,201,177,.18) 0%,transparent 70%);pointer-events:none}
+.pro-header::before{content:'';position:absolute;top:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 70%);pointer-events:none}
 .pro-header::after{content:'';position:absolute;bottom:-100px;left:-100px;width:350px;height:350px;background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%);pointer-events:none}
 
 .ph-brand{display:flex;align-items:center;gap:10px;padding:14px 20px 0;position:relative;z-index:2}
-.ph-brand-txt{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.02em;color:#fff}
+.ph-brand-txt{font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:-0.02em;color:#fff}
 .ph-brand-txt span{color:var(--o)}
 
 .ph-top{display:flex;align-items:center;gap:14px;padding:20px;position:relative;z-index:2}
 @media (min-width:1024px){.ph-top{padding:24px 32px}}
 
-.ph-av{width:60px;height:60px;border-radius:50%;border:3px solid var(--o);background:linear-gradient(135deg,var(--o),var(--teal-dark));background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#fff;flex-shrink:0;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-teal)}
-.ph-av:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(0,201,177,.4)}
+.ph-av{width:60px;height:60px;border-radius:50%;border:3px solid var(--o);background:linear-gradient(135deg,var(--o),var(--teal-dark));background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:19px;color:#fff;flex-shrink:0;cursor:pointer;transition:all .2s;box-shadow:var(--shadow-teal)}
+.ph-av:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(201,168,76,.4)}
 
 .ph-ident{flex:1;min-width:0}
-.ph-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#fff}
+.ph-name{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:-0.01em;display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#fff}
 @media (min-width:768px){.ph-name{font-size:22px}}
 .ph-meta{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px;display:flex;gap:10px;flex-wrap:wrap}
 
@@ -557,12 +649,12 @@ input:checked+.slider:before{transform:translateX(20px)}
 
 /* Botón icono circular */
 .ph-ibtn{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s;position:relative;backdrop-filter:blur(8px)}
-.ph-ibtn:hover{background:rgba(0,201,177,.2);border-color:var(--o);transform:translateY(-1px)}
+.ph-ibtn:hover{background:rgba(201,168,76,.2);border-color:var(--o);transform:translateY(-1px)}
 .mobile-only-share{display:flex}
-@media (min-width:768px){.mobile-only-share{display:none !important}}
+@media (min-width:768px){.mobile-only-share{display:none}}
 
 /* Badge rojo notificaciones */
-.ph-badge-notif{position:absolute;top:-3px;right:-3px;background:var(--red-alert);color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #0C1714;font-family:'Space Grotesk',sans-serif;box-shadow:0 2px 6px rgba(239,68,68,.4);animation:pulse-notif 2s infinite}
+.ph-badge-notif{position:absolute;top:-3px;right:-3px;background:var(--red-alert);color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #0C1714;font-family:var(--font-display);box-shadow:0 2px 6px rgba(239,68,68,.4);animation:pulse-notif 2s infinite}
 @keyframes pulse-notif{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 
 /* Botón dorado "Compartir perfil" */
@@ -575,16 +667,16 @@ input:checked+.slider:before{transform:translateX(20px)}
 @media (min-width:1024px){.ph-progress{padding:0 32px 24px}}
 .ph-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px}
 .ph-progress-lbl{color:rgba(255,255,255,.7);font-weight:500;display:flex;align-items:center;gap:6px}
-.ph-progress-val{color:var(--o);font-weight:700;font-family:'Space Grotesk',sans-serif;font-size:14px}
+.ph-progress-val{color:var(--o);font-weight:700;font-family:var(--font-display);font-size:14px}
 .ph-progress-bar{height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;position:relative}
-.ph-progress-fill{height:100%;background:linear-gradient(90deg,var(--o) 0%,var(--gold) 100%);border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1);box-shadow:0 0 12px rgba(0,201,177,.4);position:relative}
+.ph-progress-fill{height:100%;background:linear-gradient(90deg,var(--o) 0%,var(--gold) 100%);border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1);box-shadow:0 0 12px rgba(201,168,76,.4);position:relative}
 .ph-progress-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:20px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3));animation:shimmer 2s infinite}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
 
 /* NOTIF DROPDOWN */
 .notif-drop{position:absolute;top:calc(100% + 8px);right:16px;background:#fff;color:var(--dk);border-radius:var(--radius-md);box-shadow:0 20px 50px rgba(0,0,0,.25);min-width:300px;max-width:360px;max-height:420px;overflow-y:auto;z-index:100;display:none;border:1px solid var(--bd)}
 .notif-drop.show{display:block;animation:fi .2s ease}
-.notif-drop h4{font-family:'Space Grotesk',sans-serif;font-size:15px;padding:14px 16px;border-bottom:1px solid var(--bd);font-weight:700}
+.notif-drop h4{font-family:var(--font-display);font-size:15px;padding:14px 16px;border-bottom:1px solid var(--bd);font-weight:700}
 .notif-item{padding:12px 16px;border-bottom:1px solid var(--bd);font-size:13px;line-height:1.5;cursor:pointer;transition:background .15s}
 .notif-item:hover{background:var(--bg)}
 .notif-item:last-child{border:none}
@@ -594,7 +686,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 .briefing{padding:0;background:var(--color-dark)}
 .briefing-hola-block{padding:1.5rem 1.5rem 1rem;color:#fff}
 @media (min-width:1024px){.briefing-hola-block{padding:2rem 2rem 1rem}}
-.brief-hola{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#fff}
+.brief-hola{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#fff}
 @media (min-width:768px){.brief-hola{font-size:28px}}
 .brief-sub{font-size:14px;color:rgba(255,255,255,.7);line-height:1.55}
 
@@ -603,12 +695,12 @@ input:checked+.slider:before{transform:translateX(20px)}
 @media (min-width:1024px){.brief-cards{padding:0 2rem}}
 
 .brief-card{background:linear-gradient(135deg,#1A2822 0%,#0F2A26 100%);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-md);padding:1.25rem;position:relative;overflow:hidden;transition:all .25s;cursor:pointer}
-.brief-card:hover{transform:translateY(-3px);border-color:var(--o);box-shadow:0 10px 30px rgba(0,201,177,.15)}
+.brief-card:hover{transform:translateY(-3px);border-color:var(--o);box-shadow:0 10px 30px rgba(201,168,76,.15)}
 .brief-card.primary{background:linear-gradient(135deg,var(--o) 0%,var(--teal-dark) 100%);border-color:var(--o);box-shadow:var(--shadow-teal)}
 .brief-card.primary .bc-lbl,.brief-card.primary .bc-meta{color:rgba(255,255,255,.9)}
-.brief-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(0,201,177,.15) 0%,transparent 70%);pointer-events:none}
+.brief-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);pointer-events:none}
 .bc-icon{font-size:24px;margin-bottom:10px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
-.bc-num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:6px;letter-spacing:-0.02em;color:#fff}
+.bc-num{font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1;margin-bottom:6px;letter-spacing:-0.02em;color:#fff}
 @media (min-width:768px){.bc-num{font-size:32px}}
 .bc-lbl{font-size:11px;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
 .bc-meta{font-size:11px;color:rgba(255,255,255,.55);margin-top:4px;line-height:1.4}
@@ -617,7 +709,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 @media (min-width:1024px){.brief-content-after{padding:1.5rem 2rem 0}}
 
 /* IA BANNER */
-.ia-banner{background:linear-gradient(135deg,var(--trustl) 0%,#fff 100%);border:1px solid var(--o);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-card)}
+.ia-banner{background:linear-gradient(135deg,var(--teal-soft) 0%,transparent 100%);border:1px solid var(--teal);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-md)}
 .ia-banner-icon{font-size:30px;flex-shrink:0}
 .ia-banner-txt{font-size:13px;line-height:1.55;color:var(--dk)}
 
@@ -638,7 +730,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 #s-chat-match.active{display:flex}
 
 /* SEO TIP v10.8.3 */
-.seo-tip{background:rgba(0,201,177,0.05);border-left:4px solid var(--o);padding:1rem 1.5rem;border-radius:0 12px 12px 0;margin:2rem 0;font-size:14px;color:rgba(255,255,255,.8);line-height:1.6}
+.seo-tip{background:rgba(201,168,76,0.05);border-left:4px solid var(--o);padding:1rem 1.5rem;border-radius:0 12px 12px 0;margin:2rem 0;font-size:14px;color:rgba(255,255,255,.8);line-height:1.6}
 .seo-tip strong{color:var(--o)}
 
 .lost-banner{background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 100%);border:1px solid #FB923C;border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-card)}
@@ -658,17 +750,17 @@ input:checked+.slider:before{transform:translateX(20px)}
 .blog-rpick.sel{background:var(--o);border-color:var(--o);color:#fff}
 .blog-rpick:hover:not(.sel){background:rgba(255,255,255,.14);color:#fff}
 .blog-card-dark{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.25rem;margin-bottom:14px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px)}
-.blog-card-dark:hover{background:rgba(0,201,177,.08);border-color:rgba(0,201,177,.3);transform:translateY(-2px)}
-.blog-card-dark .bc-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff;margin-bottom:6px}
+.blog-card-dark:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.3);transform:translateY(-2px)}
+.blog-card-dark .bc-title{font-family:var(--font-display);font-weight:700;font-size:16px;color:#fff;margin-bottom:6px}
 .blog-card-dark .bc-range{font-size:22px;font-weight:800;color:var(--o);margin-bottom:4px;letter-spacing:-0.02em}
 .blog-card-dark .bc-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.5}
-.blog-card-dark .bc-tag{display:inline-block;background:rgba(0,201,177,.12);border:1px solid rgba(0,201,177,.2);color:var(--o);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:600;margin-top:8px;letter-spacing:.04em}
+.blog-card-dark .bc-tag{display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--o);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:600;margin-top:8px;letter-spacing:.04em}
 
 /* Blog Premium cards */
 .bprem-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.25rem;margin-bottom:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .bprem-card:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.05);transform:translateY(-2px)}
 .bprem-card .bpc-cat{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.bprem-card .bpc-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;line-height:1.3}
+.bprem-card .bpc-title{font-family:var(--font-display);font-weight:700;font-size:15px;color:#fff;margin-bottom:6px;line-height:1.3}
 .bprem-card .bpc-excerpt{font-size:12px;color:rgba(255,255,255,.5);line-height:1.55}
 .bprem-card .bpc-meta{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:rgba(255,255,255,.35)}
 .bprem-locked{position:absolute;top:12px;right:12px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);border-radius:100px;padding:3px 10px;font-size:10px;color:var(--gold);font-weight:600}
@@ -677,15 +769,15 @@ input:checked+.slider:before{transform:translateX(20px)}
 .cat-collapsable .cat-card.cat-hidden{display:none}
 .cat-collapsable.expanded .cat-card.cat-hidden{display:flex}
 .cat-toggle-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:240px;margin:1.25rem auto 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:#fff;padding:11px 18px;border-radius:100px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.cat-toggle-btn:hover{background:rgba(0,201,177,.1);border-color:var(--o);color:var(--o)}
+.cat-toggle-btn:hover{background:rgba(201,168,76,.1);border-color:var(--o);color:var(--o)}
 .ctb-arrow{display:inline-block;transition:transform .25s;font-size:11px;margin-left:2px}
 .cat-toggle-btn.open .ctb-arrow{transform:rotate(0deg)}
 
 /* Cat-tabs scroll horizontal en mobile */
-.cat-tabs-dark{flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;justify-content:flex-start}
+.cat-tabs-dark{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;justify-content:flex-start}
 .cat-tabs-dark::-webkit-scrollbar{display:none}
 .cat-tabs-dark .cat-tab{white-space:nowrap;flex-shrink:0;padding:9px 18px;font-size:13px}
-@media (min-width:768px){.cat-tabs-dark{justify-content:center !important}}
+@media (min-width:768px){.cat-tabs-dark{justify-content:center}}
 .ia-banner-txt strong{color:var(--teal-dark)}
 .ia-banner-icon{font-size:28px;flex-shrink:0}
 .ia-banner-txt{font-size:13px;line-height:1.55;color:var(--dk)}
@@ -735,7 +827,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 .more-backdrop.show{display:block}
 
 /* Leftover: dtop/dst/tabs compatibilidad (ocultos ahora pero sin romper) */
-.dtop,.dst,.tabs{display:none !important}
+.dtop,.dst,.tabs{display:none}
 .pill{font-size:11px;padding:4px 11px;border-radius:12px;font-weight:600;display:inline-block}
 .pg{background:var(--gl);color:#1a5c28}
 .pp-gold{background:var(--gold);color:#fff}
@@ -745,7 +837,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 /* LIST CARDS */
 .lc{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:1.1rem;margin-bottom:11px}
 .lh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px}
-.lt{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;flex:1}
+.lt{font-family:var(--font-display);font-weight:700;font-size:14px;flex:1}
 .qbd{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:700}
 .qa{background:var(--gl);color:#1a5c28}
 .qb2{background:#fff3cd;color:#8a5c00}
@@ -778,12 +870,12 @@ input:checked+.slider:before{transform:translateX(20px)}
 .ok{text-align:center;padding:3rem 2rem}
 .ok-i{font-size:68px;margin-bottom:1rem;animation:pulse 1.5s ease infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.ok-t{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:10px}
+.ok-t{font-family:var(--font-display);font-size:26px;font-weight:800;margin-bottom:10px}
 .ok-s{font-size:14px;color:var(--mu);line-height:1.6;margin-bottom:2rem}
 
 /* INFO BOX */
 .info-box{background:var(--trustl);border-radius:12px;padding:1.1rem;margin-bottom:1.5rem;border-left:4px solid var(--trust)}
-.ib-t{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:5px;color:var(--trust)}
+.ib-t{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:5px;color:var(--trust)}
 .ib-d{font-size:13px;color:#333;line-height:1.55}
 
 .loader{text-align:center;padding:2rem;color:var(--mu);font-size:13px}
@@ -800,16 +892,16 @@ input:checked+.slider:before{transform:translateX(20px)}
 .profile-cover-edit:hover{background:rgba(0,0,0,.8)}
 .profile-body{padding:0 1.5rem 2rem;margin-top:-55px;position:relative;z-index:3}
 @media (min-width:768px){.profile-body{padding:0 3rem 3rem;margin-top:-70px}}
-.profile-av{width:110px;height:110px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:#fff;background-size:cover;background-position:center;border:4px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,.25);position:relative}
+.profile-av{width:110px;height:110px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:32px;color:#fff;background-size:cover;background-position:center;border:4px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,.25);position:relative}
 @media (min-width:768px){.profile-av{width:140px;height:140px;font-size:40px;border-width:5px}}
 .profile-av-edit{position:absolute;bottom:0;right:0;background:var(--o);color:#fff;border:3px solid #fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;box-shadow:0 4px 12px rgba(232,129,48,.4)}
 .profile-av-edit:hover{background:var(--od);transform:scale(1.05)}
-.profile-n{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;margin-bottom:6px;letter-spacing:-0.02em;color:var(--dk);text-align:center}
+.profile-n{font-family:var(--font-display);font-weight:800;font-size:26px;margin-bottom:6px;letter-spacing:-0.02em;color:var(--dk);text-align:center}
 @media (min-width:768px){.profile-n{font-size:32px}}
 .profile-sp{font-size:14px;color:var(--mu);margin-bottom:14px;text-align:center;line-height:1.5}
 @media (min-width:768px){.profile-sp{font-size:15px}}
 .profile-st{display:flex;justify-content:center;gap:30px;font-size:12px;color:var(--mu);margin-top:20px;padding:16px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
-.profile-st strong{color:var(--dk);font-family:'Syne',sans-serif;font-weight:800;font-size:20px;display:block;margin-bottom:2px}
+.profile-st strong{color:var(--dk);font-family:var(--font-display);font-weight:800;font-size:20px;display:block;margin-bottom:2px}
 @media (min-width:768px){.profile-st{gap:50px;font-size:13px}.profile-st strong{font-size:24px}}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px}
 @media (min-width:768px){.gallery{grid-template-columns:repeat(6,1fr)}}
@@ -844,8 +936,8 @@ input:checked+.slider:before{transform:translateX(20px)}
 .plan-card.gold{border:2.5px solid var(--gold);background:linear-gradient(135deg,#fffbf0 0%,#fff 100%)}
 .plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--o);color:#fff;font-size:10px;font-weight:700;padding:6px 16px;border-radius:12px;letter-spacing:1px}
 .plan-badge.g{background:var(--gold)}
-.plan-name{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;margin-bottom:6px}
-.plan-price{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--o);margin-bottom:6px}
+.plan-name{font-family:var(--font-display);font-weight:800;font-size:24px;margin-bottom:6px}
+.plan-price{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--o);margin-bottom:6px}
 .plan-price span{font-size:14px;color:var(--mu);font-weight:400}
 .plan-desc{font-size:13px;color:var(--mu);margin-bottom:1.25rem;line-height:1.55}
 .plan-feats{list-style:none;margin-bottom:1.75rem}
@@ -863,7 +955,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 /* STATS */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:1rem}
 .stat-card{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:1.1rem;text-align:center}
-.stat-card .num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--o)}
+.stat-card .num{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--o)}
 .stat-card .lbl{font-size:11px;color:var(--mu);margin-top:5px}
 
 /* ADMIN */
@@ -877,11 +969,11 @@ input:checked+.slider:before{transform:translateX(20px)}
 
 .wait-card{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:2rem 1.5rem;margin:1rem;text-align:center}
 .wait-i{font-size:54px;margin-bottom:14px}
-.wait-t{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:10px}
+.wait-t{font-family:var(--font-display);font-weight:800;font-size:20px;margin-bottom:10px}
 .wait-d{font-size:13px;color:var(--mu);line-height:1.65;margin-bottom:1.5rem}
 
 .verif-box{background:var(--trustl);border:1.5px solid var(--trust);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
-.verif-t{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--trust);margin-bottom:6px}
+.verif-t{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--trust);margin-bottom:6px}
 .verif-d{font-size:13px;color:#444;line-height:1.55;margin-bottom:12px}
 .verif-estados{display:flex;gap:8px;font-size:11px;padding:9px 13px;border-radius:8px;margin-bottom:11px;font-weight:600}
 .ve-sin{background:#f5f3ef;color:var(--mu)}
@@ -890,7 +982,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 .ve-rech{background:#fee;color:#c33}
 
 .ref-box{background:linear-gradient(135deg,var(--ol) 0%,#fff 100%);border:1.5px solid var(--o);border-radius:14px;padding:1.4rem;margin-bottom:1rem}
-.ref-code{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--o);letter-spacing:2px;background:#fff;padding:12px;border-radius:10px;text-align:center;margin:12px 0;border:2px dashed var(--o)}
+.ref-code{font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--o);letter-spacing:2px;background:#fff;padding:12px;border-radius:10px;text-align:center;margin:12px 0;border:2px dashed var(--o)}
 .ref-url{font-size:11px;color:var(--mu);word-break:break-all;background:var(--bg);padding:10px;border-radius:8px;margin-bottom:10px}
 
 /* AGE WARNING */
@@ -902,10 +994,10 @@ input:checked+.slider:before{transform:translateX(20px)}
 .cli-header{background:linear-gradient(135deg,#0C1714 0%,#0F2A24 60%,#006666 100%);color:#fff;padding:0;border-bottom:3px solid var(--o)}
 .cli-hdr-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0}
 .cli-hdr-body{display:flex;align-items:center;gap:14px;padding:20px 20px 0}
-.cli-av{width:56px;height:56px;border-radius:50%;border:3px solid var(--o);background:linear-gradient(135deg,var(--o),var(--teal-dark));background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#fff;flex-shrink:0;cursor:pointer;transition:all .2s}
+.cli-av{width:56px;height:56px;border-radius:50%;border:3px solid var(--o);background:linear-gradient(135deg,var(--o),var(--teal-dark));background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;flex-shrink:0;cursor:pointer;transition:all .2s}
 .cli-av:hover{transform:scale(1.05)}
 .cli-ident{flex:1;min-width:0}
-.cli-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#fff;letter-spacing:-0.01em}
+.cli-name{font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;letter-spacing:-0.01em}
 .cli-meta{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px}
 .cli-tabs{display:flex;gap:0;padding:16px 20px 0;overflow-x:auto}
 .cli-tab{background:none;border:none;padding:10px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap;transition:all .2s}
@@ -928,21 +1020,18 @@ input:checked+.slider:before{transform:translateX(20px)}
 .cli-fav-card:hover{border-color:var(--o)}
 
 /* ============ PALETA ORIGINAL RESTAURADA v10.8.5 ============ */
-.opportunity-card{background:#fff;border:1px solid rgba(0,201,177,0.15);border-radius:20px;padding:1.75rem;margin-bottom:1.25rem;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative}
-.opportunity-card:hover{border-color:var(--o);box-shadow:0 20px 25px -5px rgba(0,201,177,0.08);transform:translateY(-3px)}
-.opp-badge{background:rgba(0,201,177,0.1);color:var(--o);padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem}
-.opp-title{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:800;color:var(--dk);margin-bottom:0.75rem;letter-spacing:-0.02em}
-.opp-meta{display:flex;flex-wrap:wrap;gap:16px;color:var(--mu);font-size:13px;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(0,201,177,0.05)}
+.opportunity-card{background:#fff;border:1px solid rgba(201,168,76,0.15);border-radius:20px;padding:1.75rem;margin-bottom:1.25rem;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);position:relative}
+.opportunity-card:hover{border-color:var(--o);box-shadow:0 20px 25px -5px rgba(201,168,76,0.08);transform:translateY(-3px)}
+.opp-badge{background:rgba(201,168,76,0.1);color:var(--o);padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem}
+.opp-title{font-family:var(--font-display);font-size:1.35rem;font-weight:800;color:var(--dk);margin-bottom:0.75rem;letter-spacing:-0.02em}
+.opp-meta{display:flex;flex-wrap:wrap;gap:16px;color:var(--mu);font-size:13px;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(201,168,76,0.05)}
 .opp-item{display:flex;align-items:center;gap:6px}
 .hero-seo-phrase{font-size:13px;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.25rem;display:block}
 </style>
 </head>
-<body>
-
-<!-- SPLASH SCREEN v9.1 -->
 <body onload="ocultarSplashManual()">
-<!-- Versión Discreta v12.1 -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.3.1 Executive</div>
+<!-- Tag de versión -->
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.4.0 Editorial</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -1009,27 +1098,27 @@ function ocultarSplashManual() {
 </style>
 <!-- POPUP DE BIENVENIDA v10.8 — solo primera visita -->
 <div id="welcome-popup" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem">
-  <div style="background:linear-gradient(145deg,#0C0F10 0%,#111518 50%,#0C1714 100%);border:1px solid rgba(0,201,177,.2);border-radius:20px;padding:2rem 1.75rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(0,201,177,.06);position:relative;animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)">
+  <div style="background:linear-gradient(145deg,#0C0F10 0%,#111518 50%,#0C1714 100%);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:2rem 1.75rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(201,168,76,.06);position:relative;animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)">
     @keyframes popupIn{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
     <button onclick="cerrarPopup()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit">✕</button>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,201,177,.1);border:1px solid rgba(0,201,177,.2);border-radius:100px;padding:4px 12px;font-size:10px;color:var(--o);font-weight:700;letter-spacing:.08em;margin-bottom:1rem">🇨🇱 PLATAFORMA CHILENA</div>
-    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.02em;margin-bottom:8px;line-height:1.2">Profesionales verificados.<br>Al alcance de todos.</h2>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:100px;padding:4px 12px;font-size:10px;color:var(--o);font-weight:700;letter-spacing:.08em;margin-bottom:1rem">🇨🇱 PLATAFORMA CHILENA</div>
+    <h2 style="font-family:var(--font-display);font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.02em;margin-bottom:8px;line-height:1.2">Profesionales verificados.<br>Al alcance de todos.</h2>
     <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:1.5rem;line-height:1.6">Conectamos hogares y negocios con los mejores profesionales. Rápido, seguro y con respaldo.</p>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.75rem">
       <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.85)">
-        <div style="width:34px;height:34px;border-radius:10px;background:rgba(0,201,177,.12);border:1px solid rgba(0,201,177,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🆓</div>
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🆓</div>
         <div><strong style="color:#fff">Gratis para empezar</strong> — 2 solicitudes sin costo, sin tarjeta.</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.85)">
-        <div style="width:34px;height:34px;border-radius:10px;background:rgba(0,201,177,.12);border:1px solid rgba(0,201,177,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🤖</div>
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🤖</div>
         <div><strong style="color:#fff">IA que filtra</strong> — cada solicitud llega lista y con presupuesto real.</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.85)">
-        <div style="width:34px;height:34px;border-radius:10px;background:rgba(0,201,177,.12);border:1px solid rgba(0,201,177,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🛡️</div>
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🛡️</div>
         <div><strong style="color:#fff">Pago Protegido</strong> — tu dinero queda retenido hasta confirmar el trabajo.</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.85)">
-        <div style="width:34px;height:34px;border-radius:10px;background:rgba(0,201,177,.12);border:1px solid rgba(0,201,177,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">✅</div>
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">✅</div>
         <div><strong style="color:#fff">Verificados</strong> — todos los profesionales pasan por revisión de identidad.</div>
       </div>
     </div>
@@ -1217,7 +1306,7 @@ function ocultarSplashManual() {
 
       <!-- 3. DIGITALES v10.7 (12 oficios remotos en alta demanda) -->
       <div id="cat-digitales" style="display:none">
-        <div style="text-align:center;margin-bottom:1.5rem;background:rgba(0,201,177,.06);border:1px solid rgba(0,201,177,.15);border-radius:12px;padding:1rem 1.25rem;backdrop-filter:blur(8px)"><div style="font-size:13px;color:var(--o);font-weight:600">🌎 Servicios remotos disponibles en todo Chile</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">Nuestros profesionales digitales atienden online sin importar tu región.</div></div>
+        <div style="text-align:center;margin-bottom:1.5rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:1rem 1.25rem;backdrop-filter:blur(8px)"><div style="font-size:13px;color:var(--o);font-weight:600">🌎 Servicios remotos disponibles en todo Chile</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">Nuestros profesionales digitales atienden online sin importar tu región.</div></div>
         <div class="category-grid cat-collapsable" data-cat-id="digitales" data-visible="12">
           <div class="cat-card" onclick="iniciar('Programador')"><div class="cat-icon">💻</div><div class="cat-name">Programador / Web</div></div>
           <div class="cat-card" onclick="iniciar('DisenoGrafico')"><div class="cat-icon">📱</div><div class="cat-name">Diseño gráfico / UX</div></div>
@@ -1348,7 +1437,7 @@ function ocultarSplashManual() {
     <div class="container">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-xl);margin-bottom:var(--space-xl)">
         <div>
-          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--o);margin-bottom:12px">MasterMatch</div>
+          <div style="font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--o);margin-bottom:12px">MasterMatch</div>
           <div style="color:rgba(255,255,255,.5);font-size:13px;line-height:1.6">La plataforma de oficios y servicios profesionales de Chile.</div>
         </div>
         <div>
@@ -1390,11 +1479,11 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Planes</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div class="fw" style="max-width:1100px">
     <div style="text-align:center;padding:2.5rem 0 3.5rem">
-      <div style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:clamp(28px, 4vw, 42px);margin-bottom:12px;letter-spacing:-0.03em">El impulso que tu <span style="color:var(--o)">negocio</span> merece</div>
+      <div style="font-family:var(--font-display);font-weight:800;font-size:clamp(28px, 4vw, 42px);margin-bottom:12px;letter-spacing:-0.03em">El impulso que tu <span style="color:var(--o)">negocio</span> merece</div>
       <div style="font-size:16px;color:var(--mu);max-width:600px;margin:0 auto;line-height:1.6">Elige el plan que mejor se adapte a tu etapa actual. Sin contratos forzosos, cancela cuando quieras.</div>
     </div>
 
@@ -1517,7 +1606,7 @@ function ocultarSplashManual() {
 
       <!-- Tabla comparativa -->
       <div style="margin-top:2rem;border-radius:14px;overflow:hidden;border:1px solid var(--bd)">
-        <div style="background:var(--dk);padding:14px 20px"><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#fff">Comparativa rápida</div></div>
+        <div style="background:var(--dk);padding:14px 20px"><div style="font-family:var(--font-display);font-weight:700;font-size:15px;color:#fff">Comparativa rápida</div></div>
         <div style="overflow-x:auto">
           <table style="width:100%;border-collapse:collapse;font-size:13px">
             <thead><tr style="background:var(--bg)">
@@ -1527,13 +1616,13 @@ function ocultarSplashManual() {
               <th style="padding:12px 10px;text-align:center;font-weight:700;color:var(--gold);border-bottom:1px solid var(--bd)">Premium</th>
             </tr></thead>
             <tbody>
-              <tr style="border-bottom:1px solid var(--bg)"><td style="padding:10px 16px">Solicitudes por mes</td><td style="text-align:center;padding:10px">3</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)"><strong>Ilimitadas</strong></td><td style="text-align:center;padding:10px"><strong>Ilimitadas</strong></td></tr>
-              <tr style="border-bottom:1px solid var(--bg);background:#fafbfb"><td style="padding:10px 16px">Fotos de trabajos</td><td style="text-align:center;padding:10px">3</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)"><strong>25</strong></td><td style="text-align:center;padding:10px"><strong>40 + video</strong></td></tr>
-              <tr style="border-bottom:1px solid var(--bg)"><td style="padding:10px 16px">Posición en búsquedas</td><td style="text-align:center;padding:10px">Normal</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)"><strong>Prioritaria</strong></td><td style="text-align:center;padding:10px"><strong>Primero siempre</strong></td></tr>
-              <tr style="border-bottom:1px solid var(--bg);background:#fafbfb"><td style="padding:10px 16px">Comisión Pago Protegido</td><td style="text-align:center;padding:10px">5%</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)">3%</td><td style="text-align:center;padding:10px"><strong style="color:#10B981">0%</strong></td></tr>
-              <tr style="border-bottom:1px solid var(--bg)"><td style="padding:10px 16px">Insignia Verificado</td><td style="text-align:center;padding:10px">✗</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)">✅ Azul</td><td style="text-align:center;padding:10px">⭐ Dorada</td></tr>
-              <tr style="border-bottom:1px solid var(--bg);background:#fafbfb"><td style="padding:10px 16px">Blog Premium exclusivo</td><td style="text-align:center;padding:10px">✗</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)">✗</td><td style="text-align:center;padding:10px"><strong style="color:var(--gold)">✅</strong></td></tr>
-              <tr><td style="padding:10px 16px">IA Bio Generator</td><td style="text-align:center;padding:10px">✗</td><td style="text-align:center;padding:10px;background:rgba(0,201,177,.04)"><strong>✅</strong></td><td style="text-align:center;padding:10px"><strong>✅</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--bg)"><td style="padding:10px 16px">Solicitudes por mes</td><td style="text-align:center;padding:10px">3</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)"><strong>Ilimitadas</strong></td><td style="text-align:center;padding:10px"><strong>Ilimitadas</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--bg);background:#fafbfb"><td style="padding:10px 16px">Fotos de trabajos</td><td style="text-align:center;padding:10px">3</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)"><strong>25</strong></td><td style="text-align:center;padding:10px"><strong>40 + video</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--bg)"><td style="padding:10px 16px">Posición en búsquedas</td><td style="text-align:center;padding:10px">Normal</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)"><strong>Prioritaria</strong></td><td style="text-align:center;padding:10px"><strong>Primero siempre</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--bg);background:#fafbfb"><td style="padding:10px 16px">Comisión Pago Protegido</td><td style="text-align:center;padding:10px">5%</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)">3%</td><td style="text-align:center;padding:10px"><strong style="color:#10B981">0%</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--bg)"><td style="padding:10px 16px">Insignia Verificado</td><td style="text-align:center;padding:10px">✗</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)">✅ Azul</td><td style="text-align:center;padding:10px">⭐ Dorada</td></tr>
+              <tr style="border-bottom:1px solid var(--bg);background:#fafbfb"><td style="padding:10px 16px">Blog Premium exclusivo</td><td style="text-align:center;padding:10px">✗</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)">✗</td><td style="text-align:center;padding:10px"><strong style="color:var(--gold)">✅</strong></td></tr>
+              <tr><td style="padding:10px 16px">IA Bio Generator</td><td style="text-align:center;padding:10px">✗</td><td style="text-align:center;padding:10px;background:rgba(201,168,76,.04)"><strong>✅</strong></td><td style="text-align:center;padding:10px"><strong>✅</strong></td></tr>
             </tbody>
           </table>
         </div>
@@ -1549,7 +1638,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Cuéntanos tu proyecto</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div class="chat">
     <div class="cmsgs" id="cmsgs"></div>
@@ -1569,7 +1658,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Inicio</button>
     <div class="nav-t">Profesionales</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div class="rtop">
     <h2 id="r-count">Buscando profesionales...</h2>
@@ -1604,7 +1693,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('perfil-cli')">← Volver</button>
     <div class="nav-t">Explorar profesionales</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)\">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)\">Match</span></span></div>
   </div>
   <div style="padding:1.25rem;max-width:680px;margin:0 auto">
     <h2 style="font-size:17px;font-weight:700;margin-bottom:0.5rem" id="exp-titulo">Profesionales disponibles</h2>
@@ -1618,7 +1707,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Perfil</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="perfil-content"></div>
 </div>
@@ -1628,7 +1717,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Panel profesional</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   
   <!-- HEADER DEL PRO -->
@@ -1752,7 +1841,7 @@ function ocultarSplashManual() {
 
         <div class="brief-content-after">
           <!-- Guía de Precios Premium -->
-          <div style="margin-top:1.5rem;background:linear-gradient(135deg,rgba(0,201,177,0.1) 0%,transparent 100%);border:1px solid rgba(0,201,177,0.2);border-radius:12px;padding:1rem;display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <div style="margin-top:1.5rem;background:linear-gradient(135deg,rgba(201,168,76,0.1) 0%,transparent 100%);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:1rem;display:flex;align-items:center;justify-content:space-between;gap:12px">
             <div>
               <div style="font-size:12px;font-weight:700;color:var(--o);margin-bottom:2px">💎 CONTENIDO EXCLUSIVO</div>
               <div style="font-size:14px;font-weight:700;color:#fff">Guía de Precios 2026</div>
@@ -1950,7 +2039,7 @@ function ocultarSplashManual() {
       <button onclick="go('blog')" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">← Volver</button>
     </div>
     <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:100px;padding:5px 14px;font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.06em;margin-bottom:12px">💎 BLOG PREMIUM EXCLUSIVO</div>
-    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:26px;color:#fff;letter-spacing:-0.02em;margin-bottom:8px">Conocimiento que da resultados</h1>
+    <h1 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#fff;letter-spacing:-0.02em;margin-bottom:8px">Conocimiento que da resultados</h1>
     <p style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.55;margin-bottom:1.25rem">Tendencias, estrategias, precios y guías profesionales actualizadas.</p>
     <!-- Filtro categorías -->
     <div style="display:flex;gap:8px;flex-wrap:wrap" id="bprem-filters">
@@ -1972,7 +2061,7 @@ function ocultarSplashManual() {
   <div style="background:linear-gradient(135deg,#0C0F10 0%,#1A1200 100%);padding:1.5rem;border-bottom:1px solid rgba(201,168,76,.15)">
     <button onclick="go('blog-premium')" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:12px">← Blog</button>
     <div id="bart-cat" style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;color:var(--gold)"></div>
-    <div id="bart-title" style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.02em;line-height:1.2"></div>
+    <div id="bart-title" style="font-family:var(--font-display);font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.02em;line-height:1.2"></div>
     <div id="bart-meta" style="font-size:11px;color:rgba(255,255,255,.35);margin-top:10px"></div>
   </div>
   <div style="padding:1.5rem;max-width:720px;margin:0 auto;color:rgba(255,255,255,.8);line-height:1.75;font-size:15px" id="bart-content"></div>
@@ -2017,7 +2106,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Registro profesional</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="rform">
     <div class="fw">
@@ -2230,10 +2319,10 @@ function ocultarSplashManual() {
 <!-- BLOG DE PRECIOS UNIFICADO -->
 <div id="s-blog" class="screen" style="background:var(--bg-deep);min-height:100vh;padding-bottom:100px">
   <div style="background:linear-gradient(135deg,#0C0F10 0%,#003D3D 100%);padding:2rem 1.5rem 3rem;position:relative;overflow:hidden;text-align:center">
-    <div style="position:absolute;top:-60px;right:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(0,201,177,.12) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;top:-60px;right:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 70%);pointer-events:none"></div>
     <div style="position:relative;z-index:2">
       <button onclick="go('home')" style="position:absolute;left:0;top:-10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">← Inicio</button>
-      <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:32px;color:#fff;margin-bottom:8px">Guía & Blog Premium</h1>
+      <h1 style="font-family:var(--font-display);font-weight:800;font-size:32px;color:#fff;margin-bottom:8px">Guía & Blog Premium</h1>
       <p style="color:var(--o);font-weight:600;letter-spacing:1px;font-size:12px;text-transform:uppercase">Precios Referenciales 2026 Chile</p>
     </div>
   </div>
@@ -2246,7 +2335,7 @@ function ocultarSplashManual() {
 <div id="s-blog-detail" class="screen" style="background:var(--bg-deep);min-height:100vh">
   <div style="background:linear-gradient(135deg,#0C0F10 0%,#003D3D 80%);padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.06)">
     <button onclick="go('blog')" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:12px">← Guía de precios</button>
-    <div id="blog-det-title" style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.02em"></div>
+    <div id="blog-det-title" style="font-family:var(--font-display);font-weight:800;font-size:22px;color:#fff;letter-spacing:-0.02em"></div>
   </div>
   <div style="padding:1.5rem;max-width:760px;margin:0 auto" id="blog-detail-content"></div>
 </div>
@@ -2258,13 +2347,13 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Crear cuenta</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="rcform">
     <div class="fw">
       <div style="text-align:center;margin-bottom:1.5rem">
         <div style="font-size:56px">👤</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:26px;margin-top:10px;letter-spacing:-0.02em">Regístrate como cliente</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:26px;margin-top:10px;letter-spacing:-0.02em">Regístrate como cliente</div>
         <div style="font-size:15px;color:var(--mu);margin-top:8px;line-height:1.6">Gratis · Solo mayores de 18 años</div>
       </div>
       <div class="info-box">
@@ -2299,7 +2388,7 @@ function ocultarSplashManual() {
       <label class="fl">🤖 Verificación anti-bot</label>
       <div id="captcha-box" style="background:var(--trustl);border:1.5px solid var(--trust);border-radius:12px;padding:1.25rem;margin-bottom:10px">
         <div style="font-size:13px;color:var(--trust);margin-bottom:10px;font-weight:600">Resuelve esta pregunta simple:</div>
-        <div id="captcha-q" style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--dk);margin-bottom:10px">—</div>
+        <div id="captcha-q" style="font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--dk);margin-bottom:10px">—</div>
         <input class="fi" id="captcha-a" placeholder="Tu respuesta" type="number" style="margin-bottom:0">
       </div>
 
@@ -2336,7 +2425,7 @@ function ocultarSplashManual() {
   <div class="cli-header">
     <div class="cli-hdr-top">
       <button class="back" onclick="go('home')" style="color:#fff;opacity:.8">← Inicio</button>
-      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#fff;letter-spacing:-0.02em">Master<span style="color:var(--o)">Match</span></span>
+      <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:#fff;letter-spacing:-0.02em">Master<span style="color:var(--o)">Match</span></span>
       <button class="ph-ibtn" onclick="cerrarSesionCliente()" title="Cerrar sesión" style="width:36px;height:36px;font-size:14px">✕</button>
     </div>
     <div class="cli-hdr-body">
@@ -2445,7 +2534,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Te avisamos</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="lead-form">
     <div class="fw">
@@ -2476,13 +2565,13 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Calificar</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="review-form">
     <div class="fw">
       <div style="text-align:center;margin-bottom:1rem">
         <div class="profile-av" id="rev-av" style="background:var(--o);width:70px;height:70px;font-size:22px">—</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-top:10px" id="rev-nombre">—</div>
+        <div style="font-family:var(--font-display);font-weight:700;font-size:18px;margin-top:10px" id="rev-nombre">—</div>
         <div style="font-size:12px;color:var(--mu)" id="rev-oficio">—</div>
       </div>
       <label class="fl" style="text-align:center">¿Cómo fue tu experiencia?</label>
@@ -2514,7 +2603,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Confirmar trabajo</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="confirmar-content" class="fw"></div>
 </div>
@@ -2524,7 +2613,7 @@ function ocultarSplashManual() {
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
     <div class="nav-t">Admin</div>
-    <div class="nav-l"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
   <div id="admin-login">
     <div class="fw">
@@ -3050,11 +3139,11 @@ function mostrarPopupBienvenida(){
   flyer.id = 'welcome-flyer';
   flyer.style = 'position:fixed;inset:0;z-index:20000;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:20px;animation:fadeIn .5s ease';
   flyer.innerHTML = `
-    <div style="background:var(--bg-deep);border:1px solid var(--o);border-radius:24px;max-width:400px;width:100%;padding:40px 30px;text-align:center;position:relative;box-shadow:0 0 50px rgba(0,201,177,0.2)">
+    <div style="background:var(--bg-deep);border:1px solid var(--o);border-radius:24px;max-width:400px;width:100%;padding:40px 30px;text-align:center;position:relative;box-shadow:0 0 50px rgba(201,168,76,0.2)">
       <div style="font-size:50px;margin-bottom:20px">✨</div>
-      <h2 style="font-family:'Space Grotesk',sans-serif;color:#fff;font-size:28px;margin-bottom:12px;letter-spacing:-0.03em">¡Bienvenido a MasterMatch!</h2>
+      <h2 style="font-family:var(--font-display);color:#fff;font-size:28px;margin-bottom:12px;letter-spacing:-0.03em">¡Bienvenido a MasterMatch!</h2>
       <p style="color:var(--mu);font-size:15px;line-height:1.6;margin-bottom:30px">La red de profesionales más grande de Chile. Expertos verificados, trabajos garantizados.</p>
-      <div style="background:rgba(0,201,177,0.1);padding:15px;border-radius:12px;margin-bottom:30px;font-size:13px;color:var(--o);border:1px dashed var(--o)">
+      <div style="background:rgba(201,168,76,0.1);padding:15px;border-radius:12px;margin-bottom:30px;font-size:13px;color:var(--o);border:1px dashed var(--o)">
         <strong>Tip:</strong> Un perfil con fotos reales y biografía detallada recibe un 300% más de contactos.
       </div>
       <button class="btn-p" onclick="cerrarFlyer()" style="width:100%">Comenzar ahora →</button>
@@ -3485,7 +3574,7 @@ async function verPerfil(idOrSlug){
     
     // Servicios ofrecidos
     if(p.serviciosOfrecidos&&p.serviciosOfrecidos.length>0){
-      html+='<h3 style="font-family:\'Syne\',sans-serif;font-size:16px;margin:1.25rem 0 .5rem">🛠 Servicios que ofrece</h3>';
+      html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.25rem 0 .5rem">🛠 Servicios que ofrece</h3>';
       html+='<div style="background:#fff;border:1px solid var(--bd);border-radius:10px;padding:1rem;margin-bottom:1rem">'+p.serviciosOfrecidos.map(function(s){return '<div style="padding:5px 0;font-size:13px;border-bottom:1px solid var(--bd)">✓ '+s+'</div>';}).join('').replace(/border-bottom:1px solid var\(--bd\)(?![\s\S]*border-bottom)/, '')+'</div>';
     }
     
@@ -3510,7 +3599,7 @@ async function verPerfil(idOrSlug){
       infoBloque+='<div style="padding:10px 0;display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--mu)">✓ Extras</span><span style="font-weight:600;text-align:right">'+extras.join(' · ')+'</span></div>';
     }
     if(infoBloque){
-      html+='<h3 style="font-family:\'Syne\',sans-serif;font-size:16px;margin:1.25rem 0 .5rem">ℹ️ Detalles</h3>';
+      html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.25rem 0 .5rem">ℹ️ Detalles</h3>';
       html+='<div style="background:#fff;border:1px solid var(--bd);border-radius:10px;padding:0 1rem;margin-bottom:1rem">'+infoBloque+'</div>';
     }
     
@@ -3525,16 +3614,16 @@ async function verPerfil(idOrSlug){
     if(p.sitioWeb)redes.push({emoji:'🌐',url:p.sitioWeb.startsWith('http')?p.sitioWeb:'https://'+p.sitioWeb,txt:'Sitio web'});
     if(p.youtube)redes.push({emoji:'📺',url:p.youtube,txt:'YouTube'});
     if(redes.length>0){
-      html+='<h3 style="font-family:\'Syne\',sans-serif;font-size:16px;margin:1.25rem 0 .5rem">📱 Redes sociales</h3>';
+      html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.25rem 0 .5rem">📱 Redes sociales</h3>';
       html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">'+redes.map(function(r){return '<a href="'+r.url+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--bd);border-radius:20px;padding:8px 14px;font-size:12px;text-decoration:none;color:var(--dk);font-weight:500">'+r.emoji+' '+r.txt+'</a>';}).join('')+'</div>';
     }
     
-    html+='<h3 style="font-family:\'Syne\',sans-serif;font-size:16px;margin:1.25rem 0 .5rem">📸 Galería</h3>';
+    html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.25rem 0 .5rem">📸 Galería</h3>';
     if(p.fotos&&p.fotos.length>0){
       html+='<div class="gallery">'+p.fotos.map(function(f){return '<div class="gal-img" onclick="window.open(\''+f+'\',\'_blank\')"><img src="'+f+'" alt=""></div>';}).join('')+'</div>';
     } else html+='<div class="gal-empty">Sin fotos aún</div>';
     
-    html+='<h3 style="font-family:\'Syne\',sans-serif;font-size:16px;margin:1.5rem 0 .5rem">⭐ Reseñas</h3>';
+    html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.5rem 0 .5rem">⭐ Reseñas</h3>';
     if(reviews.length>0){
       html+=reviews.map(function(r){
         var stars='★'.repeat(r.estrellas)+'<span style="color:#ddd">'+'★'.repeat(5-r.estrellas)+'</span>';
@@ -3869,13 +3958,13 @@ function cargarReferidos(){
   if(!miPerfil){document.getElementById('referidos-content').innerHTML='<div class="empty">Regístrate primero</div>';return;}
   // Referidos solo para Plan Premium
   if(miPerfil.plan!=='premium'){
-    document.getElementById('referidos-content').innerHTML='<div class="ref-box" style="background:linear-gradient(135deg,#fffbf0 0%,#fff 100%);border-color:var(--gold)"><div style="text-align:center;font-size:48px;margin-bottom:10px">🔒</div><div style="font-family:Syne,sans-serif;font-weight:800;font-size:18px;margin-bottom:10px;text-align:center">Sistema de Referidos</div><div style="font-size:14px;color:#444;line-height:1.6;margin-bottom:1rem;text-align:center">Invita colegas y gana recompensas. Esta función es <strong style="color:var(--gold)">exclusiva del Plan Premium</strong>.</div><div style="background:var(--bg);padding:1rem;border-radius:10px;font-size:13px;line-height:1.7;margin-bottom:1rem"><strong>Con Premium obtienes:</strong><br>✓ Código de referido único<br>✓ Por cada referido exitoso: <strong>1 mes Premium GRATIS</strong><br>✓ Panel de seguimiento de tus invitados<br>✓ URL personalizada para redes sociales</div><button class="btn-p" style="background:var(--gold)" onclick="go(\'planes\')">Activar Plan Premium →</button></div>';
+    document.getElementById('referidos-content').innerHTML='<div class="ref-box" style="background:linear-gradient(135deg,#fffbf0 0%,#fff 100%);border-color:var(--gold)"><div style="text-align:center;font-size:48px;margin-bottom:10px">🔒</div><div style="font-family:Fraunces,serif;font-weight:800;font-size:18px;margin-bottom:10px;text-align:center">Sistema de Referidos</div><div style="font-size:14px;color:#444;line-height:1.6;margin-bottom:1rem;text-align:center">Invita colegas y gana recompensas. Esta función es <strong style="color:var(--gold)">exclusiva del Plan Premium</strong>.</div><div style="background:var(--bg);padding:1rem;border-radius:10px;font-size:13px;line-height:1.7;margin-bottom:1rem"><strong>Con Premium obtienes:</strong><br>✓ Código de referido único<br>✓ Por cada referido exitoso: <strong>1 mes Premium GRATIS</strong><br>✓ Panel de seguimiento de tus invitados<br>✓ URL personalizada para redes sociales</div><button class="btn-p" style="background:var(--gold)" onclick="go(\'planes\')">Activar Plan Premium →</button></div>';
     return;
   }
   var codigo=miPerfil.codigoReferido||'—';
   var url=window.location.origin+'/?ref='+codigo;
   var exitosos=(miPerfil.referidosExitosos||[]).length;
-  var html='<div class="ref-box"><div style="font-family:\'Syne\',sans-serif;font-weight:800;font-size:17px;margin-bottom:8px">🎁 Invita colegas, gana meses Premium</div><div style="font-size:13px;color:#444;line-height:1.55;margin-bottom:10px">Comparte tu código. Por cada profesional que se registre con él, recibes <strong>1 mes de Plan Premium GRATIS</strong>.</div><div class="ref-code">'+codigo+'</div><div class="ref-url">'+url+'</div><button class="btn-p" onclick="compartirRef(\''+url+'\')">📤 Compartir</button><div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:10px;text-align:center;font-size:13px"><strong>'+exitosos+' referidos exitosos</strong> · '+exitosos+' meses Premium ganados</div></div>';
+  var html='<div class="ref-box"><div style="font-family:Fraunces,serif;font-weight:800;font-size:17px;margin-bottom:8px">🎁 Invita colegas, gana meses Premium</div><div style="font-size:13px;color:#444;line-height:1.55;margin-bottom:10px">Comparte tu código. Por cada profesional que se registre con él, recibes <strong>1 mes de Plan Premium GRATIS</strong>.</div><div class="ref-code">'+codigo+'</div><div class="ref-url">'+url+'</div><button class="btn-p" onclick="compartirRef(\''+url+'\')">📤 Compartir</button><div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:10px;text-align:center;font-size:13px"><strong>'+exitosos+' referidos exitosos</strong> · '+exitosos+' meses Premium ganados</div></div>';
   document.getElementById('referidos-content').innerHTML=html;
 }
 
@@ -4276,11 +4365,11 @@ function adminTab(t,btn){
     }).join(''):'<div class="empty">Sin pagos</div>';
   } else if(t==='stats'){
     var s=adminData.stats;
-    var html='<h4 style="font-family:\'Syne\',sans-serif;margin-bottom:10px">Pros por plan</h4>';
+    var html='<h4 style="font-family:Fraunces,serif;margin-bottom:10px">Pros por plan</h4>';
     html+=Object.entries(s.planesCount||{}).map(function(e){return '<div class="admin-row"><span>'+e[0]+'</span><strong>'+e[1]+'</strong></div>';}).join('');
-    html+='<h4 style="font-family:\'Syne\',sans-serif;margin:1.25rem 0 10px">Pros por región</h4>';
+    html+='<h4 style="font-family:Fraunces,serif;margin:1.25rem 0 10px">Pros por región</h4>';
     html+=Object.entries(s.regionesCount||{}).map(function(e){return '<div class="admin-row"><span>'+e[0]+'</span><strong>'+e[1]+'</strong></div>';}).join('')||'<div class="empty">—</div>';
-    html+='<h4 style="font-family:\'Syne\',sans-serif;margin:1.25rem 0 10px">Pros por oficio</h4>';
+    html+='<h4 style="font-family:Fraunces,serif;margin:1.25rem 0 10px">Pros por oficio</h4>';
     html+=Object.entries(s.oficiosCount||{}).map(function(e){return '<div class="admin-row"><span>'+e[0]+'</span><strong>'+e[1]+'</strong></div>';}).join('');
     html+='<div class="info-box" style="margin-top:1.25rem;background:var(--sagel);border-left-color:var(--g)"><div class="ib-t" style="color:var(--g)">💰 Proyección mensual</div><div class="ib-d">MRR: $'+(s.ingresosMensuales||0).toLocaleString('es-CL')+'<br>Pagos MP: $'+(s.ingresosRealesPagos||0).toLocaleString('es-CL')+'<br><strong>Total: $'+((s.ingresosMensuales||0)+(s.ingresosRealesPagos||0)).toLocaleString('es-CL')+'</strong></div></div>';
     cont.innerHTML=html;
@@ -4476,7 +4565,7 @@ async function procesarPagoExitoso(payId){
   
   var loading=document.createElement('div');
   loading.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;color:#fff;font-family:inherit';
-  loading.innerHTML='<div style="text-align:center;padding:2rem"><div style="font-size:64px;margin-bottom:16px">✅</div><div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;margin-bottom:10px">¡Pago aprobado!</div><div style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:20px">Confirmando con Mercado Pago...</div><div style="font-size:12px;color:rgba(255,255,255,.5)" id="pago-status">Esperando activación del plan...</div></div>';
+  loading.innerHTML='<div style="text-align:center;padding:2rem"><div style="font-size:64px;margin-bottom:16px">✅</div><div style="font-family:Fraunces,serif;font-size:24px;font-weight:800;margin-bottom:10px">¡Pago aprobado!</div><div style="font-size:14px;color:rgba(255,255,255,.7);margin-bottom:20px">Confirmando con Mercado Pago...</div><div style="font-size:12px;color:rgba(255,255,255,.5)" id="pago-status">Esperando activación del plan...</div></div>';
   document.body.appendChild(loading);
   
   // Intentar confirmar el pago con el servidor (polling hasta 10 intentos)
@@ -4570,7 +4659,7 @@ async function cargarBlog(){
     // Header de la sección
     var html='<div style="margin-bottom:2rem">';
     html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">';
-    html+='<h2 style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;color:#fff;font-weight:700">📌 Guía de Precios por Oficio</h2>';
+    html+='<h2 style="font-family:Fraunces,serif;font-size:18px;color:#fff;font-weight:700">📌 Guía de Precios por Oficio</h2>';
     html+='<span style="font-size:11px;color:rgba(255,255,255,0.4)">IPC 2026 ACTUALIZADO</span></div>';
 
     // Grid de Oficios
@@ -4587,7 +4676,7 @@ async function cargarBlog(){
     html+='</div>';
 
     // Sección de Artículos Estratégicos
-    html+='<h2 style="font-family:\'Space Grotesk\',sans-serif;font-size:18px;color:#fff;font-weight:700;margin-bottom:1.5rem">🚀 Artículos para Profesionales</h2>';
+    html+='<h2 style="font-family:Fraunces,serif;font-size:18px;color:#fff;font-weight:700;margin-bottom:1.5rem">🚀 Artículos para Profesionales</h2>';
     html+='<div style="display:flex;flex-direction:column;gap:16px">';
     html+=ARTICULOS_BLOG.map(function(a){
       return `
@@ -4641,7 +4730,7 @@ async function verBlogDetalle(key){
     });
     html += '</div>';
 
-    html += '<div style="background:rgba(0,201,177,0.05);border-radius:12px;padding:1rem;border:1px solid rgba(0,201,177,0.2)">';
+    html += '<div style="background:rgba(201,168,76,0.05);border-radius:12px;padding:1rem;border:1px solid rgba(201,168,76,0.2)">';
     html += '<div style="font-size:12px;color:var(--o);font-weight:700;margin-bottom:8px">💡 TIPS MASTERMATCH</div>';
     info.tips.forEach(function(t){
       html += '<div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:6px">· '+t+'</div>';
@@ -4665,25 +4754,25 @@ var ARTICULOS_BLOG=[
     titulo:'Los 5 oficios con mayor demanda en Chile en 2026',
     resumen:'Gasfitería, electricidad y cuidado de adultos mayores lideran el mercado. Te mostramos los datos y por qué estas especialidades crecen más rápido que el promedio.',
     minLectura:6,fecha:'Abr 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">¿Por qué importa saber qué está en demanda?</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">¿Por qué importa saber qué está en demanda?</h2>
 <p>En MasterMatch analizamos miles de solicitudes mensuales en las 5 regiones donde operamos. Los datos son claros: hay oficios que reciben 3 o 4 veces más solicitudes que los disponibles en la plataforma. Eso es dinero que se va porque no hay suficientes profesionales.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">🥇 Gasfitería de urgencia</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">🥇 Gasfitería de urgencia</h2>
 <p>El 34% de las solicitudes de gasfitería son urgentes. Goteras, cañerías reventadas, calefones en pana. Los clientes no negocian precio cuando el agua está corriendo. Precio promedio por urgencia en RM: <strong style="color:var(--o)">$45.000–$80.000</strong> y el profesional llega, diagnostica y cobra en el mismo día. Los gasfiteros de Los Lagos y Los Ríos están teniendo una temporada de invierno especialmente intensa por las heladas.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">🥈 Cuidado de adultos mayores</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">🥈 Cuidado de adultos mayores</h2>
 <p>Chile envejece. El 17% de la población tiene más de 60 años y esa cifra sube cada año. Los servicios de cuidado de adultos mayores con TENS o enfermero a domicilio son escasos y muy bien pagados: <strong style="color:var(--o)">$35.000–$55.000 la jornada</strong>. La demanda supera 4 veces la oferta en nuestra plataforma.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">🥉 Electricidad residencial y domótica</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">🥉 Electricidad residencial y domótica</h2>
 <p>Los departamentos nuevos cada vez tienen más necesidades eléctricas: cargadores para autos eléctricos, sistemas de iluminación LED, domótica básica. El eléctrico que sabe de estas instalaciones cobra un 40–60% más que uno convencional. En Valparaíso, la demanda de electricistas para edificios en la zona portuaria está en máximos históricos.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">4. Psicología y salud mental</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">4. Psicología y salud mental</h2>
 <p>Post-pandemia, la demanda de psicólogos particulares creció un 180% según cifras del Colegio de Psicólogos de Chile. Y el boom del Open Match en MasterMatch permitió que psicólogos de Valdivia y Puerto Montt atiendan pacientes de Santiago sin moverse de su ciudad. La telemedicina mental llegó para quedarse.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">5. Flete y mudanzas en regiones</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">5. Flete y mudanzas en regiones</h2>
 <p>El crecimiento de Los Lagos y Los Ríos como destinos de migración interna desde Santiago ha disparado la demanda de fletes locales. Un camionero con furgón puede ganar <strong style="color:var(--o)">$180.000–$400.000 semanales</strong> solo con mudanzas locales. El oficio más subestimado de la plataforma.</p>
 
-<div style="background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
+<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
 <strong style="color:var(--o)">💡 Tip MasterMatch</strong><br><br>
 Si estás en uno de estos 5 oficios, verifica tu perfil y activa Plan Pro. La relación solicitudes/profesionales disponibles te garantiza que llegarán clientes. En gasfitería, por ejemplo, hay 8 solicitudes por cada gasfitero activo en la plataforma.
 </div>`
@@ -4693,10 +4782,10 @@ Si estás en uno de estos 5 oficios, verifica tu perfil y activa Plan Pro. La re
     titulo:'Cómo fijar tu precio sin perder clientes ni trabajar barato',
     resumen:'El error más común de los profesionales nuevos es cobrar poco para conseguir clientes. Te mostramos la estrategia de pricing que usan los profesionales Premium.',
     minLectura:8,fecha:'Abr 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">El problema del precio bajo</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">El problema del precio bajo</h2>
 <p>Cuando comienzas en la plataforma, la tentación es cobrar menos que los demás para conseguir los primeros clientes. Es lógico, pero es un error estratégico. El precio bajo comunica falta de confianza en tu propio trabajo, y los clientes que se fijan solo en el precio suelen ser los más difíciles de trabajar.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">La fórmula de los profesionales con 5 estrellas</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">La fórmula de los profesionales con 5 estrellas</h2>
 <p>Los profesionales mejor calificados en MasterMatch usan una fórmula simple:</p>
 <ul style="padding-left:1.5rem;margin:1rem 0;line-height:2">
 <li><strong style="color:#fff">Precio de referencia mercado</strong> (análisis del mercado 2026) → tu piso</li>
@@ -4705,10 +4794,10 @@ Si estás en uno de estos 5 oficios, verifica tu perfil y activa Plan Pro. La re
 <li><strong style="color:#fff">+20%</strong> si incluyes materiales sin rebaja</li>
 </ul>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">El presupuesto que no se rechaza</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">El presupuesto que no se rechaza</h2>
 <p>Un presupuesto bien presentado tiene tres partes: lo que vas a hacer, cuánto cuesta cada cosa, y qué pasa si surge algo extra. Los clientes no rechazan presupuestos por precio, los rechazan por incertidumbre. Si el cliente sabe exactamente qué va a pasar y cuánto va a pagar, el precio importa menos.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Precios 2026 por oficio — Región Metropolitana</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Precios 2026 por oficio — Región Metropolitana</h2>
 <div style="overflow-x:auto;margin:1rem 0">
 <table style="width:100%;border-collapse:collapse;font-size:13px">
 <tr style="border-bottom:1px solid rgba(255,255,255,.1)">
@@ -4726,7 +4815,7 @@ Si estás en uno de estos 5 oficios, verifica tu perfil y activa Plan Pro. La re
 </div>
 <p style="font-size:12px;color:rgba(255,255,255,.35);margin-top:8px">Fuente: MasterMatch — análisis de mercado de servicios Chile, Abril 2026. Premium = profesional verificado con +4.5 estrellas y fotos de calidad.</p>
 
-<div style="background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
+<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
 <strong style="color:var(--o)">💡 Regla de oro</strong><br><br>
 Si todos tus clientes aceptan tu precio sin negociar, estás cobrando muy poco. El precio justo es el que hace que 1 de cada 3 te pida rebaja — y tú puedes decir que no.
 </div>`
@@ -4736,22 +4825,22 @@ Si todos tus clientes aceptan tu precio sin negociar, estás cobrando muy poco. 
     titulo:'Cómo los profesionales Premium cierran 3x más trabajos',
     resumen:'Analizamos los 50 profesionales más activos de la plataforma y encontramos 7 patrones comunes. Ninguno es suerte.',
     minLectura:7,fecha:'Mar 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Lo que hace diferente a los mejores</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Lo que hace diferente a los mejores</h2>
 <p>En MasterMatch analizamos a los 50 profesionales con más trabajos cerrados en los últimos 6 meses. Son gasfiteros, psicólogos, conductores, pintores y arquitectos. Lo que tienen en común no es el oficio — es el comportamiento.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">1. Responden en menos de 1 hora</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">1. Responden en menos de 1 hora</h2>
 <p>El 78% de los trabajos se cierra con el primer profesional que responde. No el más barato, no el mejor calificado — el primero. Cada hora que pasa baja tu probabilidad de cierre en un 20%. Los mejores profesionales tienen activadas las notificaciones y responden desde el celular.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">2. Su mensaje de presentación es específico</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">2. Su mensaje de presentación es específico</h2>
 <p>Los que dicen "Hola, puedo ayudarte" cierran el 12% de los contactos. Los que dicen "Hola Carolina, vi que necesitas un gasfiter para la cocina en Ñuñoa — tengo disponibilidad mañana entre 10 y 13h y cobro $35.000 por la revisión + presupuesto gratis" cierran el 67%.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">3. Tienen al menos 8 fotos reales</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">3. Tienen al menos 8 fotos reales</h2>
 <p>Los perfiles con más de 8 fotos de trabajos propios (no de internet) reciben 4 veces más contactos. Las fotos de "antes y después" son las más efectivas. Un gasfiter que muestra el baño antes y cómo quedó después convierte 5 veces más que uno sin fotos.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">4. Piden reseña después de cada trabajo</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">4. Piden reseña después de cada trabajo</h2>
 <p>Los profesionales con más de 15 reseñas tienen el 94% de tasa de aceptación de sus presupuestos. Una reseña nueva sube tu posición en los resultados de búsqueda. El mensaje que funciona: "¿Quedaste conforme con el trabajo? Si tienes un minuto, me ayudaría mucho una reseña en MasterMatch — tarda 30 segundos."</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">5. Ofrecen garantía de revisión</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">5. Ofrecen garantía de revisión</h2>
 <p>El 100% de los profesionales con más de 4.8 estrellas ofrecen revisión gratuita en las 48–72 horas siguientes al trabajo. No es porque tengan más problemas — es porque el cliente lo valora tanto que casi nunca la usa. Es una señal de confianza, no un costo.</p>
 
 <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
@@ -4764,22 +4853,22 @@ Los profesionales Premium con badge verificado y más de 10 reseñas aparecen en
     titulo:'Apps y herramientas que usan los profesionales más organizados',
     resumen:'Desde presupuestos hasta facturación, pasando por agenda y fotos. Las herramientas gratuitas y de bajo costo que te hacen trabajar como empresa aunque seas independiente.',
     minLectura:5,fecha:'Mar 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">El problema de la desorganización</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">El problema de la desorganización</h2>
 <p>El 60% de los problemas que tienen los clientes con profesionales no son de calidad del trabajo — son de comunicación y organización. No se avisó que se iba a atrasar, no se entregó boleta, no se recordó el horario de visita. Todos estos problemas se resuelven con herramientas simples.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Para presupuestos — Invoice Ninja (gratis)</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Para presupuestos — Invoice Ninja (gratis)</h2>
 <p>Genera presupuestos y facturas con tu logo en segundos. El cliente recibe un PDF profesional por email. Puedes aceptar pagos y hacer seguimiento de si el cliente abrió el presupuesto. La versión gratuita cubre todo lo que necesita un profesional independiente.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Para fotos — Lightroom Mobile (gratis)</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Para fotos — Lightroom Mobile (gratis)</h2>
 <p>Tus fotos de trabajos no necesitan ser de fotógrafo, pero sí necesitan buena luz y encuadre. Lightroom Mobile tiene una función de "Automático" que mejora cualquier foto en 1 segundo. Diferencia brutal con las fotos de whatsapp sin editar.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Para agenda — Google Calendar + recordatorios de WhatsApp</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Para agenda — Google Calendar + recordatorios de WhatsApp</h2>
 <p>La combinación ganadora: Google Calendar para ti y un mensaje de WhatsApp de confirmación al cliente el día anterior. "Hola [nombre], confirmo que mañana a las 10h estaré en [dirección] para [trabajo]. ¿Todo sigue bien?" — el 94% responde que sí y el cliente llega preparado.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Para boletas — SII en línea</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Para boletas — SII en línea</h2>
 <p>Si ya estás en segunda categoría en el SII, emitir boleta electrónica desde el celular toma 2 minutos. Los clientes que piden boleta son los que pagan a tiempo y vuelven. No les cobres aparte por la boleta — ya deberías tenerla incluida en tu precio.</p>
 
-<div style="background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
+<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
 <strong style="color:var(--o)">💡 Consejo de los mejores</strong><br><br>
 Dedica 30 minutos cada domingo a actualizar tu agenda, revisar presupuestos pendientes y subir las fotos de la semana a tu perfil. Esos 30 minutos semanales son los que separan a los profesionales organizados de los que siempre van corriendo.
 </div>`
@@ -4789,10 +4878,10 @@ Dedica 30 minutos cada domingo a actualizar tu agenda, revisar presupuestos pend
     titulo:'El boom de la salud a domicilio en Chile: oportunidad para profesionales',
     resumen:'Médicos, enfermeras, kinesiología y psicología a domicilio crecen 180% post-pandemia. Qué se necesita, cuánto se gana y cómo certificarse.',
     minLectura:6,fecha:'Feb 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">El cambio que no tiene vuelta atrás</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">El cambio que no tiene vuelta atrás</h2>
 <p>La pandemia forzó a millones de chilenos a recibir atención médica sin salir de casa. Y la descubrieron. Los tiempos de espera en clínicas y hospitales, el costo de los traslados y la comodidad de la atención domiciliaria cambiaron permanentemente las preferencias. Hoy, el 38% de los chilenos preferiría atención a domicilio si el precio fuera similar al de una consulta en clínica.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">¿Qué servicios de salud se contratan más?</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">¿Qué servicios de salud se contratan más?</h2>
 <ul style="padding-left:1.5rem;margin:1rem 0;line-height:2.2">
 <li><strong style="color:var(--o)">1. Enfermería a domicilio</strong> — curaciones, sueros, control post-operatorio</li>
 <li><strong style="color:var(--o)">2. Kinesiología</strong> — rehabilitación, dolor crónico, adultos mayores</li>
@@ -4801,10 +4890,10 @@ Dedica 30 minutos cada domingo a actualizar tu agenda, revisar presupuestos pend
 <li><strong style="color:var(--o)">5. Cuidado de adultos mayores</strong> — acompañamiento, aseo, medicamentos</li>
 </ul>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Ingresos reales de profesionales de salud en MasterMatch</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Ingresos reales de profesionales de salud en MasterMatch</h2>
 <p>Los datos de nuestra plataforma muestran que los profesionales de salud verificados generan entre <strong style="color:var(--o)">$800.000 y $2.100.000 mensuales</strong> trabajando de forma independiente. Pero hay una diferencia crucial: los que tienen título verificado y certificado de antecedentes ganan un 65% más que los no verificados.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Requisito crítico: verificación</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Requisito crítico: verificación</h2>
 <p>MasterMatch exige verificación de título profesional y antecedentes para todos los profesionales de salud. Esta exigencia no es opcional — es lo que genera confianza en los clientes y lo que nos diferencia de otras plataformas. Los profesionales verificados tienen prioridad en los resultados y acceden a los clientes de mayor poder adquisitivo.</p>`
   },
   {
@@ -4812,22 +4901,22 @@ Dedica 30 minutos cada domingo a actualizar tu agenda, revisar presupuestos pend
     titulo:'Guía legal básica para prestar servicios como independiente en Chile',
     resumen:'Segunda categoría, boletas electrónicas, previsión, accidentes del trabajo. Lo mínimo que necesitas saber para trabajar de forma legal y protegida.',
     minLectura:9,fecha:'Feb 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Primera decisión: ¿inicio de actividades o no?</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Primera decisión: ¿inicio de actividades o no?</h2>
 <p>Si facturas menos de $1.500.000 al año, puedes emitir boletas de honorarios sin inicio de actividades. Si facturas más, es conveniente hacer el inicio de actividades en el SII como segunda categoría (el servicio es gratis y online, tarda 1 hora).</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Boleta electrónica: más fácil de lo que crees</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Boleta electrónica: más fácil de lo que crees</h2>
 <p>Desde el SII puedes emitir boletas de honorarios electrónicas directamente desde el celular. Cuando emites una boleta, el SII retiene automáticamente el 13.75% para tu previsión e impuestos. No tienes que recordar separar esa plata — ya está hecho.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Previsión: el punto ciego de los independientes</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Previsión: el punto ciego de los independientes</h2>
 <p>El 67% de los trabajadores independientes en Chile no tiene previsión de salud ni AFP al día. Es el error más costoso a largo plazo. Si usas boletas electrónicas, el SII descuenta automáticamente para AFP e Isapre/Fonasa. Si trabajas sin boleta, debes cotizar voluntariamente — se puede hacer online en cualquier AFP.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Seguro de accidentes del trabajo (ACHS, IST, Mutual)</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Seguro de accidentes del trabajo (ACHS, IST, Mutual)</h2>
 <p>Los trabajadores independientes pueden afiliarse a una mutualidad por una cuota mensual desde $15.000. Si sufres un accidente mientras trabajas, cubre hospitalización, rehabilitación y subsidio por incapacidad. Para oficios de riesgo (electricidad, albañilería, trabajo en altura) es prácticamente obligatorio.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Contratos simples para trabajos grandes</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Contratos simples para trabajos grandes</h2>
 <p>Para trabajos de más de $300.000, es conveniente tener un presupuesto firmado que funcione como contrato simple. Debe incluir: descripción del trabajo, precio total, forma de pago (cuánto al inicio, cuánto al terminar), plazo y qué pasa si surgen imprevistos. No necesitas notario — la firma y el WhatsApp de confirmación son suficiente evidencia.</p>
 
-<div style="background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
+<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
 <strong style="color:var(--o)">💡 Recurso gratuito</strong><br><br>
 El SII tiene un simulador de renta que te muestra exactamente cuánto deberías declarar y pagar según tus ingresos. Búscalo en sii.cl → "Simulador segunda categoría". Úsalo antes de la Operación Renta de abril.
 </div>`
@@ -4837,10 +4926,10 @@ El SII tiene un simulador de renta que te muestra exactamente cuánto deberías 
     titulo:'Gasfitería en invierno: por qué los precios suben un 35% y cómo aprovecharlo',
     resumen:'La demanda de gasfitería se dispara entre mayo y agosto. Los profesionales que saben prepararse ganan el doble que el resto del año. Te explicamos la estrategia.',
     minLectura:5,fecha:'Ene 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Por qué el invierno es temporada alta para gasfiteros</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Por qué el invierno es temporada alta para gasfiteros</h2>
 <p>Las cañerías se congelan y revientan. Los calefones se saturan. Las calderas colapsan. La humedad daña sellos y conexiones. Entre mayo y agosto, la demanda de gasfitería en Chile sube entre un 30 y un 40% respecto al promedio anual, mientras que el número de gasfiteros disponibles no cambia. Resultado: los precios suben y los clientes aceptan pagar más si el profesional puede llegar pronto.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Los precios reales de invierno en las 5 regiones</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Los precios reales de invierno en las 5 regiones</h2>
 <div style="overflow-x:auto;margin:1rem 0">
 <table style="width:100%;border-collapse:collapse;font-size:13px">
 <tr style="border-bottom:1px solid rgba(255,255,255,.1)">
@@ -4855,7 +4944,7 @@ El SII tiene un simulador de renta que te muestra exactamente cuánto deberías 
 </table>
 </div>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">La estrategia de los gasfiteros que más ganan</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">La estrategia de los gasfiteros que más ganan</h2>
 <p>Los tres que tienen mejores resultados en invierno hacen lo mismo: <strong style="color:#fff">(1)</strong> suben su disponibilidad horaria a 7am–9pm en junio y julio, <strong style="color:#fff">(2)</strong> activan las notificaciones de MasterMatch para responder en menos de 15 minutos, y <strong style="color:#fff">(3)</strong> tienen en el vehículo los repuestos más comunes (termos de calefón, sellos universales, conectores de cobre) para no tener que volver al día siguiente.</p>
 
 <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
@@ -4868,19 +4957,19 @@ En junio de 2025, los 10 gasfiteros más activos en MasterMatch facturaron en pr
     titulo:'Cómo usar la IA de MasterMatch para conseguir solicitudes de calidad',
     resumen:'Entender cómo funciona el chat de IA que entrevista a tus clientes te permite posicionar mejor tu perfil y recibir solicitudes más precisas y mejor cotizadas.',
     minLectura:5,fecha:'Ene 2026',
-    contenido:`<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Por qué el chat de IA existe</h2>
+    contenido:`<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Por qué el chat de IA existe</h2>
 <p>Antes de que llegues a ver una solicitud, el cliente ya ha respondido entre 6 y 10 preguntas de nuestra IA. La IA sabe qué necesita, dónde está, en qué plazo lo necesita y cuánto está dispuesto a pagar. Cuando tú ves la solicitud, ya está filtrada y tiene toda la información que necesitas para cotizar.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Cómo la IA califica la calidad de la solicitud</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Cómo la IA califica la calidad de la solicitud</h2>
 <p>Cada solicitud tiene un score interno (A, B o C). Las solicitudes A son clientes con presupuesto claro, urgencia real y descripción completa. Las C son clientes que no sabían exactamente qué necesitaban. Los profesionales Premium ven primero las A.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">Cómo posicionarte para solicitudes de mayor calidad</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">Cómo posicionarte para solicitudes de mayor calidad</h2>
 <p>La IA usa tu perfil para hacer el match. Si tu perfil dice "hago de todo", la IA te manda solicitudes generales. Si tu perfil dice "especialista en instalación de calefones a gas, reparación de cañerías en cobre y revisión de estanques", la IA te manda solicitudes específicas de eso — que suelen tener mejor presupuesto.</p>
 
-<h2 style="color:var(--o);font-family:'Space Grotesk',sans-serif;font-weight:700;margin:1.5rem 0 .75rem">El campo "descripción" de tu perfil es tu vendedor 24/7</h2>
+<h2 style="color:var(--o);font-family:var(--font-display);font-weight:700;margin:1.5rem 0 .75rem">El campo "descripción" de tu perfil es tu vendedor 24/7</h2>
 <p>Escríbelo como si le estuvieras respondiendo a un cliente que te pregunta "¿Por qué debería elegirte a ti?". Incluye: años de experiencia, en qué te especializas, en qué zonas trabajas, qué materiales usas, si das garantía, y qué tipo de trabajos NO haces (eso genera confianza). La IA lo lee y lo usa para hacer mejores matches.</p>
 
-<div style="background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
+<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.25rem;margin-top:2rem">
 <strong style="color:var(--o)">💡 Acción inmediata</strong><br><br>
 Ve a tu perfil ahora y revisa tu descripción. ¿Tiene más de 3 líneas? ¿Menciona en qué te especializas? ¿Dice algo sobre tu forma de trabajar? Si no, actualízala hoy. Es el cambio con mayor impacto en la cantidad y calidad de solicitudes que recibirás.
 </div>`
@@ -4904,7 +4993,7 @@ function cargarBlogPremium(){
     var msg=esPro
       ?'<p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.65;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto">Estás en <strong style="color:var(--o)">Plan Pro</strong> — estás a un paso. El Blog Premium es exclusivo del plan Premium e incluye guías de emprendimiento, estrategias de precios, análisis de mercado y mucho más.</p>'
       :'<p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.65;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto">El Blog Premium es el recurso más completo de MasterMatch para profesionales y emprendedores. Tendencias, precios, estrategias y guías legales actualizadas.</p>';
-    cont.innerHTML='<div style="text-align:center;padding:3rem 1rem"><div style="font-size:64px;margin-bottom:16px">💎</div><h2 style="font-family:\'Space Grotesk\',sans-serif;font-weight:800;font-size:24px;color:#fff;margin-bottom:12px">Blog exclusivo Plan Premium</h2>'+msg+'<button class="btn-p" style="max-width:280px;margin:0 auto;display:block;font-size:15px;background:var(--gold)" onclick="go(\'planes\')">Activar Plan Premium →</button>'+(esPro?'<p style="color:rgba(255,255,255,.4);font-size:12px;margin-top:1rem">Tu plan Pro ya está activo. Solo necesitas el upgrade.</p>':'<p style="color:rgba(255,255,255,.3);font-size:12px;margin-top:1.5rem">¿Eres cliente? <span style="color:var(--o);cursor:pointer" onclick="go(\'planes\');setTimeout(function(){togglePlanes(\'cli\')},300)">Ver Cliente Premium</span></p>')+'</div>';
+    cont.innerHTML='<div style="text-align:center;padding:3rem 1rem"><div style="font-size:64px;margin-bottom:16px">💎</div><h2 style="font-family:Fraunces,serif;font-weight:800;font-size:24px;color:#fff;margin-bottom:12px">Blog exclusivo Plan Premium</h2>'+msg+'<button class="btn-p" style="max-width:280px;margin:0 auto;display:block;font-size:15px;background:var(--gold)" onclick="go(\'planes\')">Activar Plan Premium →</button>'+(esPro?'<p style="color:rgba(255,255,255,.4);font-size:12px;margin-top:1rem">Tu plan Pro ya está activo. Solo necesitas el upgrade.</p>':'<p style="color:rgba(255,255,255,.3);font-size:12px;margin-top:1.5rem">¿Eres cliente? <span style="color:var(--o);cursor:pointer" onclick="go(\'planes\');setTimeout(function(){togglePlanes(\'cli\')},300)">Ver Cliente Premium</span></p>')+'</div>';
     return;
   }
   renderizarArticulos(_bpremFiltro);
@@ -4927,8 +5016,8 @@ function renderizarArticulos(filtro){
 }
 
 function catColor(cat){
-  var c={tendencias:'#10B981',precios:'#00C9B1',tecnologia:'#3B82F6',estrategia:'#C9A84C'};
-  return c[cat]||'#00C9B1';
+  var c={tendencias:'#10B981',precios:'#C9A84C',tecnologia:'#3B82F6',estrategia:'#C9A84C'};
+  return c[cat]||'#C9A84C';
 }
 
 function filtrarBlogPrem(cat,btn){
@@ -4958,9 +5047,9 @@ async function verBlogDetalle(key){
     var info=data.info;
     var factor=data.factor;
     document.getElementById('blog-det-title').textContent=info.nombre;
-    var html='<div style="text-align:center;margin-bottom:1.5rem"><div style="font-size:56px">'+info.emoji+'</div><div style="font-family:\'Space Grotesk\',sans-serif;font-size:22px;font-weight:800;margin-top:8px;color:#fff">'+info.nombre+'</div></div>';
+    var html='<div style="text-align:center;margin-bottom:1.5rem"><div style="font-size:56px">'+info.emoji+'</div><div style="font-family:Fraunces,serif;font-size:22px;font-weight:800;margin-top:8px;color:#fff">'+info.nombre+'</div></div>';
     html+='<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;color:rgba(255,255,255,.75);font-size:14px;line-height:1.65">'+info.resumen+'</div>';
-    html+='<h3 style="font-family:\'Space Grotesk\',sans-serif;font-size:17px;margin:1.5rem 0 .75rem;color:var(--o);font-weight:700">Tabla de precios — '+blogRegionSel+'</h3>';
+    html+='<h3 style="font-family:Fraunces,serif;font-size:17px;margin:1.5rem 0 .75rem;color:var(--o);font-weight:700">Tabla de precios — '+blogRegionSel+'</h3>';
     html+=info.items.map(function(it){
       var rangoAjustado=it.rango;
       if(factor!==1.0){
@@ -4971,7 +5060,7 @@ async function verBlogDetalle(key){
       }
       return '<div style="background:rgba(255,255,255,.04);margin-bottom:8px;border-radius:10px;border:1px solid rgba(255,255,255,.08);padding:14px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap"><div style="flex:1;min-width:200px"><strong style="color:#fff;font-size:14px">'+it.trabajo+'</strong><div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">'+it.nota+'</div></div><div style="font-weight:700;color:var(--o);white-space:nowrap;font-size:15px">'+rangoAjustado+'</div></div>';
     }).join('');
-    html+='<h3 style="font-family:\'Space Grotesk\',sans-serif;font-size:17px;margin:1.5rem 0 .75rem;color:var(--gold);font-weight:700">💡 Tips</h3>';
+    html+='<h3 style="font-family:Fraunces,serif;font-size:17px;margin:1.5rem 0 .75rem;color:var(--gold);font-weight:700">💡 Tips</h3>';
     html+=info.tips.map(function(t){return '<div style="background:rgba(201,168,76,.06);border-left:3px solid rgba(201,168,76,.3);padding:10px 14px;border-radius:8px;margin-bottom:8px;color:rgba(255,255,255,.75);font-size:13px;line-height:1.55">✓ '+t+'</div>';}).join('');
     html+='<div style="margin-top:2rem;text-align:center"><button class="btn-p" onclick="iniciar(\''+info.nombre.split(' ')[0]+'\')" style="max-width:320px">Buscar profesional →</button></div>';
     cont.innerHTML=html;
@@ -5031,7 +5120,7 @@ function renderCalendario(){
   var html='<div style="background:#fff;border:1px solid var(--bd);border-radius:14px;padding:1rem;margin-bottom:1rem">';
   html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">';
   html+='<button class="back" onclick="cambiarMes(-1)">‹</button>';
-  html+='<div style="font-family:Syne,sans-serif;font-weight:700;font-size:16px">'+nombreMes+' '+anio+'</div>';
+  html+='<div style="font-family:Fraunces,serif;font-weight:700;font-size:16px">'+nombreMes+' '+anio+'</div>';
   html+='<button class="back" onclick="cambiarMes(1)">›</button>';
   html+='</div>';
   html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:11px;color:var(--mu);text-align:center;margin-bottom:6px">';
@@ -5155,7 +5244,7 @@ function cargarPerfilEdit(){
     if(!info)return '';
     return '<span title="'+info.desc+'" style="display:inline-flex;align-items:center;gap:4px;background:var(--trustl);padding:6px 10px;border-radius:16px;font-size:12px;font-weight:600;color:var(--trust);margin:3px">'+info.emoji+' '+info.nombre+'</span>';
   }).join('');
-  document.getElementById('badges-display').innerHTML='<div style="background:linear-gradient(135deg,'+nivel.color+' 0%,#fff 120%);padding:1rem;border-radius:12px;margin-bottom:1rem"><div style="font-family:Syne,sans-serif;font-weight:800;font-size:18px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)">'+nivel.emoji+' Nivel '+nivel.nombre+'</div><div style="font-size:12px;color:rgba(255,255,255,.9);margin-top:4px;text-shadow:0 1px 2px rgba(0,0,0,.3)">'+(miPerfil.trabajosCerrados||0)+' trabajos · '+(miPerfil.rating||0).toFixed(1)+' ⭐</div></div><div style="margin-bottom:1rem">'+badges+'</div>';
+  document.getElementById('badges-display').innerHTML='<div style="background:linear-gradient(135deg,'+nivel.color+' 0%,#fff 120%);padding:1rem;border-radius:12px;margin-bottom:1rem"><div style="font-family:Fraunces,serif;font-weight:800;font-size:18px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)">'+nivel.emoji+' Nivel '+nivel.nombre+'</div><div style="font-size:12px;color:rgba(255,255,255,.9);margin-top:4px;text-shadow:0 1px 2px rgba(0,0,0,.3)">'+(miPerfil.trabajosCerrados||0)+' trabajos · '+(miPerfil.rating||0).toFixed(1)+' ⭐</div></div><div style="margin-bottom:1rem">'+badges+'</div>';
 }
 
 function previsualizarMiPerfil(){
@@ -5437,7 +5526,7 @@ async function cargarExplorar(){
         var oficios=(p.oficios||[]).join(' · ')||'Profesional';
         var rating=p.rating?'⭐ '+p.rating.toFixed(1):'⭐ Nuevo';
         var verifBadge=p.verificado?'<span style="font-size:11px;background:var(--tl);color:var(--trust);padding:3px 8px;border-radius:6px;font-weight:600">✓ Verificado</span>':'';
-        html+='<div style="background:#fff;border:1.5px solid var(--bd);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:12px" onclick="verPerfil(\\\''+p.id+'\\\')"><div style="display:flex;align-items:center;gap:12px"><div class="pav" style="width:50px;height:50px;flex-shrink:0;border-radius:10px;'+avStyle+'">'+(!p.fotos||!p.fotos.length?iniciales:'')+'</div><div style="flex:1"><div style="font-weight:700;font-size:14px">'+p.nombre+'</div><div style="font-size:11px;color:var(--mu)">'+oficios+'</div></div></div><div style="padding:10px;background:rgba(0,201,177,0.06);border-radius:10px;border:1px solid rgba(0,201,177,0.1)"><div style="font-size:12px;font-weight:600;color:var(--o)">📍 '+p.zona+'</div><div style="font-size:11px;color:var(--mu);margin-top:4px">'+rating+' '+verifBadge+'</div></div><button style="background:var(--o);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:600;cursor:pointer;font-family:inherit;width:100%">Ver perfil →</button></div>';
+        html+='<div style="background:#fff;border:1.5px solid var(--bd);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:12px" onclick="verPerfil(\\\''+p.id+'\\\')"><div style="display:flex;align-items:center;gap:12px"><div class="pav" style="width:50px;height:50px;flex-shrink:0;border-radius:10px;'+avStyle+'">'+(!p.fotos||!p.fotos.length?iniciales:'')+'</div><div style="flex:1"><div style="font-weight:700;font-size:14px">'+p.nombre+'</div><div style="font-size:11px;color:var(--mu)">'+oficios+'</div></div></div><div style="padding:10px;background:rgba(201,168,76,0.06);border-radius:10px;border:1px solid rgba(201,168,76,0.1)"><div style="font-size:12px;font-weight:600;color:var(--o)">📍 '+p.zona+'</div><div style="font-size:11px;color:var(--mu);margin-top:4px">'+rating+' '+verifBadge+'</div></div><button style="background:var(--o);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:600;cursor:pointer;font-family:inherit;width:100%">Ver perfil →</button></div>';
       });
       lista.innerHTML=html;
     }
