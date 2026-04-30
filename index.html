@@ -2562,7 +2562,7 @@ function ocultarSplashManual() {
 </div>
 
 
-<!-- ============ FIREBASE AUTH SOCIAL v9.1 ============ -->
+<!-- ============ FIREBASE AUTH SOCIAL v12.3.1 ============ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -2577,18 +2577,22 @@ function ocultarSplashManual() {
     measurementId: "G-PB6H7CBRDB"
   };
 
-  let fbApp, fbAuth, googleProvider;
   try {
-    fbApp = initializeApp(firebaseConfig);
-    fbAuth = getAuth(fbApp);
-    googleProvider = new GoogleAuthProvider();
-    console.log('[MM] Firebase inicializado');
-  } catch(e) {
-    console.warn('[MM] Firebase falló al inicializar:', e.message);
-  }
+    const fbApp = initializeApp(firebaseConfig);
+    const fbAuth = getAuth(fbApp);
+    const googleProvider = new GoogleAuthProvider();
 
-  // Variable temporal para guardar datos del usuario social mientras completa el perfil
-  window.tempSocialUser = null;
+    // EXPOSICIÓN GLOBAL PARA LOGIN (Crucial para que window.loginSocial los vea)
+    window.fbAuth = fbAuth;
+    window.signInWithPopup = signInWithPopup;
+    window.googleProvider = googleProvider;
+
+    console.log('[MM] Firebase Social Auth listo.');
+  } catch(e) {
+    console.error('[MM] Fallo crítico Firebase:', e.message);
+  }
+</script>
+
 
   /**
    * loginSocial v10.7 — el rol se pasa desde el botón en cada formulario
