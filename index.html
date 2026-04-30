@@ -3544,206 +3544,206 @@ async function verPerfil(idOrSlug){
   }catch(e){cont.innerHTML='<div class="empty">Error</div>';}
 }
 
-// ============ NAV v8.4: irSeccion + Briefing ============
-var seccionActual='oportunidades';
-var notifCount=0;
+// ============ NAV v12.3.1: irSeccion + Briefing ============
+var seccionActual = 'oportunidades';
+var notifCount = 0;
 
-function irSeccion(sec){
-  seccionActual=sec;
-  
-  // Ocultar todas las secciones en el area central
-  document.querySelectorAll('#exec-content-area .dash-section').forEach(function(el){ el.style.display='none'; });
-  
-  // Mostrar la sección elegida
-  var targetId = (sec==='perfil' ? 'sec-perfil-exec' : 'sec-'+sec);
-  var el = document.getElementById(targetId);
-  if(el) el.style.display='block';
+function irSeccion(sec) {
+    console.log('[DASH] Sección:', sec);
+    seccionActual = sec;
 
-  // Cargar data
-  if(sec==='fotos')cargarGaleria();
-  if(sec==='agenda')cargarAgenda();
-  if(sec==='verificar')cargarVerificacion();
-  if(sec==='referidos')cargarReferidos();
-  if(sec==='plan')cargarMiPlan();
-  if(sec==='perfil')cargarPerfilExecutive();
-  window.scrollTo({top:0,behavior:'smooth'});
+    // Ocultar todas las sub-secciones (soporte para múltiples layouts)
+    document.querySelectorAll('.dash-sec, .dash-section, #exec-content-area .dash-section').forEach(function(el) {
+        el.style.display = 'none';
+    });
+
+    // Mostrar la seleccionada
+    var targetId = (sec === 'perfil' ? 'sec-perfil-exec' : 'sec-' + sec);
+    var el = document.getElementById(targetId) || document.getElementById(sec + '-content');
+
+    if (el) {
+        el.style.display = 'block';
+        el.classList.add('active');
+    }
+
+    // Actualizar menú activo
+    document.querySelectorAll('.side-item, .nav-btn').forEach(function(b) {
+        b.classList.remove('active');
+        if (b.getAttribute('data-sec') === sec) b.classList.add('active');
+    });
+
+    // Cargar data específica
+    if (sec === 'oportunidades') cargarSolicitudesExec();
+    if (sec === 'fotos') cargarGaleria();
+    if (sec === 'agenda') cargarAgenda();
+    if (sec === 'verificar') cargarVerificacion();
+    if (sec === 'referidos') cargarReferidos();
+    if (sec === 'plan') cargarMiPlan();
+    if (sec === 'perfil') cargarPerfilExecutive();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function toggleMore(){
-  document.getElementById('more-menu').classList.toggle('show');
-  document.getElementById('more-backdrop').classList.toggle('show');
+function toggleMore() {
+    var menu = document.getElementById('more-menu');
+    var backdrop = document.getElementById('more-backdrop');
+    if (menu) menu.classList.toggle('show');
+    if (backdrop) backdrop.classList.toggle('show');
 }
 
-function toggleNotif(){
-  var drop=document.getElementById('notif-drop');
-  drop.classList.toggle('show');
-  if(drop.classList.contains('show'))renderNotifs();
+function toggleNotif() {
+    var drop = document.getElementById('notif-drop');
+    if (drop) {
+        drop.classList.toggle('show');
+        if (drop.classList.contains('show')) renderNotifs();
+    }
 }
 
-function renderNotifs(){
-  var list=document.getElementById('notif-list');
-  if(notifCount===0){
-    list.innerHTML='<div class="notif-empty">No tienes notificaciones nuevas 🎉</div>';
-    return;
-  }
-  list.innerHTML='<div class="notif-item" onclick="toggleNotif();irSeccion(\'oportunidades\')"><strong>🔔 '+notifCount+' solicitudes nuevas</strong><div style="color:var(--mu);margin-top:3px">Revisa el panel de oportunidades</div></div>';
+function renderNotifs() {
+    var list = document.getElementById('notif-list');
+    if (!list) return;
+    if (notifCount === 0) {
+        list.innerHTML = '<div class="notif-empty">No tienes notificaciones nuevas 🎉</div>';
+        return;
+    }
+    list.innerHTML = '<div class="notif-item" onclick="toggleNotif();irSeccion(\'oportunidades\')"><strong>🔔 ' + notifCount + ' solicitudes nuevas</strong><div style="color:var(--mu);margin-top:3px">Revisa el panel de oportunidades</div></div>';
 }
 
 // Cerrar dropdown al click afuera
-document.addEventListener('click',function(e){
-  var drop=document.getElementById('notif-drop');
-  var btn=document.getElementById('btn-notif');
-  if(drop && drop.classList.contains('show') && !drop.contains(e.target) && btn && !btn.contains(e.target)){
-    drop.classList.remove('show');
-  }
+document.addEventListener('click', function(e) {
+    var drop = document.getElementById('notif-drop');
+    var btn = document.getElementById('btn-notif');
+    if (drop && drop.classList.contains('show') && !drop.contains(e.target) && btn && !btn.contains(e.target)) {
+        drop.classList.remove('show');
+    }
 });
 
-// Compatibilidad con código viejo
-function stab(t){
-  var map={'s':'oportunidades','g':'fotos','ca':'agenda','v':'verificar','r':'referidos','pl':'plan','p':'perfil'};
-  irSeccion(map[t]||'oportunidades');
+function calcularPerfilCompleto(p) {
+    if (!p) return 0;
+    var campos = 0, total = 10;
+    if (p.fotoPerfil) campos++;
+    if (p.descripcion && p.descripcion.length > 20) campos++;
+    if (p.biografia && p.biografia.length > 50) campos++;
+    if (p.serviciosOfrecidos && p.serviciosOfrecidos.length > 0) campos++;
+    if (p.tarifaHora || p.tarifaVisita) campos++;
+    if (p.horarioAtencion) campos++;
+    if ((p.fotos || []).length >= 3) campos++;
+    if (p.verificado) campos++;
+    if (p.metodosPago && p.metodosPago.length > 0) campos++;
+    if (p.instagram || p.facebook || p.tiktok || p.sitioWeb) campos++;
+    return Math.round((campos / total) * 100);
 }
 
-function calcularPerfilCompleto(p){
-  if(!p)return 0;
-  var campos=0,total=10;
-  if(p.fotoPerfil)campos++;
-  if(p.descripcion && p.descripcion.length>20)campos++;
-  if(p.biografia && p.biografia.length>50)campos++;
-  if(p.serviciosOfrecidos && p.serviciosOfrecidos.length>0)campos++;
-  if(p.tarifaHora||p.tarifaVisita)campos++;
-  if(p.horarioAtencion)campos++;
-  if((p.fotos||[]).length>=3)campos++;
-  if(p.verificado)campos++;
-  if(p.metodosPago && p.metodosPago.length>0)campos++;
-  if(p.instagram||p.facebook||p.tiktok||p.sitioWeb)campos++;
-  return Math.round((campos/total)*100);
-}
+async function cargarDash() {
+    miPerfil = loadLocal('miPerfil');
 
-async function cargarDash(){
-  miPerfil=loadLocal('miPerfil');
+    var bb = document.getElementById('bottombar');
+    if (bb) bb.classList.add('show');
 
-  var bb=document.getElementById('bottombar');
-  if(bb) bb.classList.add('show');
-
-  if(!miPerfil){
-    go('home');
-    return;
-  }
-
-  // IDENTIDAD REAL v11.6
-  var avatar = document.getElementById('ph-avatar');
-  var name = document.getElementById('ph-name');
-  var meta = document.getElementById('ph-meta');
-  var badge = document.getElementById('ph-badge');
-
-  if(name) name.innerHTML = (miPerfil.nombre || 'Profesional') + (miPerfil.verificado ? ' <span class="text-blue-400">✓</span>' : '');
-  if(meta) meta.textContent = ((miPerfil.oficios || []).join(' & ')) || 'Especialista MasterMatch';
-  if(badge) badge.textContent = miPerfil.plan === 'premium' ? '👑' : miPerfil.plan === 'pro' ? '⭐' : '👤';
-
-  if(avatar) {
-    if(miPerfil.fotoPerfil) {
-      avatar.style.backgroundImage = 'url('+miPerfil.fotoPerfil+')';
-      avatar.textContent = '';
-    } else {
-      avatar.style.background = 'linear-gradient(135deg, var(--o) 0%, #003D3D 100%)';
-      avatar.textContent = (miPerfil.nombre || 'P').charAt(0);
-      avatar.style.display = 'flex';
-      avatar.style.alignItems = 'center';
-      avatar.style.justifyContent = 'center';
-      avatar.style.color = '#fff';
-      avatar.style.fontSize = '2rem';
-    }
-  }
-
-  // MÉTRICAS (IDs Clásicos)
-  var mSols = document.getElementById('bc-sols');
-  var mBill = document.getElementById('bc-billetera');
-  var mRate = document.getElementById('bc-rating');
-  var mProg = document.getElementById('bc-completo');
-
-  if(mSols) mSols.textContent = (miPerfil.matchsActivos || 0);
-  if(mBill) mBill.textContent = '$' + (miPerfil.saldoEscrow || 0).toLocaleString('es-CL');
-  if(mRate) mRate.textContent = (miPerfil.rating || '4.98');
-  if(mProg) mProg.textContent = (miPerfil.progresoPerfil || '85') + '%';
-
-  // DEFAULT VIEW - Desbloquea el panel
-  irSeccion('oportunidades');
-}
-
-function irSeccion(id){
-  // Ocultar todas las sub-secciones
-  document.querySelectorAll('.dash-sec').forEach(function(s){ s.style.display='none'; });
-
-  // Mostrar la seleccionada (compatibilidad con IDs antiguos y nuevos)
-  var target = document.getElementById('sec-' + id) || document.getElementById(id + '-content');
-  if(target) target.style.display = 'block';
-
-  // Actualizar menú activo
-  document.querySelectorAll('.side-item, .nav-btn').forEach(function(b){
-    b.classList.remove('active');
-    if(b.getAttribute('data-sec') === id) b.classList.add('active');
-  });
-
-  // Ejecutar carga de datos de la sección
-  if(id==='oportunidades') cargarOportunidades();
-  if(id==='perfil') cargarMiPerfil();
-  if(id==='agenda') cargarAgenda();
-}
-  cargarSolicitudesExec();
-}
-
-async function cargarSolicitudesExec(){
-  var cont=document.getElementById('ps');
-  if(!cont) return;
-  cont.innerHTML='<div class="loader">Buscando oportunidades...</div>';
-  try {
-    var url='/api/solicitudes?estado=abierta';
-    if(miPerfil.oficios && miPerfil.oficios.length) url+='&oficio='+encodeURIComponent(miPerfil.oficios[0]);
-    var res=await fetch(url);
-    var data=await res.json();
-    var sols=data.solicitudes||[];
-    
-    if(!sols.length) {
-      cont.innerHTML = '<div class="text-gray-500 text-sm italic">No hay solicitudes nuevas en tu zona.</div>';
-      return;
+    if (!miPerfil) {
+        go('home');
+        return;
     }
 
-    cont.innerHTML = sols.map(s => `
-      <div class="premium-card p-4 flex items-center justify-between group cursor-pointer" onclick="aceptarTrabajo('${s.id}')">
-          <div class="flex items-center gap-4">
-              <div class="bg-blue-500/10 p-3 rounded-full text-blue-400">🔧</div>
-              <div>
-                  <h4 class="font-semibold text-white">${s.tipo}</h4>
-                  <p class="text-xs text-gray-500">${s.plazo} • ${s.zona} • Presupuesto: ${s.ppto}</p>
+    // IDENTIDAD REAL v12.3.1
+    var avatar = document.getElementById('ph-avatar');
+    var name = document.getElementById('ph-name');
+    var meta = document.getElementById('ph-meta');
+
+    if (name) name.innerHTML = (miPerfil.nombre || 'Profesional') + (miPerfil.verificado ? ' <span style="color:var(--o)">✓</span>' : '');
+    if (meta) meta.textContent = ((miPerfil.oficios || []).join(' & ')) || 'Especialista MasterMatch';
+
+    if (avatar) {
+        if (miPerfil.fotoPerfil) {
+            avatar.style.backgroundImage = 'url(' + miPerfil.fotoPerfil + ')';
+            avatar.textContent = '';
+        } else {
+            avatar.style.background = 'linear-gradient(135deg, var(--o) 0%, #003D3D 100%)';
+            avatar.textContent = (miPerfil.nombre || 'P').charAt(0);
+            avatar.style.display = 'flex';
+            avatar.style.alignItems = 'center';
+            avatar.style.justifyContent = 'center';
+            avatar.style.color = '#fff';
+            avatar.style.fontSize = '2rem';
+        }
+    }
+
+    // MÉTRICAS
+    var mSols = document.getElementById('bc-sols');
+    var mBill = document.getElementById('bc-billetera');
+    var mRate = document.getElementById('bc-rating');
+    var mProg = document.getElementById('ph-progress-pct');
+    var mFill = document.getElementById('ph-progress-fill');
+
+    if (mSols) mSols.textContent = (miPerfil.matchsActivos || 0);
+    if (mBill) mBill.textContent = '$' + (miPerfil.saldoEscrow || 0).toLocaleString('es-CL');
+    if (mRate) mRate.textContent = (miPerfil.rating || '4.98');
+
+    var pct = calcularPerfilCompleto(miPerfil);
+    if (mProg) mProg.textContent = pct + '%';
+    if (mFill) mFill.style.width = pct + '%';
+
+    irSeccion('oportunidades');
+}
+
+async function cargarSolicitudesExec() {
+    var cont = document.getElementById('ps');
+    if (!cont) return;
+    cont.innerHTML = '<div class="loader">Buscando oportunidades...</div>';
+    try {
+        var url = '/api/solicitudes?estado=abierta';
+        if (miPerfil.oficios && miPerfil.oficios.length) url += '&oficio=' + encodeURIComponent(miPerfil.oficios[0]);
+        var res = await fetch(url);
+        var data = await res.json();
+        var sols = data.solicitudes || [];
+
+        if (!sols.length) {
+            cont.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--mu);font-style:italic">No hay solicitudes nuevas en tu zona.</div>';
+            return;
+        }
+
+        cont.innerHTML = sols.map(s => `
+          <div class="card" style="margin-bottom:12px;padding:1.25rem;cursor:pointer;display:flex;align-items:center;justify-content:between" onclick="aceptarTrabajo('${s.id}')">
+              <div style="flex:1">
+                  <h4 style="margin:0;color:#fff">${s.tipo}</h4>
+                  <p style="font-size:12px;color:var(--mu);margin:4px 0 0">${s.plazo} • ${s.zona} • Presupuesto: ${s.ppto}</p>
               </div>
+              <span style="font-size:18px;color:var(--o)">→</span>
           </div>
-          <span class="text-lg text-gray-600 group-hover:text-[#C9A84C]">→</span>
-      </div>
-    `).join('');
-  } catch(e) { cont.innerHTML='Error al cargar solicitudes.'; }
+        `).join('');
+    } catch (e) { cont.innerHTML = 'Error al cargar solicitudes.'; }
 }
 
-async function cargarPerfilExecutive(){
-  var cont = document.getElementById('perfil-edit-content');
-  cont.innerHTML = '<div class="loader">Cargando muro profesional...</div>';
-  
-  // Reutilizamos la función de ver perfil pero le inyectamos la capa de edición
-  await verPerfil(miPerfil.id); 
-  var profileHtml = document.getElementById('perfil-content').innerHTML;
-  
-  cont.innerHTML = `
-    <div class="relative">
-      <div class="opacity-90 pointer-events-none">${profileHtml}</div>
-      <div class="absolute inset-0 flex items-start justify-center pt-20">
-         <button class="bg-[#C9A84C] text-black px-8 py-4 font-bold rounded-sm shadow-2xl hover:bg-white transition flex items-center gap-2" onclick="go('perfil-edit-form')">
-            ✍️ EDITAR MURO PÚBLICO
-         </button>
-      </div>
-    </div>
-  `;
-}
+async function cargarPerfilExecutive() {
+    var cont = document.getElementById('perfil-edit-content');
+    if(!cont) return;
+    cont.innerHTML = '<div class="loader">Generando vista previa...</div>';
 
+    try {
+        // Obtenemos el HTML de la vista pública de forma asíncrona
+        await verPerfil(miPerfil.id);
+        var publicContent = document.getElementById('perfil-content');
+        var profileHtml = publicContent ? publicContent.innerHTML : '';
+
+        cont.innerHTML = \`
+          <div style="position:relative;background:var(--bg-deep);border-radius:16px;overflow:hidden;border:1px solid var(--border)">
+            <div style="padding:10px;background:rgba(0,163,142,0.1);text-align:center;font-size:12px;color:var(--o);border-bottom:1px solid var(--border)">
+              👀 ESTA ES TU VISTA PÚBLICA (Como te ve el cliente)
+            </div>
+            <div style="pointer-events:none; opacity:0.9">
+                \${profileHtml}
+            </div>
+            <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);backdrop-filter:blur(1px)">
+                <button class="btn-p" onclick="go('perfil-edit-form')" style="box-shadow:0 10px 40px rgba(0,0,0,0.5)">
+                    ✍️ EDITAR PERFIL COMPLETO
+                </button>
+            </div>
+          </div>
+        \`;
+    } catch(e) {
+        cont.innerHTML = '<div class="empty">Error al cargar vista previa</div>';
+    }
+}
 async function aceptarTrabajo(solId){
   if(!miPerfil){alert('Registrate primero');return;}
   if(!confirm('¿Aceptar este trabajo? Se notificará al cliente.'))return;
