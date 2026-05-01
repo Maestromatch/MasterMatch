@@ -2,5 +2,29 @@
   "appId": "cl.mastermatch.app",
   "appName": "MasterMatch",
   "webDir": ".",
-  "bundledWebRuntime": false
+  "bundledWebRuntime": false,
+  "backgroundColor": "#0A0F1A",
+  "ios": {
+    "contentInset": "always",
+    "scrollEnabled": true
+  },
+  "android": {
+    "backgroundColor": "#0A0F1A",
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "backgroundColor": "#0A0F1A",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0A0F1A"
+    }
+  }
 }

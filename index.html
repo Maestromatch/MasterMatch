@@ -2,13 +2,19 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0">
+<meta name="theme-color" content="#0A0F1A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MasterMatch">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
 <!-- Vercel Analytics + Speed Insights (HTML puro) -->
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<title>MasterMatch v12.3.1 — Executive Edition</title>
+<title>MasterMatch v12.4.5 — Editorial Executive</title>
 <meta name="description" content="Plataforma chilena para servicios de alto estándar. Profesionales verificados, IA de filtrado y pagos protegidos.">
-<meta name="version" content="12.3.1">
+<meta name="version" content="12.4.5">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -120,7 +126,7 @@
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body {
+html, body {
   font-family: var(--font-body);
   background-color: var(--bg-deep);
   color: var(--text-main);
@@ -129,6 +135,27 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Capacitor / app móvil: evitar overscroll bounce y selección accidental */
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  /* Respeto al notch/safe-area en iOS dentro de Capacitor */
+  padding-top: env(safe-area-inset-top, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+/* No bloquear selección en inputs/textareas */
+input, textarea, select, [contenteditable] {
+  -webkit-user-select: auto;
+  user-select: auto;
+  -webkit-touch-callout: default;
+}
+/* Evitar overflow horizontal en mobile */
+body { overflow-x: hidden; max-width: 100vw; }
+img, video, iframe { max-width: 100%; height: auto; }
+/* Botones siempre con touch target mínimo de 44px en mobile */
+@media (max-width: 768px){
+  button, .btn, a.btn { min-height: 44px; }
 }
 
 /* Pantallas y secciones (sin !important — la cascada manda) */
@@ -411,32 +438,32 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-md)}
 @media (min-width:768px){.category-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-lg)}}
 
-/* ============ TOPBAR GLOBAL v12.4.4 — Azul sobre negro puro ============
-   Acento azul exclusivo del topbar para distinguirlo del resto del sitio
-   (que usa champagne dorado como acento). */
+/* ============ TOPBAR GLOBAL v12.4.5 — Dorado sobre negro azulado ============
+   Acento dorado champagne exclusivo del topbar; fondo negro azulado para
+   diferenciarse del bg-deep general del sitio. */
 :root{
-  --tb-bg: #000000;
-  --tb-blue: #5BA3F5;
-  --tb-blue-hover: #7AB7F8;
-  --tb-blue-soft: rgba(91,163,245,0.10);
+  --tb-bg: #0A0F1A;
+  --tb-gold: #D4B86A;
+  --tb-gold-hover: #E5CC85;
+  --tb-gold-soft: rgba(212,184,106,0.10);
 }
-#topbar{background:var(--tb-bg);color:#FFFFFF;border-bottom:1px solid rgba(91,163,245,0.18);position:sticky;top:0;z-index:100}
+#topbar{background:var(--tb-bg);color:#FFFFFF;border-bottom:1px solid rgba(212,184,106,0.18);position:sticky;top:0;z-index:100}
 .tb-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:16px}
 .tb-logo{display:flex;align-items:center;gap:10px;cursor:pointer;transition:opacity .2s;flex-shrink:0}
 .tb-logo:hover{opacity:.85}
 .tb-logo-txt{font-family:var(--font-display);font-weight:600;font-size:22px;color:#FFFFFF;letter-spacing:-0.02em;line-height:1}
-.tb-logo-txt span{color:var(--tb-blue)}
+.tb-logo-txt span{color:var(--tb-gold)}
 .tb-nav{display:none;gap:28px;flex:1;justify-content:center}
 @media (min-width:768px){.tb-nav{display:flex}}
-.tb-link{color:var(--tb-blue);font-size:14px;font-weight:500;cursor:pointer;transition:color .15s var(--ease-out),border-color .15s var(--ease-out);padding:8px 2px;border-bottom:1px solid transparent;letter-spacing:0.01em}
-.tb-link:hover{color:var(--tb-blue-hover);border-bottom-color:var(--tb-blue)}
+.tb-link{color:var(--tb-gold);font-size:14px;font-weight:500;cursor:pointer;transition:color .15s var(--ease-out),border-color .15s var(--ease-out);padding:8px 2px;border-bottom:1px solid transparent;letter-spacing:0.01em}
+.tb-link:hover{color:var(--tb-gold-hover);border-bottom-color:var(--tb-gold)}
 .tb-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.tb-btn-login{background:transparent;color:var(--tb-blue);border:1px solid var(--tb-blue);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:background-color .2s var(--ease-out),color .2s var(--ease-out);min-height:36px;font-family:inherit;letter-spacing:0.01em}
-.tb-btn-login:hover{background:var(--tb-blue);color:#000000}
-.tb-btn-cuenta{background:var(--tb-blue);color:#000000;border:1px solid var(--tb-blue);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background-color .2s var(--ease-out);display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;letter-spacing:0.01em}
-.tb-btn-cuenta:hover{background:var(--tb-blue-hover)}
+.tb-btn-login{background:transparent;color:var(--tb-gold);border:1px solid var(--tb-gold);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:background-color .2s var(--ease-out),color .2s var(--ease-out);min-height:36px;font-family:inherit;letter-spacing:0.01em}
+.tb-btn-login:hover{background:var(--tb-gold);color:var(--tb-bg)}
+.tb-btn-cuenta{background:var(--tb-gold);color:var(--tb-bg);border:1px solid var(--tb-gold);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background-color .2s var(--ease-out);display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;letter-spacing:0.01em}
+.tb-btn-cuenta:hover{background:var(--tb-gold-hover)}
 @media (max-width:480px){.tb-btn-login{padding:8px 12px;font-size:12px}}
-.tb-ver{color:rgba(91,163,245,0.45);font-size:10px;font-family:var(--font-display);letter-spacing:0.05em}
+.tb-ver{color:rgba(212,184,106,0.45);font-size:10px;font-family:var(--font-display);letter-spacing:0.05em}
 @media (max-width:767px){.tb-ver{display:none}}
 
 /* MOBILE FIRST container */
@@ -943,20 +970,23 @@ input:checked+.slider:before{transform:translateX(20px)}
 .star-picker span.active{color:var(--o);transform:scale(1.1)}
 
 /* PLANS */
-.plan-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;margin-bottom:14px;position:relative;transition:all .2s}
-.plan-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.plan-card.featured{border:2.5px solid var(--o)}
-.plan-card.gold{border:2.5px solid var(--gold);background:linear-gradient(135deg,#fffbf0 0%,#fff 100%)}
-.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--o);color:#fff;font-size:10px;font-weight:700;padding:6px 16px;border-radius:12px;letter-spacing:1px}
-.plan-badge.g{background:var(--gold)}
-.plan-name{font-family:var(--font-display);font-weight:800;font-size:24px;margin-bottom:6px}
-.plan-price{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--o);margin-bottom:6px}
+.plan-card{background:var(--surface);color:var(--text-main);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem 1.75rem;margin-bottom:14px;position:relative;transition:border-color .2s var(--ease-out)}
+.plan-card:hover{border-color:rgba(255,255,255,0.16)}
+.plan-card.featured{border-color:var(--accent)}
+.plan-card.gold{border-color:var(--accent);background:var(--surface)}
+.plan-card.recom{border-color:var(--accent)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#0A0A0B;font-size:10px;font-weight:700;padding:6px 16px;border-radius:var(--radius-full);letter-spacing:0.12em;text-transform:uppercase}
+.plan-badge.g{background:var(--accent)}
+.plan-name{font-family:var(--font-display);font-weight:600;font-size:1.5rem;margin-bottom:6px;color:var(--text-main);letter-spacing:-0.015em}
+.plan-price{font-family:var(--font-display);font-size:2.25rem;font-weight:500;color:var(--text-main);margin-bottom:6px;letter-spacing:-0.02em;line-height:1}
 .plan-price span{font-size:14px;color:var(--mu);font-weight:400}
-.plan-desc{font-size:13px;color:var(--mu);margin-bottom:1.25rem;line-height:1.55}
-.plan-feats{list-style:none;margin-bottom:1.75rem}
-.plan-feats li{padding:7px 0;font-size:14px;display:flex;gap:10px;align-items:flex-start}
-.plan-feats li::before{content:"✓";color:var(--g);font-weight:700;flex-shrink:0;font-size:15px}
-.plan-feats li.no::before{content:"✕";color:#ccc}
+.plan-desc{font-size:13px;color:var(--mu);margin-bottom:1.5rem;line-height:1.55}
+.plan-feats{list-style:none;margin-bottom:1.75rem;padding:0}
+.plan-feats li{padding:8px 0;font-size:14px;display:flex;gap:12px;align-items:flex-start;color:var(--text-main);line-height:1.5}
+.plan-feats li::before{content:"✓";color:var(--accent);font-weight:600;flex-shrink:0;font-size:14px}
+.plan-feats li.no{color:var(--mu);opacity:0.6}
+.plan-feats li.no::before{content:"✕";color:var(--mu)}
+.plan-feats li strong{color:var(--text-main);font-weight:600}
 .plan-feats li.no{color:#aaa}
 
 @media (min-width:768px){
@@ -1042,6 +1072,78 @@ input:checked+.slider:before{transform:translateX(20px)}
 .opp-item{display:flex;align-items:center;gap:6px}
 .hero-seo-phrase{font-size:13px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.25rem;display:block}
 
+/* === EXPLORAR PROFESIONALES (cards) v12.4.5 === */
+.ex-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;flex-direction:column;gap:1rem;cursor:pointer;transition:border-color .2s var(--ease-out),background-color .2s var(--ease-out);position:relative}
+.ex-card:hover{border-color:var(--accent);background:var(--surface-2)}
+.ex-card-locked{position:relative}
+.ex-card-head{display:flex;align-items:center;gap:14px}
+.ex-av{width:56px;height:56px;border-radius:50%;background:var(--surface-2);background-size:cover;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;font-size:18px;color:var(--text-main);border:1px solid var(--border)}
+.ex-id{flex:1;min-width:0}
+.ex-name{font-family:var(--font-display);font-weight:600;font-size:1.05rem;color:var(--text-main);margin:0;letter-spacing:-0.01em;line-height:1.2}
+.ex-oficios{font-size:12px;color:var(--mu);margin-top:4px;letter-spacing:0.01em}
+.ex-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ex-pill{font-size:10px;font-weight:500;padding:3px 9px;border-radius:var(--radius-full);letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border)}
+.ex-pill-verif{color:var(--teal);border-color:var(--teal-soft)}
+.ex-pill-pro{color:var(--text-main);border-color:var(--border)}
+.ex-pill-prem{color:var(--accent);border-color:var(--accent)}
+.ex-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--surface-2);border-radius:var(--radius-md);padding:0.75rem;border:1px solid var(--border)}
+.ex-meta-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0.25rem 0.5rem;border-right:1px solid var(--border)}
+.ex-meta-item:last-child{border-right:none}
+.ex-meta-lbl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:0.08em;font-weight:500}
+.ex-meta-val{font-family:var(--font-display);font-size:1rem;color:var(--text-main);font-weight:500;letter-spacing:-0.01em}
+.ex-meta-blur .ex-meta-val{filter:blur(5px);opacity:0.6}
+.ex-lock{font-size:11px;color:var(--accent);text-align:center;padding:8px;background:var(--accent-tint);border-radius:var(--radius-md);border:1px dashed var(--accent);letter-spacing:0.02em;display:flex;align-items:center;justify-content:center;gap:6px}
+.ex-btn-row{display:flex;gap:8px}
+.ex-btn{flex:1;padding:10px 14px;border-radius:var(--radius-md);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background-color .2s var(--ease-out),border-color .2s var(--ease-out),color .2s var(--ease-out);letter-spacing:0.01em}
+.ex-btn-primary{background:var(--accent);color:#0A0A0B;border:1px solid var(--accent)}
+.ex-btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.ex-btn-ghost{background:transparent;color:var(--text-main);border:1px solid var(--border)}
+.ex-btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Grid de cards en pantalla explorar */
+#explorar-list{display:grid;grid-template-columns:1fr;gap:1rem;padding:1.25rem}
+@media (min-width:640px){#explorar-list{grid-template-columns:repeat(2,1fr);padding:1.5rem}}
+@media (min-width:1024px){#explorar-list{grid-template-columns:repeat(3,1fr)}}
+
+/* === OPORTUNIDADES (avisos pro) v12.4.5 === */
+.oppx-empty{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius-lg);padding:3rem 1.5rem;text-align:center;margin:1.5rem}
+.oppx-empty-icon{font-size:36px;margin-bottom:0.75rem;opacity:0.7}
+.oppx-empty-title{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--text-main);margin-bottom:0.5rem;letter-spacing:-0.01em}
+.oppx-empty-desc{font-size:13px;color:var(--mu);line-height:1.6;max-width:380px;margin:0 auto}
+.oppx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1rem;color:var(--text-main);transition:border-color .2s var(--ease-out)}
+.oppx-card:hover{border-color:var(--accent)}
+.oppx-head{display:flex;align-items:center;gap:14px;margin-bottom:0.75rem}
+.oppx-cli-av{width:42px;height:42px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;color:var(--accent);border:1px solid var(--border);flex-shrink:0;font-size:16px}
+.oppx-id{flex:1;min-width:0}
+.oppx-title{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--text-main);margin:0;letter-spacing:-0.015em;line-height:1.2}
+.oppx-cli{font-size:12px;color:var(--mu);margin-top:3px;letter-spacing:0.01em}
+.oppx-pills{display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
+.oppx-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:var(--radius-full);letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border)}
+.oppx-urg{color:var(--danger);border-color:var(--danger)}
+.oppx-soon{color:var(--warning);border-color:var(--warning)}
+.oppx-flex{color:var(--mu);border-color:var(--border)}
+.oppx-open{color:var(--teal);border-color:var(--teal-soft)}
+.oppx-desc{color:var(--mu);font-size:13px;line-height:1.65;margin:0 0 1rem;padding:0 0 1rem;border-bottom:1px solid var(--border)}
+.oppx-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1.25rem}
+@media (min-width:520px){.oppx-grid{grid-template-columns:repeat(4,1fr)}}
+.oppx-cell{display:flex;flex-direction:column;gap:3px;padding:0.5rem 0;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);align-items:center;text-align:center}
+.oppx-cell-lbl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:0.08em;font-weight:500}
+.oppx-cell-val{font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;padding:0 0.5rem}
+.oppx-actions{display:flex;gap:8px;flex-wrap:wrap}
+.oppx-btn{flex:1;min-width:140px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;letter-spacing:0.01em;transition:background-color .2s var(--ease-out),border-color .2s var(--ease-out),color .2s var(--ease-out)}
+.oppx-btn-primary{background:var(--accent);color:#0A0A0B;border:1px solid var(--accent);font-weight:600}
+.oppx-btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.oppx-btn-ghost{background:transparent;color:var(--text-main);border:1px solid var(--border)}
+.oppx-btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* === Perfil de profesional con blur (cliente no premium) === */
+.perfil-locked{position:relative}
+.perfil-locked-veil{filter:blur(6px);pointer-events:none;user-select:none;opacity:0.6}
+.perfil-upsell{margin:1.5rem 1.25rem;padding:1.5rem;background:var(--surface);border:1px solid var(--accent);border-radius:var(--radius-lg);text-align:center;color:var(--text-main)}
+.perfil-upsell h3{font-family:var(--font-display);color:var(--accent);font-weight:600;font-size:1.25rem;margin:0 0 0.5rem;letter-spacing:-0.015em}
+.perfil-upsell p{color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1rem}
+.perfil-upsell .perfil-upsell-cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
 /* === FOOTER Editorial v12.4 === */
 .mm-footer{background:var(--bg-deep);color:var(--text-main);border-top:1px solid var(--border);padding:5rem 0 2rem}
 .mm-footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:3rem;margin-bottom:4rem}
@@ -1061,7 +1163,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 </head>
 <body onload="ocultarSplashManual()">
 <!-- Tag de versión -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.4.0 Editorial</div>
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.4.5 Editorial</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -1568,7 +1670,7 @@ function ocultarSplashManual() {
         <!-- PRO (más popular) -->
         <div class="plan-card featured">
           <div class="plan-badge">MÁS POPULAR</div>
-          <div class="plan-name" style="color:var(--o)">Plan Pro</div>
+          <div class="plan-name">Plan Pro</div>
           <div class="plan-price">$6.990<span> / mes</span></div>
           <div class="plan-desc">Para profesionales que quieren crecer</div>
           <ul class="plan-feats">
@@ -1588,8 +1690,8 @@ function ocultarSplashManual() {
         <!-- PREMIUM -->
         <div class="plan-card gold">
           <div class="plan-badge g">PROFESIONAL SERIO</div>
-          <div class="plan-name" style="color:var(--gold)">Plan Premium</div>
-          <div class="plan-price" style="color:var(--gold)">$14.990<span> / mes</span></div>
+          <div class="plan-name">Plan Premium</div>
+          <div class="plan-price">$14.990<span> / mes</span></div>
           <div class="plan-desc">Para los que van en serio</div>
           <ul class="plan-feats">
             <li>✓ Todo lo del Plan Pro</li>
@@ -1602,7 +1704,7 @@ function ocultarSplashManual() {
             <li>✓ Soporte prioritario 24h por WhatsApp</li>
             <li>✓ Sistema de referidos — 1 mes gratis por referido</li>
           </ul>
-          <button class="btn-p" style="width:100%;background:var(--gold)" onclick="activarPlan('premium')">Activar Plan Premium →</button>
+          <button class="btn-p" style="width:100%" onclick="activarPlan('premium')">Activar Plan Premium →</button>
           <p style="text-align:center;font-size:11px;color:var(--mu);margin-top:10px">Todo incluido, sin sorpresas.</p>
         </div>
 
@@ -3681,10 +3783,35 @@ async function verPerfil(idOrSlug){
       }).join('');
     } else html+='<div class="gal-empty">Sin reseñas aún</div>';
     
-    html+='<div style="margin-top:1.5rem;padding:1.25rem;background:var(--bg);border-radius:12px;text-align:center"><div style="font-size:13px;color:var(--mu);margin-bottom:10px">¿Contrataste a '+p.nombre.split(' ')[0]+'?</div><button class="btn-p" style="max-width:320px" onclick="abrirReview(\''+p.id+'\',\''+p.nombre+'\',\''+((p.oficios||[]).join(' · '))+'\')">Dejar reseña →</button></div>';
+    html+='<div style="margin-top:1.5rem;padding:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:center"><div style="font-size:13px;color:var(--mu);margin-bottom:10px">¿Contrataste a '+p.nombre.split(' ')[0]+'?</div><button class="btn-p" style="max-width:320px" onclick="abrirReview(\''+p.id+'\',\''+p.nombre+'\',\''+((p.oficios||[]).join(' · '))+'\')">Dejar reseña →</button></div>';
     html+='</div>';
+
+    // === Permisos v12.4.5: cliente básico ve datos borrosos + CTA premium ===
+    var clientePremium=clienteEsPremium();
+    if(!esMiPerfil && !clientePremium){
+      // Envuelve todo el cuerpo (después del header) en un veil borroso y agrega upsell
+      var idxBody=html.indexOf("<div style=\"padding:1.25rem\">");
+      if(idxBody>0){
+        html=html.slice(0,idxBody)
+          +'<div class="perfil-upsell"><h3>Datos completos solo para Premium</h3><p>Para ver tarifas, horarios, contacto WhatsApp, redes y reseñas detalladas, activa tu Plan Premium o Pro de cliente. También desbloqueas chat directo con el profesional.</p><div class="perfil-upsell-cta"><button class="btn-p" onclick="go(\'planes\')">Ver planes</button><button class="btn-s" onclick="iniciarChatConPro(\''+p.id+'\',\''+(p.nombre||'').replace(/\'/g,"")+'\')">Chatear (Premium)</button></div></div>'
+          +'<div class="perfil-locked-veil">'
+          +html.slice(idxBody)
+          +'</div>';
+      }
+    } else if(!esMiPerfil && clientePremium){
+      // Insertar botón "Chatear" arriba para premium
+      var idxBody2=html.indexOf("<div style=\"padding:1.25rem\">");
+      if(idxBody2>0){
+        var insert='<div style="padding:0 1.25rem 0.5rem"><button class="btn-p" style="width:100%" onclick="iniciarChatConPro(\''+p.id+'\',\''+(p.nombre||'').replace(/\'/g,"")+'\')">💬 Chatear con '+p.nombre.split(' ')[0]+'</button></div>';
+        html=html.slice(0,idxBody2)+insert+html.slice(idxBody2);
+      }
+    }
+
     cont.innerHTML=html;
-  }catch(e){cont.innerHTML='<div class="empty">Error</div>';}
+  }catch(e){
+    console.error('[verPerfil] error', e);
+    cont.innerHTML='<div class="empty" style="text-align:center;padding:3rem;color:var(--mu)">Error al cargar el perfil</div>';
+  }
 }
 
 // ============ NAV v12.3.1: irSeccion + Briefing ============
@@ -3832,7 +3959,7 @@ async function cargarDash() {
 async function cargarSolicitudesExec() {
     var cont = document.getElementById('ps');
     if (!cont) return;
-    cont.innerHTML = '<div class="loader">Buscando oportunidades...</div>';
+    cont.innerHTML = '<div style="padding:3rem;text-align:center;color:var(--mu)">Buscando oportunidades...</div>';
     try {
         var url = '/api/solicitudes?estado=abierta';
         if (miPerfil.oficios && miPerfil.oficios.length) url += '&oficio=' + encodeURIComponent(miPerfil.oficios[0]);
@@ -3841,20 +3968,67 @@ async function cargarSolicitudesExec() {
         var sols = data.solicitudes || [];
 
         if (!sols.length) {
-            cont.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--mu);font-style:italic">No hay solicitudes nuevas en tu zona.</div>';
+            cont.innerHTML = '<div class="oppx-empty"><div class="oppx-empty-icon">📭</div><div class="oppx-empty-title">Sin oportunidades nuevas</div><div class="oppx-empty-desc">Cuando un cliente publique en <strong>'+((miPerfil.oficios||[]).join(' o ')||'tu oficio')+'</strong> en <strong>'+(miPerfil.region||'tu región')+'</strong>, te avisamos aquí.</div></div>';
             return;
         }
 
-        cont.innerHTML = sols.map(s => `
-          <div class="card" style="margin-bottom:12px;padding:1.25rem;cursor:pointer;display:flex;align-items:center;justify-content:between" onclick="aceptarTrabajo('${s.id}')">
-              <div style="flex:1">
-                  <h4 style="margin:0;color:#fff">${s.tipo}</h4>
-                  <p style="font-size:12px;color:var(--mu);margin:4px 0 0">${s.plazo} • ${s.zona} • Presupuesto: ${s.ppto}</p>
-              </div>
-              <span style="font-size:18px;color:var(--o)">→</span>
-          </div>
-        `).join('');
-    } catch (e) { cont.innerHTML = 'Error al cargar solicitudes.'; }
+        function tiempoDesde(iso){
+            if(!iso) return '';
+            var diff=Math.floor((Date.now()-new Date(iso).getTime())/60000);
+            if(diff<1) return 'recién';
+            if(diff<60) return 'hace '+diff+' min';
+            if(diff<1440) return 'hace '+Math.floor(diff/60)+' h';
+            return 'hace '+Math.floor(diff/1440)+' d';
+        }
+        function urgenciaPill(plazo){
+            if(!plazo) return '';
+            var p=plazo.toLowerCase();
+            if(p.indexOf('urg')>=0||p.indexOf('hoy')>=0||p.indexOf('inmedi')>=0)
+                return '<span class="oppx-pill oppx-urg">Urgente</span>';
+            if(p.indexOf('semana')>=0||p.indexOf('sema')>=0)
+                return '<span class="oppx-pill oppx-soon">Esta semana</span>';
+            return '<span class="oppx-pill oppx-flex">Flexible</span>';
+        }
+        function presupuestoFmt(ppto){
+            if(!ppto) return 'A convenir';
+            var s=String(ppto);
+            if(s.indexOf('$')>=0) return s;
+            var n=parseInt(s.replace(/\D/g,''));
+            return isNaN(n)?s:'$'+n.toLocaleString('es-CL');
+        }
+
+        cont.innerHTML = sols.map(function(s){
+            var oficio=s.oficio||s.tipo||'Solicitud';
+            var desc=s.descripcion||s.detalle||'';
+            var clienteIni=(s.clienteNombre||'C').charAt(0).toUpperCase();
+            var openMatch=s.openMatch?'<span class="oppx-pill oppx-open">🌎 Open Match</span>':'';
+            return ''
+              +'<article class="oppx-card">'
+                +'<header class="oppx-head">'
+                  +'<div class="oppx-cli-av">'+clienteIni+'</div>'
+                  +'<div class="oppx-id">'
+                    +'<h3 class="oppx-title">'+oficio+'</h3>'
+                    +'<div class="oppx-cli">'+(s.clienteNombre||'Cliente')+' · '+tiempoDesde(s.creadoEn||s.createdAt)+'</div>'
+                  +'</div>'
+                  +'<div class="oppx-pills">'+urgenciaPill(s.plazo)+openMatch+'</div>'
+                +'</header>'
+                +(desc?'<p class="oppx-desc">'+desc.slice(0,180)+(desc.length>180?'…':'')+'</p>':'')
+                +'<div class="oppx-grid">'
+                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Zona</span><span class="oppx-cell-val">'+(s.zona||'—')+(s.region?', '+s.region:'')+'</span></div>'
+                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Plazo</span><span class="oppx-cell-val">'+(s.plazo||'A convenir')+'</span></div>'
+                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Presupuesto</span><span class="oppx-cell-val">'+presupuestoFmt(s.ppto||s.presupuesto)+'</span></div>'
+                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">ID</span><span class="oppx-cell-val">#'+(s.id||'').slice(-6)+'</span></div>'
+                +'</div>'
+                +'<footer class="oppx-actions">'
+                  +'<button class="oppx-btn oppx-btn-primary" onclick="aceptarTrabajo(\''+s.id+'\')">Aceptar y contactar</button>'
+                  +'<button class="oppx-btn oppx-btn-ghost" onclick="abrirChatMatch(\''+s.id+'\',\''+oficio+'\',\''+(s.clienteNombre||'Cliente')+'\')">💬 Chatear</button>'
+                +'</footer>'
+              +'</article>';
+        }).join('');
+    } catch (e) {
+        console.error('[oppx] error', e);
+        cont.innerHTML = '<div class="oppx-empty"><div class="oppx-empty-icon">⚠️</div><div class="oppx-empty-title">Error al cargar</div><div class="oppx-empty-desc">Revisa tu conexión y vuelve a intentar.</div></div>';
+    }
 }
 
 async function cargarPerfilExecutive() {
@@ -5644,33 +5818,95 @@ function cliTab(btn,tab){
 }
 
 // Cargar pantalla explorar con profesionales y datos borrosos
+// ============ EXPLORAR PROFESIONALES (cliente) v12.4.5 ============
+function clienteEsPremium(){
+  var c=loadLocal('miCliente');
+  return !!(c && (c.plan==='premium'||c.plan==='pro'));
+}
+
 async function cargarExplorar(){
   var lista=document.getElementById('explorar-list');
-  lista.innerHTML='<div class="loader">Cargando profesionales...</div>';
+  if(!lista) return;
+  lista.innerHTML='<div class="loader" style="padding:3rem;text-align:center;color:var(--mu)">Cargando profesionales...</div>';
   try{
-    var res=await fetch('/api/profesionales?limit=12');
+    var res=await fetch('/api/profesionales?limit=24');
     var data=await res.json();
     var pros=data.profesionales||[];
     if(pros.length===0){
       lista.innerHTML='<div class="cli-empty-state" style="grid-column:1/-1"><div style="font-size:40px;margin-bottom:12px">👥</div><div style="font-weight:600;font-size:16px;margin-bottom:8px">Sin profesionales disponibles</div><div style="font-size:13px;color:var(--mu)">Vuelve pronto para conocer a nuevos profesionales.</div></div>';
-    } else {
-      var html='';
-      pros.forEach(function(p,i){
-        var iniciales=(p.nombre||'?').split(' ').map(function(n){return n[0];}).join('').slice(0,2).toUpperCase();
-        var colores=['var(--o)','var(--g)','var(--trust)','var(--sage)'];
-        var color=colores[i%colores.length];
-        var avStyle=p.fotos&&p.fotos.length>0?'background-image:url('+p.fotos[0]+');background-size:cover;background-position:center;color:transparent':'background:'+color;
-        var oficios=(p.oficios||[]).join(' · ')||'Profesional';
-        var rating=p.rating?'⭐ '+p.rating.toFixed(1):'⭐ Nuevo';
-        var verifBadge=p.verificado?'<span style="font-size:11px;background:var(--tl);color:var(--trust);padding:3px 8px;border-radius:6px;font-weight:600">✓ Verificado</span>':'';
-        html+='<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:12px" onclick="verPerfil(\\\''+p.id+'\\\')"><div style="display:flex;align-items:center;gap:12px"><div class="pav" style="width:50px;height:50px;flex-shrink:0;border-radius:10px;'+avStyle+'">'+(!p.fotos||!p.fotos.length?iniciales:'')+'</div><div style="flex:1"><div style="font-weight:700;font-size:14px">'+p.nombre+'</div><div style="font-size:11px;color:var(--mu)">'+oficios+'</div></div></div><div style="padding:10px;background:rgba(201,168,76,0.06);border-radius:10px;border:1px solid rgba(201,168,76,0.1)"><div style="font-size:12px;font-weight:600;color:var(--o)">📍 '+p.zona+'</div><div style="font-size:11px;color:var(--mu);margin-top:4px">'+rating+' '+verifBadge+'</div></div><button style="background:var(--o);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:600;cursor:pointer;font-family:inherit;width:100%">Ver perfil →</button></div>';
-      });
-      lista.innerHTML=html;
+      return;
     }
+    var esPremium=clienteEsPremium();
+    var html='';
+    pros.forEach(function(p){
+      var iniciales=(p.nombre||'?').split(' ').map(function(n){return n[0];}).filter(Boolean).slice(0,2).join('').toUpperCase();
+      var avStyle=p.fotos&&p.fotos.length>0?'background-image:url('+p.fotos[0]+');background-size:cover;background-position:center;color:transparent':'background:var(--surface-2)';
+      var oficios=(p.oficios||[]).slice(0,3).join(' · ')||'Profesional';
+      var rating=p.rating?p.rating.toFixed(1):'—';
+      var trabajos=p.trabajosCerrados||0;
+      var verifBadge=p.verificado?'<span class="ex-pill ex-pill-verif">Verificado</span>':'';
+      var planBadge=p.plan==='premium'?'<span class="ex-pill ex-pill-prem">Premium</span>':p.plan==='pro'?'<span class="ex-pill ex-pill-pro">Pro</span>':'';
+      var lockOverlay=esPremium?'':'<div class="ex-lock"><span>🔒</span> Plan Premium para datos completos</div>';
+      var safeName=(p.nombre||'').replace(/'/g,'').replace(/"/g,'');
+      var btnRow=esPremium
+        ? '<div class="ex-btn-row"><button class="ex-btn ex-btn-primary" onclick="event.stopPropagation();verPerfil(\''+p.id+'\')">Ver perfil</button><button class="ex-btn ex-btn-ghost" onclick="event.stopPropagation();iniciarChatConPro(\''+p.id+'\',\''+safeName+'\')">Chatear</button></div>'
+        : '<div class="ex-btn-row"><button class="ex-btn ex-btn-primary" onclick="event.stopPropagation();verPerfil(\''+p.id+'\')">Ver perfil</button><button class="ex-btn ex-btn-ghost" onclick="event.stopPropagation();go(\'planes\')">Hazte Premium</button></div>';
+
+      html+='<article class="ex-card '+(esPremium?'':'ex-card-locked')+'" onclick="verPerfil(\''+p.id+'\')">'
+        +'<header class="ex-card-head">'
+          +'<div class="ex-av" style="'+avStyle+'">'+(!p.fotos||!p.fotos.length?iniciales:'')+'</div>'
+          +'<div class="ex-id">'
+            +'<h3 class="ex-name">'+p.nombre+'</h3>'
+            +'<div class="ex-oficios">'+oficios+'</div>'
+            +'<div class="ex-pills">'+planBadge+verifBadge+'</div>'
+          +'</div>'
+        +'</header>'
+        +'<div class="ex-meta'+(esPremium?'':' ex-meta-blur')+'">'
+          +'<div class="ex-meta-item"><span class="ex-meta-lbl">Zona</span><span class="ex-meta-val">'+(p.zona||'—')+'</span></div>'
+          +'<div class="ex-meta-item"><span class="ex-meta-lbl">Rating</span><span class="ex-meta-val">'+rating+' ★</span></div>'
+          +'<div class="ex-meta-item"><span class="ex-meta-lbl">Trabajos</span><span class="ex-meta-val">'+trabajos+'</span></div>'
+        +'</div>'
+        +lockOverlay
+        +btnRow
+        +'</article>';
+    });
+    lista.innerHTML=html;
   }catch(e){
+    console.error('[explorar] error', e);
     lista.innerHTML='<div class="cli-empty-state" style="grid-column:1/-1"><div style="font-size:24px">⚠️</div><div style="font-weight:600">Error al cargar</div><div style="font-size:12px;color:var(--mu)">Intenta de nuevo más tarde.</div></div>';
   }
 }
+window.cargarExplorar=cargarExplorar;
+
+// Iniciar chat directo con un pro (atajo desde explorar)
+async function iniciarChatConPro(proId, proNombre){
+  var cli=loadLocal('miCliente');
+  if(!cli || !cli.id){
+    alert('Necesitas una cuenta de cliente para chatear.');
+    go('registro-cli');
+    return;
+  }
+  if(!clienteEsPremium()){
+    alert('💎 El chat directo es exclusivo del Plan Premium.');
+    go('planes');
+    return;
+  }
+  // Crea o recupera una solicitud "match" con este pro y abre el chat
+  try{
+    var res=await fetch('/api/solicitudes',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({clienteId:cli.id,proId:proId,tipo:'chat-directo',descripcion:'Chat directo iniciado desde Explorar'})
+    });
+    var d=await res.json();
+    if(d.success && d.solicitud){
+      abrirChatComoCliente(d.solicitud.id, d.solicitud.oficio||'consulta', proNombre);
+    } else {
+      alert('No pudimos abrir el chat. Intenta de nuevo.');
+    }
+  }catch(e){ alert('Error de conexión.'); }
+}
+window.iniciarChatConPro=iniciarChatConPro;
 
 // v10.7: Canjear cupón
 // v10.7: Canjear cupón desde panel del profesional
