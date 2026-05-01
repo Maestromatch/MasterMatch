@@ -295,6 +295,29 @@ export default async function handler(req, res) {
         }
         // Si lo envía plan gratis, lo ignoramos silenciosamente
       }
+
+      // Multimedia v12.5 — videoPresentacion (solo Premium) y trabajosDestacados
+      if (typeof body.videoPresentacion === 'string' && pro.plan === 'premium') {
+        const url = body.videoPresentacion.trim().slice(0, 300);
+        // Lista blanca de dominios para evitar embeds maliciosos
+        if (url === '' || /^https:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com|player\.vimeo\.com|.*\.public\.blob\.vercel-storage\.com)\//i.test(url)) {
+          pro.videoPresentacion = url;
+        }
+      }
+      if (Array.isArray(body.trabajosDestacados)) {
+        const maxTrabajos = pro.plan === 'premium' ? 6 : pro.plan === 'pro' ? 3 : 0;
+        pro.trabajosDestacados = body.trabajosDestacados
+          .slice(0, maxTrabajos)
+          .map(function(t){
+            return {
+              titulo: String(t.titulo || '').trim().slice(0, 80),
+              descripcion: String(t.descripcion || '').trim().slice(0, 250),
+              fotoAntes: String(t.fotoAntes || '').slice(0, 500),
+              fotoDespues: String(t.fotoDespues || '').slice(0, 500)
+            };
+          })
+          .filter(function(t){ return t.titulo && (t.fotoAntes || t.fotoDespues); });
+      }
       
       if (typeof disponible === 'boolean') pro.disponible = disponible;
       if (plan && ['gratis', 'pro', 'premium'].includes(plan)) {

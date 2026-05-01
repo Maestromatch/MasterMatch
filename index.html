@@ -1172,6 +1172,18 @@ input:checked+.slider:before{transform:translateX(20px)}
 .oppx-btn-ghost{background:transparent;color:var(--text-main);border:1px solid var(--border)}
 .oppx-btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 
+/* === Trabajos destacados (perfil pro) v12.5 === */
+.tdest-scroll{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:1rem;margin-bottom:1.25rem;scrollbar-width:thin}
+.tdest-scroll::-webkit-scrollbar{height:6px}
+.tdest-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.tdest-card{flex:0 0 280px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.75rem;display:flex;flex-direction:column;gap:0.5rem}
+.tdest-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.tdest-side{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:6px}
+.tdest-side img{width:100%;height:100%;object-fit:cover;display:block}
+.tdest-lbl{position:absolute;top:6px;left:6px;background:rgba(10,10,11,0.75);color:#FFF;font-size:10px;padding:2px 7px;border-radius:99px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;backdrop-filter:blur(4px)}
+.tdest-title{font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;line-height:1.3;margin-top:0.25rem}
+.tdest-desc{font-size:12px;color:var(--mu);line-height:1.5}
+
 /* === Perfil de profesional con blur (cliente no premium) === */
 .perfil-locked{position:relative}
 .perfil-locked-veil{filter:blur(6px);pointer-events:none;user-select:none;opacity:0.6}
@@ -3798,7 +3810,16 @@ async function verPerfil(idOrSlug){
     html+='<div class="profile-n">'+p.nombre+' '+verifBadge+'</div>';
     html+='<div class="profile-sp">'+((p.oficios||[]).join(' · '))+' · 📍 '+p.zona+'</div>';
     html+='<div style="text-align:center;margin-bottom:10px">'+planBadge+' <span class="pill" style="background:'+nivelInfo.color+';color:#fff;margin-left:6px">'+nivelInfo.emoji+' '+nivelInfo.nombre+'</span></div>';
-    html+='<div class="profile-st"><div><strong>⭐ '+ratingTxt+'</strong>'+(revData.total||0)+' reseñas</div><div><strong>📸 '+(p.fotos||[]).length+'</strong>fotos</div><div><strong>'+(p.trabajosCerrados||0)+'</strong>trabajos</div></div>';
+    var statsExtra='';
+    if(typeof p.tiempoRespuestaMedio==='number' && p.tiempoRespuestaMedio>0){
+      var minResp=Math.round(p.tiempoRespuestaMedio/60000);
+      var respLabel = minResp<60 ? minResp+' min' : Math.round(minResp/60)+' h';
+      statsExtra+='<div><strong>⚡ '+respLabel+'</strong>respuesta media</div>';
+    }
+    if(typeof p.porcentajeAceptacion==='number'){
+      statsExtra+='<div><strong>'+Math.round(p.porcentajeAceptacion)+'%</strong>aceptación</div>';
+    }
+    html+='<div class="profile-st"><div><strong>⭐ '+ratingTxt+'</strong>'+(revData.total||0)+' reseñas</div><div><strong>📸 '+(p.fotos||[]).length+'</strong>fotos</div><div><strong>'+(p.trabajosCerrados||0)+'</strong>trabajos</div>'+statsExtra+'</div>';
     html+='</div></div>';
     
     html+='<div style="padding:1.25rem">';
@@ -3866,6 +3887,47 @@ async function verPerfil(idOrSlug){
       html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">'+redes.map(function(r){return '<a href="'+r.url+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:12px;text-decoration:none;color:var(--dk);font-weight:500">'+r.emoji+' '+r.txt+'</a>';}).join('')+'</div>';
     }
     
+    // Video de presentación (Premium) — v12.5
+    if(p.videoPresentacion){
+      var ytMatch=p.videoPresentacion.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);
+      var vimeoMatch=p.videoPresentacion.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+      var embedHtml='';
+      if(ytMatch){
+        embedHtml='<iframe src="https://www.youtube.com/embed/'+ytMatch[1]+'" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--border)"></iframe>';
+      } else if(vimeoMatch){
+        embedHtml='<iframe src="https://player.vimeo.com/video/'+vimeoMatch[1]+'" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--border)"></iframe>';
+      } else if(/\.(mp4|webm|mov)$/i.test(p.videoPresentacion)){
+        embedHtml='<video controls preload="metadata" style="width:100%;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--border);background:#000"><source src="'+p.videoPresentacion+'"></video>';
+      }
+      if(embedHtml){
+        html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.25rem 0 .75rem;display:flex;align-items:center;gap:8px">🎬 Video de presentación <span style="font-size:10px;background:var(--accent-tint);color:var(--accent);padding:3px 8px;border-radius:99px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--accent)">Premium</span></h3>';
+        html+='<div style="margin-bottom:1.25rem">'+embedHtml+'</div>';
+      }
+    }
+
+    // Trabajos destacados (antes/después) — v12.5
+    if(p.trabajosDestacados && p.trabajosDestacados.length>0){
+      html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.5rem 0 .75rem">✨ Trabajos destacados</h3>';
+      html+='<div class="tdest-scroll">';
+      p.trabajosDestacados.forEach(function(t){
+        html+='<article class="tdest-card">';
+        if(t.fotoAntes && t.fotoDespues){
+          html+='<div class="tdest-pair">'
+            +'<div class="tdest-side"><span class="tdest-lbl">Antes</span><img src="'+t.fotoAntes+'" alt="Antes"></div>'
+            +'<div class="tdest-side"><span class="tdest-lbl">Después</span><img src="'+t.fotoDespues+'" alt="Después"></div>'
+            +'</div>';
+        } else if(t.fotoDespues){
+          html+='<img src="'+t.fotoDespues+'" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:8px">';
+        } else if(t.fotoAntes){
+          html+='<img src="'+t.fotoAntes+'" alt="" style="width:100%;height:180px;object-fit:cover;border-radius:8px">';
+        }
+        if(t.titulo) html+='<div class="tdest-title">'+t.titulo+'</div>';
+        if(t.descripcion) html+='<div class="tdest-desc">'+t.descripcion+'</div>';
+        html+='</article>';
+      });
+      html+='</div>';
+    }
+
     html+='<h3 style="font-family:Fraunces,serif;font-size:16px;margin:1.25rem 0 .5rem">📸 Galería</h3>';
     if(p.fotos&&p.fotos.length>0){
       html+='<div class="gallery">'+p.fotos.map(function(f){return '<div class="gal-img" onclick="window.open(\''+f+'\',\'_blank\')"><img src="'+f+'" alt=""></div>';}).join('')+'</div>';
