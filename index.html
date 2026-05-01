@@ -387,12 +387,11 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .btn-gh:hover{border-color:var(--color-dark);background:var(--color-surface)}
 .btn-lg{padding:14px 32px;font-size:16px}
 
-/* Secciones sistemáticas */
+/* Secciones sistemáticas — la regla section-surface canónica está en línea 136 */
 .section{padding:var(--space-2xl) 0}
 @media (min-width:768px){.section{padding:var(--space-3xl) 0}}
-.section-surface{background:var(--color-surface)}
-.section-dark{background:var(--color-dark);color:#fff}
-.section-dark h1,.section-dark h2,.section-dark h3,.section-dark h4{color:#fff}
+.section-dark{background:var(--surface);color:var(--text-main)}
+.section-dark h1,.section-dark h2,.section-dark h3,.section-dark h4{color:var(--text-main)}
 
 /* Section headers */
 .section-head{text-align:center;margin-bottom:var(--space-2xl)}
@@ -424,8 +423,11 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .tb-link{color:rgba(255,255,255,.75);font-size:14px;font-weight:500;cursor:pointer;transition:color .15s;padding:8px 4px;border-bottom:2px solid transparent}
 .tb-link:hover{color:var(--o);border-bottom-color:var(--o)}
 .tb-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.tb-btn-cuenta{background:var(--o);color:#fff;border:none;border-radius:var(--radius-pill);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;box-shadow:var(--shadow-teal)}
-.tb-btn-cuenta:hover{background:var(--od);transform:translateY(-1px)}
+.tb-btn-login{background:transparent;color:var(--text-main);border:1px solid var(--border);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:border-color .2s var(--ease-out),color .2s var(--ease-out);min-height:36px;font-family:inherit;letter-spacing:0.01em}
+.tb-btn-login:hover{border-color:var(--accent);color:var(--accent)}
+.tb-btn-cuenta{background:var(--accent);color:#0A0A0B;border:1px solid var(--accent);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background-color .2s var(--ease-out);display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;letter-spacing:0.01em}
+.tb-btn-cuenta:hover{background:var(--accent-hover)}
+@media (max-width:480px){.tb-btn-login{padding:8px 12px;font-size:12px}}
 .tb-ver{color:rgba(255,255,255,.35);font-size:10px;font-family:var(--font-display)}
 @media (max-width:767px){.tb-ver{display:none}}
 
@@ -1030,7 +1032,23 @@ input:checked+.slider:before{transform:translateX(20px)}
 .opp-title{font-family:var(--font-display);font-size:1.35rem;font-weight:800;color:var(--dk);margin-bottom:0.75rem;letter-spacing:-0.02em}
 .opp-meta{display:flex;flex-wrap:wrap;gap:16px;color:var(--mu);font-size:13px;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(201,168,76,0.05)}
 .opp-item{display:flex;align-items:center;gap:6px}
-.hero-seo-phrase{font-size:13px;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.25rem;display:block}
+.hero-seo-phrase{font-size:13px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.25rem;display:block}
+
+/* === FOOTER Editorial v12.4 === */
+.mm-footer{background:var(--bg-deep);color:var(--text-main);border-top:1px solid var(--border);padding:5rem 0 2rem}
+.mm-footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:3rem;margin-bottom:4rem}
+.mm-footer-brand{grid-column:span 1}
+@media (min-width:768px){.mm-footer-brand{grid-column:span 2}}
+.mm-footer-logo{font-family:var(--font-display);font-weight:600;font-size:24px;letter-spacing:-0.02em;color:var(--text-main);margin-bottom:0.75rem}
+.mm-footer-logo span{color:var(--teal)}
+.mm-footer-tagline{color:var(--mu);font-size:13px;line-height:1.7;max-width:280px;margin:0}
+.mm-footer-h{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--mu);margin-bottom:1.25rem;opacity:0.7}
+.mm-footer-link{display:block;color:var(--text-main);font-size:14px;text-decoration:none;padding:0.4rem 0;letter-spacing:-0.005em;transition:color .15s var(--ease-out);background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:left}
+.mm-footer-link:hover{color:var(--accent)}
+.mm-footer-static{cursor:default;color:var(--mu)}
+.mm-footer-static:hover{color:var(--mu)}
+.mm-footer-bottom{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;align-items:center;padding-top:2rem;border-top:1px solid var(--border);font-size:12px;color:var(--mu);letter-spacing:0.02em}
+.mm-footer-dot{opacity:0.4}
 </style>
 </head>
 <body onload="ocultarSplashManual()">
@@ -1152,8 +1170,9 @@ function ocultarSplashManual() {
       <span class="tb-link" onclick="go('planes')">💼 Planes</span>
     </div>
     <div class="tb-actions">
+      <button class="tb-btn-login" onclick="go('login')">Iniciar sesión</button>
       <button class="tb-btn-cuenta" onclick="irMiCuenta()">👤 Mi cuenta</button>
-      <span class="tb-ver">v10.8</span>
+      <span class="tb-ver">v12.4</span>
     </div>
   </div>
 </div>
@@ -1475,22 +1494,6 @@ function ocultarSplashManual() {
       </div>
     </div>
   </footer>
-  <style>
-    .mm-footer{background:var(--bg-deep);color:var(--text-main);border-top:1px solid var(--border);padding:5rem 0 2rem}
-    .mm-footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:3rem;margin-bottom:4rem}
-    .mm-footer-brand{grid-column:span 1}
-    @media (min-width:768px){.mm-footer-brand{grid-column:span 2}}
-    .mm-footer-logo{font-family:var(--font-display);font-weight:600;font-size:24px;letter-spacing:-0.02em;color:var(--text-main);margin-bottom:0.75rem}
-    .mm-footer-logo span{color:var(--teal)}
-    .mm-footer-tagline{color:var(--mu);font-size:13px;line-height:1.7;max-width:280px;margin:0}
-    .mm-footer-h{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--mu);margin-bottom:1.25rem;opacity:0.7}
-    .mm-footer-link{display:block;color:var(--text-main);font-size:14px;text-decoration:none;padding:0.4rem 0;letter-spacing:-0.005em;transition:color .15s var(--ease-out)}
-    .mm-footer-link:hover{color:var(--accent)}
-    .mm-footer-static{cursor:default;color:var(--mu)}
-    .mm-footer-static:hover{color:var(--mu)}
-    .mm-footer-bottom{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;align-items:center;padding-top:2rem;border-top:1px solid var(--border);font-size:12px;color:var(--mu);letter-spacing:0.02em}
-    .mm-footer-dot{opacity:0.4}
-  </style>
 </div>
 
 <!-- PLANES -->
@@ -2739,8 +2742,6 @@ function ocultarSplashManual() {
   } catch(e) {
     console.error('[MM] Fallo crítico Firebase:', e.message);
   }
-</script>
-
 
   /**
    * loginSocial v10.7 — el rol se pasa desde el botón en cada formulario
@@ -3877,13 +3878,13 @@ async function cargarPerfilExecutive() {
         var publicContent = document.getElementById('perfil-content');
         var profileHtml = publicContent ? publicContent.innerHTML : '';
 
-        cont.innerHTML = \`
+        cont.innerHTML = `
           <div style="position:relative;background:var(--bg-deep);border-radius:16px;overflow:hidden;border:1px solid var(--border)">
-            <div style="padding:10px;background:rgba(0,163,142,0.1);text-align:center;font-size:12px;color:var(--o);border-bottom:1px solid var(--border)">
+            <div style="padding:10px;background:var(--accent-tint);text-align:center;font-size:12px;color:var(--accent);border-bottom:1px solid var(--border)">
               👀 ESTA ES TU VISTA PÚBLICA (Como te ve el cliente)
             </div>
             <div style="pointer-events:none; opacity:0.9">
-                \${profileHtml}
+                ${profileHtml}
             </div>
             <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);backdrop-filter:blur(1px)">
                 <button class="btn-p" onclick="go('perfil-edit-form')" style="box-shadow:0 10px 40px rgba(0,0,0,0.5)">
@@ -3891,7 +3892,7 @@ async function cargarPerfilExecutive() {
                 </button>
             </div>
           </div>
-        \`;
+        `;
     } catch(e) {
         cont.innerHTML = '<div class="empty">Error al cargar vista previa</div>';
     }
@@ -4136,7 +4137,7 @@ function ajustarFoto(delta) {
   toast('Ajuste de foto guardado');
 }
 
-function cargarPerfilEdit(){if(!miPerfil)return;document.getElementById('p-desc').value=miPerfil.descripcion||'';}
+// cargarPerfilEdit() definida en línea ~5285 (versión completa)
 
 function compartirPerfil(){
   if(!miPerfil||!miPerfil.id){alert('Regístrate primero');return;}
@@ -4763,7 +4764,7 @@ async function cargarBlog(){
   }
 }
 
-async function verBlogDetalle(key){
+async function verBlogDetallePremium(key){
   var p=loadLocal('miPerfil');
   var c=loadLocal('miCliente');
   var esPremium=(p && (p.plan==='premium'||p.plan==='pro')) || (c && c.plan==='premium');
@@ -5367,6 +5368,41 @@ function irMiCuenta(){
     go('registro-cli');
   }
 }
+
+// ============ Sesión: cerrar / eliminar (v12.4.3) ============
+function cerrarSesion(){
+  if(!confirm('¿Cerrar sesión?')) return;
+  try{
+    localStorage.removeItem('miPerfil');
+    localStorage.removeItem('miCliente');
+  }catch(e){ /* storage no disponible */ }
+  if(typeof miPerfil!=='undefined') miPerfil=null;
+  if(typeof miCliente!=='undefined') miCliente=null;
+  go('home');
+  setTimeout(function(){ try{ location.reload(); }catch(e){} }, 200);
+}
+window.cerrarSesion=cerrarSesion;
+
+async function eliminarPerfil(){
+  var pro=loadLocal('miPerfil');
+  var cli=loadLocal('miCliente');
+  var target=pro && pro.id ? {tipo:'pro',id:pro.id} : (cli && cli.id ? {tipo:'cliente',id:cli.id} : null);
+  if(!target){ alert('No hay cuenta activa para eliminar.'); return; }
+  if(!confirm('Esta acción es irreversible. Se borrará tu cuenta y todos tus datos. ¿Continuar?')) return;
+  if(!confirm('Confirmación final: ¿borrar definitivamente tu cuenta?')) return;
+  try{
+    var endpoint = target.tipo==='pro' ? '/api/profesionales' : '/api/clientes';
+    await fetch(endpoint+'?id='+encodeURIComponent(target.id), {method:'DELETE'});
+  }catch(e){ /* el borrado local procede igual */ }
+  try{
+    localStorage.removeItem('miPerfil');
+    localStorage.removeItem('miCliente');
+  }catch(e){}
+  alert('Cuenta eliminada.');
+  go('home');
+  setTimeout(function(){ try{ location.reload(); }catch(e){} }, 200);
+}
+window.eliminarPerfil=eliminarPerfil;
 
 function subirFotoPerfilPro(tipo){
   if(!miPerfil){alert('Regístrate primero');return;}
