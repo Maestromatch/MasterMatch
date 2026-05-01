@@ -1018,6 +1018,11 @@ input:checked+.slider:before{transform:translateX(20px)}
 .plan-feats li.no{color:var(--mu);opacity:0.6}
 .plan-feats li.no::before{content:"✕";color:var(--mu)}
 .plan-feats li strong{color:var(--text-main);font-weight:600}
+
+/* Grid 5 cards cliente — 1 col mobile, 2 col tablet, 4 col desktop */
+.plans-grid-cli{display:grid;grid-template-columns:1fr;gap:1rem}
+@media (min-width:640px){.plans-grid-cli{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.plans-grid-cli{grid-template-columns:repeat(4,1fr)}}
 .plan-feats li.no{color:#aaa}
 
 @media (min-width:768px){
@@ -1630,48 +1635,98 @@ function ocultarSplashManual() {
       <button class="ptg-btn" id="ptg-cli" onclick="togglePlanes('cli')">👤 Soy cliente / Particular</button>
     </div>
 
-    <!-- PLANES CLIENTE -->
+    <!-- PLANES CLIENTE — 5 tiers v12.5 -->
     <div id="planes-cliente" style="display:none">
-      <div class="plans-grid" style="max-width:720px;margin:0 auto">
+      <div class="plans-grid plans-grid-cli">
+
+        <!-- GRATIS -->
         <div class="plan-card">
-          <div class="plan-name">Cliente Gratis</div>
+          <div class="plan-name">Gratis</div>
           <div class="plan-price">$0<span> / mes</span></div>
           <div class="plan-desc">Para conocer la plataforma</div>
           <ul class="plan-feats">
-            <li>✓ Buscar y ver profesionales verificados</li>
-            <li>✓ <strong>2 solicitudes gratuitas</strong> de por vida</li>
-            <li>✓ Chat post-match con el profesional</li>
+            <li>✓ Buscar profesionales verificados</li>
+            <li>✓ <strong>2 solicitudes</strong> de por vida</li>
+            <li>✓ Datos del pro <em>parcialmente visibles</em></li>
             <li>✓ Pago Protegido disponible <em>(5% fee)</em></li>
-            <li class="no">✗ Sin acceso prioritario</li>
-            <li class="no">✗ Sin soporte WhatsApp</li>
+            <li class="no">✗ Sin chat directo</li>
+            <li class="no">✗ Sin métricas de respuesta</li>
             <li class="no">✗ Sin Blog Premium</li>
           </ul>
-          <button class="btn-s" style="width:100%;color:var(--dk);border-color:var(--bd)">Plan actual</button>
+          <button class="btn-s" style="width:100%;color:var(--text-main);border-color:var(--border)">Plan actual</button>
         </div>
-        <div class="plan-card recom">
+
+        <!-- PASE 24H -->
+        <div class="plan-card">
+          <div class="plan-name">Pase 24h</div>
+          <div class="plan-price">$490<span> / único</span></div>
+          <div class="plan-desc">Para ver un pro puntual ahora</div>
+          <ul class="plan-feats">
+            <li>✓ <strong>24 horas</strong> de acceso completo</li>
+            <li>✓ Datos sin blur del pro elegido</li>
+            <li>✓ <strong>1 chat directo</strong> con ese pro</li>
+            <li>✓ Tarifas, horario, contacto visibles</li>
+            <li>✓ Sin compromiso ni recurrencia</li>
+            <li class="no">✗ Limitado a 1 profesional</li>
+          </ul>
+          <button class="btn-s" style="width:100%" onclick="contratarPlanCli('pase24h')">Comprar Pase 24h →</button>
+        </div>
+
+        <!-- PLUS (destacado) -->
+        <div class="plan-card featured">
           <div class="plan-badge">RECOMENDADO</div>
-          <div class="plan-name">Cliente Premium</div>
-          <div class="plan-price">$1.990<span> / mes</span></div>
-          <div class="plan-desc">Servicio garantizado, siempre</div>
+          <div class="plan-name">Plus</div>
+          <div class="plan-price">$4.990<span> / mes</span></div>
+          <div class="plan-desc">El equilibrio justo</div>
           <ul class="plan-feats">
             <li>✓ Todo lo del plan Gratis</li>
-            <li>✓ <strong>Solicitudes ilimitadas</strong> sin restricciones</li>
-            <li>✓ <strong>Acceso prioritario</strong> a profesionales 4.5+ estrellas</li>
-            <li>✓ <strong>Respuesta garantizada en &lt;2h</strong></li>
-            <li>✓ Pago Protegido con fee reducido <em>(3%)</em></li>
-            <li>✓ <strong>Blog Premium exclusivo</strong> con guías y estrategias</li>
-            <li>✓ Soporte prioritario por WhatsApp</li>
-            <li>✓ Historial de trabajos con garantía de revisión</li>
+            <li>✓ <strong>Datos completos</strong> de todos los pros</li>
+            <li>✓ Métricas reales (respuesta, aceptación)</li>
+            <li>✓ Video y trabajos destacados visibles</li>
+            <li>✓ <strong>5 chats directos al mes</strong></li>
+            <li>✓ Pago Protegido con fee 3%</li>
           </ul>
-          <button class="btn-p" style="width:100%" onclick="contratarPlanCli('premium')">Activar Cliente Premium →</button>
+          <button class="btn-p" style="width:100%" onclick="contratarPlanCli('plus')">Activar Plus →</button>
+          <p style="text-align:center;font-size:11px;color:var(--mu);margin-top:10px">Cancela cuando quieras.</p>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="plan-card gold">
+          <div class="plan-badge g">PREMIUM</div>
+          <div class="plan-name">Premium</div>
+          <div class="plan-price">$9.990<span> / mes</span></div>
+          <div class="plan-desc">Para uso intensivo</div>
+          <ul class="plan-feats">
+            <li>✓ Todo lo del plan Plus</li>
+            <li>✓ <strong>Chats ilimitados</strong> con cualquier pro</li>
+            <li>✓ <strong>Blog Premium exclusivo</strong></li>
+            <li>✓ Concierge IA (respuestas más rápidas)</li>
+            <li>✓ <strong>1 Cotización Exprés gratis</strong> al mes</li>
+            <li>✓ Pago Protegido con <strong>0% fee</strong></li>
+            <li>✓ Soporte prioritario por WhatsApp</li>
+          </ul>
+          <button class="btn-p" style="width:100%" onclick="contratarPlanCli('premium')">Activar Premium →</button>
+          <p style="text-align:center;font-size:11px;color:var(--mu);margin-top:10px">Sin contratos forzosos.</p>
+        </div>
+
+      </div>
+
+      <!-- EMPRESA — fila aparte -->
+      <div style="margin-top:2rem;background:var(--surface);border:1px solid var(--teal);border-radius:var(--radius-lg);padding:2rem;display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:36px;flex-shrink:0">⬢</div>
+        <div style="flex:1;min-width:240px">
+          <div style="font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:var(--text-main);letter-spacing:-0.015em;margin-bottom:6px">Empresa <span style="color:var(--teal);font-size:1rem;font-weight:500;margin-left:8px">$24.990 / mes</span></div>
+          <div style="font-size:14px;color:var(--mu);line-height:1.6;margin-bottom:14px">Para inmobiliarias, conserjerías y PyMEs. Premium x5 usuarios, dashboard de gastos, factura empresa, reportes mensuales y opción de pro asignado fijo.</div>
+          <button class="btn-s" style="border-color:var(--teal);color:var(--teal)" onclick="contratarPlanCli('empresa')">Contactar para activar →</button>
         </div>
       </div>
-      <div style="background:linear-gradient(135deg,#FEF3C7 0%,#FDE68A 100%);border:1.5px solid #F59E0B;border-radius:14px;padding:1.5rem;margin-top:1.5rem;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
-        <div style="font-size:40px;flex-shrink:0">⚡</div>
-        <div style="flex:1;min-width:200px">
-          <div style="font-weight:700;color:#92400E;font-size:16px;margin-bottom:4px">Cotización Exprés — $990 por solicitud</div>
-          <div style="font-size:13px;color:#78350F;line-height:1.6;margin-bottom:12px">¿Necesitas respuesta urgente? Recibe <strong>3 cotizaciones en menos de 1 hora</strong>. Tu solicitud aparece como URGENTE en el dashboard de los profesionales.</div>
-          <button class="btn-p" style="background:#EA580C;border-color:#EA580C;max-width:260px">Próximamente →</button>
+
+      <!-- COTIZACIÓN EXPRÉS — add-on -->
+      <div style="margin-top:1rem;background:var(--surface);border:1px dashed var(--accent);border-radius:var(--radius-lg);padding:1.5rem;display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <div style="font-size:32px;flex-shrink:0">⚡</div>
+        <div style="flex:1;min-width:240px">
+          <div style="font-family:var(--font-display);font-weight:600;font-size:1.15rem;color:var(--text-main);margin-bottom:4px">Cotización Exprés <span style="color:var(--accent);font-size:0.95rem;margin-left:6px">$1.490 por solicitud</span></div>
+          <div style="font-size:13px;color:var(--mu);line-height:1.6">Recibe <strong style="color:var(--text-main)">3 cotizaciones en menos de 1 hora</strong>. Tu solicitud aparece como URGENTE para los profesionales. Add-on disponible para todos los planes (incluido Gratis).</div>
         </div>
       </div>
     </div>
@@ -4367,12 +4422,29 @@ function togglePlanes(tipo){
 }
 
 // v10.7: Contratar plan cliente Premium
+// SKUs cliente v12.5 — Pase 24h, Plus, Premium, Empresa
+var SKU_CLIENTE = {
+  pase24h: { precio: 490,   label: 'Pase 24h',  desc: 'Acceso completo a 1 perfil por 24 horas, chat directo incluido.' },
+  plus:    { precio: 4990,  label: 'Plus',      desc: 'Mensual. Datos completos de todos los pros + 5 chats al mes.' },
+  premium: { precio: 9990,  label: 'Premium',   desc: 'Mensual. Chats ilimitados, Blog Premium, Concierge IA, 1 Exprés gratis.' },
+  empresa: { precio: 24990, label: 'Empresa',   desc: 'Mensual B2B. Premium x5 usuarios, dashboard, factura empresa.' }
+};
+
 async function contratarPlanCli(plan){
   var miCli=null;
   try{miCli=JSON.parse(localStorage.getItem('mm_miCliente')||'null');}catch(e){}
   if(!miCli){alert('Primero debes crear tu cuenta de cliente');go('registro-cli');return;}
-  var precio=plan==='premium'?1990:0;
-  if(!confirm('¿Activar Cliente Premium por $'+precio+'/mes?\n\n• Acceso prioritario a profesionales calificación >4.5\n• Pago Protegido con descuento (3%)\n• Garantía de revisión gratuita\n• Soporte WhatsApp prioritario\n\nSerás redirigido a Mercado Pago.'))return;
+
+  // Empresa: derivar a WhatsApp con plantilla, no auto-checkout
+  if(plan==='empresa'){
+    var msg='Hola, quiero activar el plan Empresa de MasterMatch ($24.990/mes). Email cuenta: '+miCli.email;
+    window.open('https://wa.me/56912345678?text='+encodeURIComponent(msg),'_blank');
+    return;
+  }
+
+  var sku = SKU_CLIENTE[plan];
+  if(!sku){ alert('Plan no reconocido'); return; }
+  if(!confirm('¿Activar plan '+sku.label+' por $'+sku.precio.toLocaleString('es-CL')+(plan==='pase24h'?' (único)':'/mes')+'?\n\n'+sku.desc+'\n\nSerás redirigido a Mercado Pago.'))return;
 
   var loading=document.createElement('div');
   loading.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);color:var(--text-main);padding:2rem;border-radius:14px;border:1px solid var(--border);box-shadow:0 10px 40px rgba(0,0,0,.5);z-index:9999;text-align:center;font-family:inherit';
@@ -4383,20 +4455,40 @@ async function contratarPlanCli(plan){
     var res=await fetch('/api/pagos?action=create',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({plan:plan,proId:miCli.id,clienteEmail:miCli.email,clienteNombre:miCli.nombre,tipo:'cliente'})
+      body:JSON.stringify({plan:plan,clienteId:miCli.id,clienteEmail:miCli.email,clienteNombre:miCli.nombre,tipo:'cliente'})
     });
     var data=await res.json();
     document.body.removeChild(loading);
     if(data.success && data.init_point){
       window.location.href=data.init_point;
     } else {
-      alert('Error al crear el pago. Intenta de nuevo.');
+      alert(data.error || 'Error al crear el pago. Intenta de nuevo.');
     }
   } catch(e){
     if(loading.parentNode) document.body.removeChild(loading);
     alert('Error de conexión. Intenta de nuevo.');
   }
 }
+window.contratarPlanCli=contratarPlanCli;
+
+// Helper: ¿el cliente tiene chat directo disponible?
+function clienteTieneChatDirecto(){
+  var c=loadLocal('miCliente');
+  if(!c) return {disponible:false, razon:'sin-cuenta'};
+  if(c.plan==='premium' || c.plan==='empresa') return {disponible:true, ilimitado:true};
+  if(c.plan==='plus'){
+    var usados = c.chatsUsadosMes || 0;
+    if(usados >= 5) return {disponible:false, razon:'limite-mes', usados:usados, max:5};
+    return {disponible:true, restantes: 5 - usados};
+  }
+  if(c.plan==='pase24h' && c.planExpiraEn && Date.now() < new Date(c.planExpiraEn).getTime()){
+    var usadosPase = c.chatsUsadosPase || 0;
+    if(usadosPase >= 1) return {disponible:false, razon:'pase-usado'};
+    return {disponible:true, pase:true};
+  }
+  return {disponible:false, razon:'plan-bajo'};
+}
+window.clienteTieneChatDirecto=clienteTieneChatDirecto;
 
 async function activarPlan(plan){
   if(!miPerfil){alert('Primero debes registrarte como profesional');go('registro');return;}

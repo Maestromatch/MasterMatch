@@ -18,6 +18,42 @@ async function activarPlanPro(proId, planTarget) {
   return true;
 }
 
+// Activar plan cliente — soporta pase24h (24h), plus/premium/empresa (mensual) v12.5
+async function activarPlanCli(clienteId, planTarget) {
+  const cli = await kv.get('cli:' + clienteId);
+  if (!cli) return false;
+  cli.plan = planTarget;
+  cli.planActivadoEn = new Date().toISOString();
+  if (planTarget === 'pase24h') {
+    const exp = new Date();
+    exp.setHours(exp.getHours() + 24);
+    cli.planExpiraEn = exp.toISOString();
+    cli.chatsUsadosPase = 0;
+  } else if (planTarget === 'plus' || planTarget === 'premium' || planTarget === 'empresa') {
+    const exp = new Date();
+    exp.setMonth(exp.getMonth() + 1);
+    cli.planExpiraEn = exp.toISOString();
+    cli.chatsUsadosMes = 0;
+    cli.expresUsadosMes = 0;
+  }
+  await kv.set('cli:' + clienteId, cli);
+  return true;
+}
+
+async function registrarExpres(clienteId, solicitudId) {
+  const cli = await kv.get('cli:' + clienteId);
+  if (cli) {
+    cli.expresUsadosMes = (cli.expresUsadosMes || 0) + 1;
+    await kv.set('cli:' + clienteId, cli);
+  }
+  const sol = await kv.get('sol:' + solicitudId);
+  if (sol) {
+    sol.expres = true;
+    sol.urgente = true;
+    await kv.set('sol:' + solicitudId, sol);
+  }
+}
+
 async function marcarSolicitudPagada(solicitudId, montoFinal, pagoId) {
   const sol = await kv.get('sol:' + solicitudId);
   if (!sol) return false;
@@ -27,6 +63,15 @@ async function marcarSolicitudPagada(solicitudId, montoFinal, pagoId) {
   await kv.set('sol:' + solicitudId, sol);
   return true;
 }
+
+// SKUs cliente v12.5 — fuente única de verdad de precios cliente
+const SKU_CLIENTE = {
+  pase24h: { precio: 490,   tipo: 'cliente_pase' },
+  plus:    { precio: 4990,  tipo: 'cliente_sub' },
+  premium: { precio: 9990,  tipo: 'cliente_sub' },
+  empresa: { precio: 24990, tipo: 'cliente_sub' },
+  expres:  { precio: 1490,  tipo: 'cliente_addon' }
+};
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -65,6 +110,10 @@ export default async function handler(req, res) {
               if (status === 'approved') {
                 if (pago.tipo === 'suscripcion' && pago.proId && pago.planTarget) {
                   await activarPlanPro(pago.proId, pago.planTarget);
+                } else if ((pago.tipo === 'cliente_sub' || pago.tipo === 'cliente_pase') && pago.clienteId && pago.planTarget) {
+                  await activarPlanCli(pago.clienteId, pago.planTarget);
+                } else if (pago.tipo === 'cliente_addon' && pago.clienteId && pago.solicitudId) {
+                  await registrarExpres(pago.clienteId, pago.solicitudId);
                 } else if (pago.tipo === 'trabajo' && pago.solicitudId) {
                   await marcarSolicitudPagada(pago.solicitudId, pago.monto, paymentId);
                 }
@@ -82,7 +131,15 @@ export default async function handler(req, res) {
     // POST: crear pago (redirige a Checkout Pro)
     if (req.method === 'POST') {
       const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-      const { tipo, monto, proId, solicitudId, planTarget, descripcion } = body;
+      let { tipo, monto, proId, clienteId, solicitudId, planTarget, descripcion, plan } = body;
+
+      // v12.5 — soporte planes cliente: si llega 'plan' y 'tipo:cliente', mapeo desde SKU_CLIENTE
+      if (body.tipo === 'cliente' && plan && SKU_CLIENTE[plan]) {
+        const sku = SKU_CLIENTE[plan];
+        tipo = sku.tipo;
+        monto = sku.precio;
+        planTarget = plan;
+      }
 
       const id = 'pay_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
       const pago = {
@@ -90,6 +147,7 @@ export default async function handler(req, res) {
         tipo: tipo || 'suscripcion',
         monto: parseInt(monto) || 0,
         proId: proId || '',
+        clienteId: clienteId || '',
         solicitudId: solicitudId || '',
         planTarget: planTarget || '',
         estado: 'pendiente',
@@ -118,9 +176,12 @@ export default async function handler(req, res) {
         const preference = new Preference(client);
         const siteUrl = process.env.SITE_URL || 'https://master-match.vercel.app';
 
-        const titulo = tipo === 'suscripcion'
-          ? 'Plan ' + (planTarget || 'Pro').toUpperCase() + ' - MasterMatch'
-          : 'Pago Protegido - ' + (descripcion || 'Trabajo');
+        let titulo;
+        if (tipo === 'suscripcion') titulo = 'Plan ' + (planTarget || 'Pro').toUpperCase() + ' - MasterMatch (Profesional)';
+        else if (tipo === 'cliente_sub') titulo = 'Plan Cliente ' + (planTarget || 'Plus').toUpperCase() + ' - MasterMatch';
+        else if (tipo === 'cliente_pase') titulo = 'Pase 24h Cliente - MasterMatch';
+        else if (tipo === 'cliente_addon') titulo = 'Cotización Exprés - MasterMatch';
+        else titulo = 'Pago Protegido - ' + (descripcion || 'Trabajo');
 
         const pref = await preference.create({
           body: {
@@ -154,6 +215,7 @@ export default async function handler(req, res) {
           pago,
           preferenceId: pref.id,
           initPoint: pref.init_point,
+          init_point: pref.init_point,
           sandboxInitPoint: pref.sandbox_init_point
         });
       } catch (mpError) {
