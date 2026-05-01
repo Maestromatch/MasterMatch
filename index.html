@@ -411,24 +411,32 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-md)}
 @media (min-width:768px){.category-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-lg)}}
 
-/* ============ TOPBAR GLOBAL v9.0 ============ */
-#topbar{background:var(--dkd);color:#fff;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
-.tb-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:16px}
+/* ============ TOPBAR GLOBAL v12.4.4 — Azul sobre negro puro ============
+   Acento azul exclusivo del topbar para distinguirlo del resto del sitio
+   (que usa champagne dorado como acento). */
+:root{
+  --tb-bg: #000000;
+  --tb-blue: #5BA3F5;
+  --tb-blue-hover: #7AB7F8;
+  --tb-blue-soft: rgba(91,163,245,0.10);
+}
+#topbar{background:var(--tb-bg);color:#FFFFFF;border-bottom:1px solid rgba(91,163,245,0.18);position:sticky;top:0;z-index:100}
+.tb-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:16px}
 .tb-logo{display:flex;align-items:center;gap:10px;cursor:pointer;transition:opacity .2s;flex-shrink:0}
 .tb-logo:hover{opacity:.85}
-.tb-logo-txt{font-family:var(--font-display);font-weight:700;font-size:22px;color:#fff;letter-spacing:-0.02em;line-height:1}
-.tb-logo-txt span{color:var(--o)}
-.tb-nav{display:none;gap:24px;flex:1;justify-content:center}
+.tb-logo-txt{font-family:var(--font-display);font-weight:600;font-size:22px;color:#FFFFFF;letter-spacing:-0.02em;line-height:1}
+.tb-logo-txt span{color:var(--tb-blue)}
+.tb-nav{display:none;gap:28px;flex:1;justify-content:center}
 @media (min-width:768px){.tb-nav{display:flex}}
-.tb-link{color:rgba(255,255,255,.75);font-size:14px;font-weight:500;cursor:pointer;transition:color .15s;padding:8px 4px;border-bottom:2px solid transparent}
-.tb-link:hover{color:var(--o);border-bottom-color:var(--o)}
+.tb-link{color:var(--tb-blue);font-size:14px;font-weight:500;cursor:pointer;transition:color .15s var(--ease-out),border-color .15s var(--ease-out);padding:8px 2px;border-bottom:1px solid transparent;letter-spacing:0.01em}
+.tb-link:hover{color:var(--tb-blue-hover);border-bottom-color:var(--tb-blue)}
 .tb-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.tb-btn-login{background:transparent;color:var(--text-main);border:1px solid var(--border);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:border-color .2s var(--ease-out),color .2s var(--ease-out);min-height:36px;font-family:inherit;letter-spacing:0.01em}
-.tb-btn-login:hover{border-color:var(--accent);color:var(--accent)}
-.tb-btn-cuenta{background:var(--accent);color:#0A0A0B;border:1px solid var(--accent);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background-color .2s var(--ease-out);display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;letter-spacing:0.01em}
-.tb-btn-cuenta:hover{background:var(--accent-hover)}
+.tb-btn-login{background:transparent;color:var(--tb-blue);border:1px solid var(--tb-blue);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:background-color .2s var(--ease-out),color .2s var(--ease-out);min-height:36px;font-family:inherit;letter-spacing:0.01em}
+.tb-btn-login:hover{background:var(--tb-blue);color:#000000}
+.tb-btn-cuenta{background:var(--tb-blue);color:#000000;border:1px solid var(--tb-blue);border-radius:var(--radius-full);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background-color .2s var(--ease-out);display:flex;align-items:center;gap:6px;min-height:36px;font-family:inherit;letter-spacing:0.01em}
+.tb-btn-cuenta:hover{background:var(--tb-blue-hover)}
 @media (max-width:480px){.tb-btn-login{padding:8px 12px;font-size:12px}}
-.tb-ver{color:rgba(255,255,255,.35);font-size:10px;font-family:var(--font-display)}
+.tb-ver{color:rgba(91,163,245,0.45);font-size:10px;font-family:var(--font-display);letter-spacing:0.05em}
 @media (max-width:767px){.tb-ver{display:none}}
 
 /* MOBILE FIRST container */
@@ -1062,37 +1070,11 @@ input:checked+.slider:before{transform:translateX(20px)}
 </div>
 
 <script>
-/* ============ NAVEGACIÓN CORE v12.3.1 ============ */
-let appHistory = ['home'];
+/* ============ NAVEGACIÓN CORE — splash + fallback v12.4.4 ============
+   La versión completa de go() y appHistory vive en el script grande
+   más abajo. Aquí solo vive ocultarSplashManual para que el body onload
+   pueda invocarla aunque el script grande no haya cargado todavía. */
 
-function go(id) {
-    console.log('Navegando a:', id);
-    if (!id) return;
-    
-    // Ocultar todas las pantallas
-    document.querySelectorAll('.screen').forEach(x => {
-        x.classList.remove('active');
-        x.style.display = 'none';
-    });
-    
-    // Mostrar la pantalla objetivo
-    const el = document.getElementById('s-' + id);
-    if (el) {
-        el.classList.add('active');
-        el.style.display = 'block';
-        window.scrollTo(0, 0);
-        
-        // Ejecutar cargas específicas
-        if (id === 'dash') cargarDash();
-        if (id === 'home') cargarStats();
-        if (id === 'explorar') cargarExplorar();
-        if (id === 'blog') cargarBlog();
-    } else {
-        console.error('Pantalla no encontrada:', id);
-    }
-}
-
-// SEGURO DE CARGA: Ocultar splash y habilitar interacción
 function ocultarSplashManual() {
   const s = document.getElementById('splash');
   if(s) {
@@ -1166,7 +1148,7 @@ function ocultarSplashManual() {
     </div>
     <div class="tb-nav">
       <span class="tb-link" onclick="go('client')">🔍 Buscar profesional</span>
-      <span class="tb-link" onclick="go('blog')" style="color:var(--gold)">💎 Blog & Precios 2026</span>
+      <span class="tb-link" onclick="go('blog')">Blog & Precios 2026</span>
       <span class="tb-link" onclick="go('planes')">💼 Planes</span>
     </div>
     <div class="tb-actions">
@@ -2824,8 +2806,16 @@ function ocultarSplashManual() {
       }
     } catch(error) {
       console.error('[MM] Login social error:', error);
-      if(error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request'){
-        alert('No pudimos conectar con ' + providerName + '. Intenta de nuevo.');
+      if(error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request'){
+        // usuario cerró el popup, no avisamos
+      } else if(error.code === 'auth/unauthorized-domain'){
+        alert('Este dominio no está autorizado en Firebase Auth.\n\nAgrega "' + location.hostname + '" en Firebase Console → Authentication → Settings → Authorized domains.');
+      } else if(error.code === 'auth/popup-blocked'){
+        alert('Tu navegador bloqueó la ventana emergente de Google.\n\nPermite popups en este sitio y vuelve a intentarlo.');
+      } else if(error.code === 'auth/operation-not-supported-in-this-environment'){
+        alert('El login con Google no funciona abriendo el archivo localmente (file://).\n\nDebes abrirlo desde un servidor (https://master-match.vercel.app o un servidor local).');
+      } else {
+        alert('No pudimos conectar con ' + providerName + '.\n\nDetalle: ' + (error.code || 'desconocido') + '\n' + (error.message || '') + '\n\nIntenta de nuevo.');
       }
     } finally {
       if(loader) loader.classList.remove('show');
