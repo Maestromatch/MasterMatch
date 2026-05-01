@@ -466,6 +466,37 @@ button{font-family:inherit;cursor:pointer;transition:all .2s;min-height:44px;-we
 .tb-ver{color:rgba(212,184,106,0.45);font-size:10px;font-family:var(--font-display);letter-spacing:0.05em}
 @media (max-width:767px){.tb-ver{display:none}}
 
+/* === BADGES DE PLAN — P1 v12.5 === */
+.plan-pill{display:none;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:5px 11px;border-radius:var(--radius-full);letter-spacing:0.04em;font-family:inherit;cursor:pointer;border:1px solid;transition:background-color .2s var(--ease-out),color .2s var(--ease-out)}
+.plan-pill.is-on{display:inline-flex}
+.plan-pill-prem{color:var(--accent);border-color:var(--accent)}
+.plan-pill-prem:hover{background:var(--accent);color:#0A0A0B}
+.plan-pill-plus{color:var(--text-main);border-color:var(--text-main)}
+.plan-pill-plus:hover{background:var(--text-main);color:#0A0A0B}
+.plan-pill-pro{color:var(--text-main);border-color:var(--text-main)}
+.plan-pill-pro:hover{background:var(--text-main);color:#0A0A0B}
+.plan-pill-bas{color:var(--mu);border-color:var(--border)}
+.plan-pill-bas:hover{color:var(--accent);border-color:var(--accent)}
+.plan-pill-empresa{color:var(--teal);border-color:var(--teal)}
+.plan-pill-empresa:hover{background:var(--teal);color:#0A0A0B}
+.plan-pill-pase{color:var(--accent);border-color:var(--accent);background:var(--accent-tint)}
+.plan-pill .plan-sym{font-size:13px;line-height:1}
+@media (max-width:480px){.plan-pill .plan-lbl{display:none}.plan-pill{padding:5px 8px}}
+
+/* Avatar con borde por plan */
+.av-plan-premium{border:2px solid var(--accent)!important;box-shadow:0 0 0 1px rgba(212,184,106,0.18)}
+.av-plan-pro{border:2px solid var(--text-main)!important}
+.av-plan-plus{border:2px solid var(--text-main)!important}
+.av-plan-empresa{border:2px solid var(--teal)!important}
+.av-plan-basico{border:1px solid var(--border)!important}
+
+/* Símbolo plan inline (svg al lado del nombre) */
+.plan-sym-inline{display:inline-flex;vertical-align:middle;margin-left:8px;line-height:0}
+
+/* Vista cliente button — sidebar pro */
+.side-item.side-vista-cli{color:var(--teal)}
+.side-item.side-vista-cli .side-item-ic{color:var(--teal)}
+
 /* MOBILE FIRST container */
 .app{max-width:100%;margin:0 auto;min-height:100vh;background:var(--color-white);box-shadow:none}
 
@@ -1254,9 +1285,10 @@ function ocultarSplashManual() {
       <span class="tb-link" onclick="go('planes')">💼 Planes</span>
     </div>
     <div class="tb-actions">
+      <span class="plan-pill" id="plan-pill-tb" onclick="go('planes')"></span>
       <button class="tb-btn-login" onclick="go('login')">Iniciar sesión</button>
       <button class="tb-btn-cuenta" onclick="irMiCuenta()">👤 Mi cuenta</button>
-      <span class="tb-ver">v12.4</span>
+      <span class="tb-ver">v12.5</span>
     </div>
   </div>
 </div>
@@ -1897,6 +1929,11 @@ function ocultarSplashManual() {
         <button class="side-item" data-sec="plan" onclick="irSeccion('plan')">
           <svg class="side-item-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
           <span>Mi plan</span>
+        </button>
+        <div class="side-sub">Otras vistas</div>
+        <button class="side-item side-vista-cli" onclick="verComoCliente()">
+          <svg class="side-item-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>Vista cliente</span>
         </button>
         <div class="side-sub">Cuenta</div>
         <button class="side-item" onclick="cerrarSesion()" style="color:#ef4444">
@@ -3033,6 +3070,10 @@ function go(id) {
     if (id === 'perfil-edit-form') cargarPerfilEdit();
     if (id === 'blog') cargarBlog();
     if (id === 'blog-premium') cargarBlogPremium();
+    // Refrescar pill de plan en cada navegación
+    try{ if(typeof renderPlanPill==='function') renderPlanPill(); }catch(e){}
+    // Reset del flag de simulación si salgo de explorar
+    if(id !== 'explorar') window._asClienteSimulado = false;
 }
 
 function back() {
@@ -5818,10 +5859,84 @@ function cliTab(btn,tab){
 }
 
 // Cargar pantalla explorar con profesionales y datos borrosos
+// ============ HELPERS DE PLAN — P1 + P-MON v12.5 ============
+function planMeta(plan){
+  switch(plan){
+    case 'premium': return {label:'Premium', sym:'◆', cls:'plan-pill-prem',    av:'av-plan-premium', svgFill:'#D4B86A'};
+    case 'plus':    return {label:'Plus',    sym:'◇', cls:'plan-pill-plus',    av:'av-plan-plus',    svgFill:'#F5F5F4'};
+    case 'pro':     return {label:'Pro',     sym:'◇', cls:'plan-pill-pro',     av:'av-plan-pro',     svgFill:'#F5F5F4'};
+    case 'empresa': return {label:'Empresa', sym:'⬢', cls:'plan-pill-empresa', av:'av-plan-empresa', svgFill:'#00C9B1'};
+    case 'pase24h': return {label:'Pase 24h', sym:'⏱', cls:'plan-pill-pase',   av:'av-plan-premium', svgFill:'#D4B86A'};
+    default:        return {label:'Básico',  sym:'',  cls:'plan-pill-bas',     av:'av-plan-basico',  svgFill:''};
+  }
+}
+
+function clienteSesionPlan(){
+  // Devuelve el plan activo del usuario (cliente o pro). Pro toma prioridad.
+  var pro=loadLocal('miPerfil');
+  var cli=loadLocal('miCliente');
+  // Si tiene Pase 24h vencido, lo degradamos a 'gratis' en memoria
+  if(cli && cli.plan==='pase24h' && cli.planExpiraEn){
+    if(Date.now() > new Date(cli.planExpiraEn).getTime()){
+      cli.plan='gratis';
+      try{ localStorage.setItem('mm_miCliente', JSON.stringify(cli)); }catch(e){}
+    }
+  }
+  if(pro && pro.id) return pro.plan || 'gratis';
+  if(cli && cli.id) return cli.plan || 'gratis';
+  return null; // sin sesión
+}
+
+function renderPlanPill(){
+  var pill=document.getElementById('plan-pill-tb');
+  if(!pill) return;
+  var plan=clienteSesionPlan();
+  if(!plan){ pill.classList.remove('is-on'); return; }
+  var m=planMeta(plan);
+  pill.className='plan-pill is-on '+m.cls;
+  pill.innerHTML=(m.sym?'<span class="plan-sym">'+m.sym+'</span>':'')+'<span class="plan-lbl">'+m.label+'</span>';
+  pill.title='Tu plan: '+m.label+' — click para ver planes';
+}
+
+function renderPlanSymbol(plan){
+  var m=planMeta(plan);
+  if(!m.sym) return '';
+  return '<span class="plan-sym-inline" title="'+m.label+'"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">'
+    +(m.sym==='◆' ? '<path d="M8 1 L14 4.5 L14 11.5 L8 15 L2 11.5 L2 4.5 Z" fill="'+m.svgFill+'"/>'
+      : m.sym==='◇' ? '<path d="M8 1 L14 4.5 L14 11.5 L8 15 L2 11.5 L2 4.5 Z" fill="none" stroke="'+m.svgFill+'" stroke-width="1.5"/>'
+      : m.sym==='⬢' ? '<path d="M8 1 L14 4.5 L14 11.5 L8 15 L2 11.5 L2 4.5 Z" fill="'+m.svgFill+'" opacity="0.85"/>'
+      : m.sym==='⏱' ? '<circle cx="8" cy="9" r="5.5" fill="none" stroke="'+m.svgFill+'" stroke-width="1.5"/><path d="M8 6 L8 9 L10 10" stroke="'+m.svgFill+'" stroke-width="1.5" fill="none" stroke-linecap="round"/>'
+      : '')
+    +'</svg></span>';
+}
+
+function planAvClass(plan){
+  return planMeta(plan).av;
+}
+
+window.renderPlanPill=renderPlanPill;
+window.renderPlanSymbol=renderPlanSymbol;
+window.planAvClass=planAvClass;
+window.planMeta=planMeta;
+window.clienteSesionPlan=clienteSesionPlan;
+
+// Re-render del pill cuando cambia algo
+function actualizarUIPlan(){ try{ renderPlanPill(); }catch(e){} }
+window.actualizarUIPlan=actualizarUIPlan;
+
+// Vista cliente para el profesional (botón sidebar) — simula cliente básico
+function verComoCliente(){
+  window._asClienteSimulado = true;
+  go('explorar');
+}
+window.verComoCliente=verComoCliente;
+
 // ============ EXPLORAR PROFESIONALES (cliente) v12.4.5 ============
 function clienteEsPremium(){
+  if(window._asClienteSimulado) return false;
   var c=loadLocal('miCliente');
-  return !!(c && (c.plan==='premium'||c.plan==='pro'));
+  // Plus, Premium o Empresa desbloquean datos completos
+  return !!(c && (c.plan==='premium'||c.plan==='pro'||c.plan==='plus'||c.plan==='empresa' || (c.plan==='pase24h' && c.planExpiraEn && Date.now() < new Date(c.planExpiraEn).getTime())));
 }
 
 async function cargarExplorar(){
@@ -5848,15 +5963,17 @@ async function cargarExplorar(){
       var planBadge=p.plan==='premium'?'<span class="ex-pill ex-pill-prem">Premium</span>':p.plan==='pro'?'<span class="ex-pill ex-pill-pro">Pro</span>':'';
       var lockOverlay=esPremium?'':'<div class="ex-lock"><span>🔒</span> Plan Premium para datos completos</div>';
       var safeName=(p.nombre||'').replace(/'/g,'').replace(/"/g,'');
+      var avPlanCls=planAvClass(p.plan||'gratis');
+      var planSym=renderPlanSymbol(p.plan||'gratis');
       var btnRow=esPremium
         ? '<div class="ex-btn-row"><button class="ex-btn ex-btn-primary" onclick="event.stopPropagation();verPerfil(\''+p.id+'\')">Ver perfil</button><button class="ex-btn ex-btn-ghost" onclick="event.stopPropagation();iniciarChatConPro(\''+p.id+'\',\''+safeName+'\')">Chatear</button></div>'
         : '<div class="ex-btn-row"><button class="ex-btn ex-btn-primary" onclick="event.stopPropagation();verPerfil(\''+p.id+'\')">Ver perfil</button><button class="ex-btn ex-btn-ghost" onclick="event.stopPropagation();go(\'planes\')">Hazte Premium</button></div>';
 
       html+='<article class="ex-card '+(esPremium?'':'ex-card-locked')+'" onclick="verPerfil(\''+p.id+'\')">'
         +'<header class="ex-card-head">'
-          +'<div class="ex-av" style="'+avStyle+'">'+(!p.fotos||!p.fotos.length?iniciales:'')+'</div>'
+          +'<div class="ex-av '+avPlanCls+'" style="'+avStyle+'">'+(!p.fotos||!p.fotos.length?iniciales:'')+'</div>'
           +'<div class="ex-id">'
-            +'<h3 class="ex-name">'+p.nombre+'</h3>'
+            +'<h3 class="ex-name">'+p.nombre+planSym+'</h3>'
             +'<div class="ex-oficios">'+oficios+'</div>'
             +'<div class="ex-pills">'+planBadge+verifBadge+'</div>'
           +'</div>'
