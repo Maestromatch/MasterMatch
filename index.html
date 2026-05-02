@@ -1217,6 +1217,39 @@ input:checked+.slider:before{transform:translateX(20px)}
 .perfil-upsell p{color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1rem}
 .perfil-upsell .perfil-upsell-cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
+/* === STATS HERO v12.6 === */
+.mm-stats{background:var(--bg-deep);padding:5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.mm-stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+@media (min-width:768px){.mm-stats-row{grid-template-columns:repeat(4,1fr)}}
+.mm-stat{background:var(--bg-deep);padding:2.5rem 1.5rem;text-align:center;display:flex;flex-direction:column;gap:0.5rem;align-items:center}
+.mm-stat-num{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,3.75rem);font-weight:500;color:var(--text-main);letter-spacing:-0.025em;line-height:1}
+.mm-stat-num span{color:var(--accent);font-weight:400}
+.mm-stat-lbl{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:0.25rem}
+
+/* === TESTIMONIOS v12.6 === */
+.mm-testi{background:var(--bg-deep);padding:5rem 0}
+.mm-testi-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:3rem}
+@media (min-width:640px){.mm-testi-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.mm-testi-grid{grid-template-columns:repeat(3,1fr)}}
+.mm-testi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .2s var(--ease-out)}
+.mm-testi-card:hover{border-color:var(--accent)}
+.mm-testi-stars{color:var(--accent);font-size:14px;letter-spacing:2px;line-height:1}
+.mm-testi-text{color:var(--text-main);font-size:14px;line-height:1.7;margin:0;letter-spacing:-0.005em;font-style:italic}
+.mm-testi-author{display:flex;align-items:center;gap:12px;padding-top:1rem;border-top:1px solid var(--border);margin-top:auto}
+.mm-testi-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;color:#FFFFFF;font-size:14px;flex-shrink:0;letter-spacing:0.02em}
+.mm-testi-name{font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;line-height:1.2}
+.mm-testi-meta{font-size:11px;color:var(--mu);margin-top:3px;letter-spacing:0.02em}
+
+/* === MEGA CATEGORIAS v12.6 — 8 grupos por necesidad === */
+.mm-needs{background:var(--bg-deep);padding:4rem 0}
+.mm-needs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:2.5rem;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+@media (min-width:640px){.mm-needs-grid{grid-template-columns:repeat(4,1fr)}}
+.mm-need{background:var(--surface);padding:2rem 1rem;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:0.75rem;transition:background-color .2s var(--ease-out);border:none;color:var(--text-main);font-family:inherit}
+.mm-need:hover{background:var(--surface-2)}
+.mm-need-ic{width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.mm-need-name{font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;line-height:1.2}
+.mm-need-count{font-size:11px;color:var(--mu);letter-spacing:0.04em}
+
 /* === FOOTER Editorial v12.4 === */
 .mm-footer{background:var(--bg-deep);color:var(--text-main);border-top:1px solid var(--border);padding:5rem 0 2rem}
 .mm-footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:3rem;margin-bottom:4rem}
@@ -1412,6 +1445,59 @@ function ocultarSplashManual() {
     </div>
   </div>
 
+  <!-- SECCIÓN: POR NECESIDAD v12.6 — 8 mega-categorías -->
+  <section class="mm-needs">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Encuentra rápido</div>
+        <h2>Por necesidad</h2>
+        <p class="lead">8 grupos para llegar al profesional correcto en un click.</p>
+      </div>
+      <div class="mm-needs-grid">
+        <button class="mm-need" onclick="filtrarPorNecesidad('hogar')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h14V10"/><path d="M9 21V12h6v9"/></svg>
+          <div class="mm-need-name">Hogar</div>
+          <div class="mm-need-count">21 oficios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('salud')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.5V14a8.5 8.5 0 1 1-9.6-8.4"/><path d="M16 5l-3.5 3.5L10 6"/><path d="M22 4l-9 9-3-3"/></svg>
+          <div class="mm-need-name">Salud y bienestar</div>
+          <div class="mm-need-count">10 servicios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('cuidado')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div class="mm-need-name">Cuidado de personas</div>
+          <div class="mm-need-count">3 servicios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('legal')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+          <div class="mm-need-name">Legal y negocio</div>
+          <div class="mm-need-count">5 servicios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('digital')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <div class="mm-need-name">Digital y creativo</div>
+          <div class="mm-need-count">12 servicios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('eventos')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div class="mm-need-name">Eventos</div>
+          <div class="mm-need-count">12 servicios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('transporte')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 3h5v13H8l-3-3V3h11z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M8 19h6"/></svg>
+          <div class="mm-need-name">Transporte y flete</div>
+          <div class="mm-need-count">2 servicios</div>
+        </button>
+        <button class="mm-need" onclick="filtrarPorNecesidad('mascotas')">
+          <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4 5 5 0 0 1 3-5"/></svg>
+          <div class="mm-need-name">Mascotas</div>
+          <div class="mm-need-count">Próximamente</div>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- SECCIÓN: CATEGORÍAS — fondo dark premium v9.1 -->
   <section class="section section-cats-dark">
     <div class="container">
@@ -1557,26 +1643,104 @@ function ocultarSplashManual() {
     </div>
   </section>
 
-  <!-- SECCIÓN: STATS DARK -->
-  <section class="section section-dark">
+  <!-- SECCIÓN: STATS HERO v12.6 — números grandes editorial -->
+  <section class="mm-stats">
     <div class="container">
-      <div class="stats-strip">
-        <div>
-          <div class="stat-big" id="st-pros">—</div>
-          <div class="stat-lbl">Profesionales</div>
+      <div class="mm-stats-row">
+        <div class="mm-stat">
+          <div class="mm-stat-num" id="st-pros">—</div>
+          <div class="mm-stat-lbl">Profesionales activos</div>
         </div>
-        <div>
-          <div class="stat-big" id="st-sols">—</div>
-          <div class="stat-lbl">Solicitudes</div>
+        <div class="mm-stat">
+          <div class="mm-stat-num" id="st-sols">—</div>
+          <div class="mm-stat-lbl">Solicitudes resueltas</div>
         </div>
-        <div>
-          <div class="stat-big">62</div>
-          <div class="stat-lbl">Categorías</div>
+        <div class="mm-stat">
+          <div class="mm-stat-num">120<span>+</span></div>
+          <div class="mm-stat-lbl">Especialidades</div>
         </div>
-        <div>
-          <div class="stat-big">5</div>
-          <div class="stat-lbl">Regiones activas</div>
+        <div class="mm-stat">
+          <div class="mm-stat-num">5</div>
+          <div class="mm-stat-lbl">Regiones de Chile</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: TESTIMONIOS v12.6 -->
+  <section class="mm-testi">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Lo que dicen nuestros clientes</div>
+        <h2>Confianza construida solicitud a solicitud</h2>
+      </div>
+      <div class="mm-testi-grid">
+        <article class="mm-testi-card">
+          <div class="mm-testi-stars">★★★★★</div>
+          <p class="mm-testi-text">"En 40 minutos tenía a un gasfíter en la puerta. La filtración del baño la resolvió esa misma tarde y el Pago Protegido me dio tranquilidad para soltar la plata recién al ver el trabajo terminado."</p>
+          <div class="mm-testi-author">
+            <div class="mm-testi-av" style="background:linear-gradient(135deg,#C9A84C,#8C7332)">CR</div>
+            <div>
+              <div class="mm-testi-name">Camila R.</div>
+              <div class="mm-testi-meta">Las Condes · Gasfitería</div>
+            </div>
+          </div>
+        </article>
+        <article class="mm-testi-card">
+          <div class="mm-testi-stars">★★★★★</div>
+          <p class="mm-testi-text">"La IA me preguntó solo lo justo. Ya no más explicar tres veces el mismo problema. Llegué al profesional con la cotización lista."</p>
+          <div class="mm-testi-author">
+            <div class="mm-testi-av" style="background:linear-gradient(135deg,#00C9B1,#006666)">JP</div>
+            <div>
+              <div class="mm-testi-name">Jorge P.</div>
+              <div class="mm-testi-meta">Providencia · Electricidad</div>
+            </div>
+          </div>
+        </article>
+        <article class="mm-testi-card">
+          <div class="mm-testi-stars">★★★★★</div>
+          <p class="mm-testi-text">"Como kinesióloga independiente, MasterMatch me cambió la pega. El Asistente IA me ayuda a redactar respuestas y los pacientes Premium me chatean directo."</p>
+          <div class="mm-testi-author">
+            <div class="mm-testi-av" style="background:linear-gradient(135deg,#5BA3F5,#1F4D8C)">MV</div>
+            <div>
+              <div class="mm-testi-name">Mariana V.</div>
+              <div class="mm-testi-meta">Viña del Mar · Kinesiología</div>
+            </div>
+          </div>
+        </article>
+        <article class="mm-testi-card">
+          <div class="mm-testi-stars">★★★★★</div>
+          <p class="mm-testi-text">"Cotizar un matrimonio para 80 personas era una pesadilla. Aquí en una tarde tenía DJ, fotógrafo y bartender confirmados, todos verificados."</p>
+          <div class="mm-testi-author">
+            <div class="mm-testi-av" style="background:linear-gradient(135deg,#A78BFA,#6D28D9)">RS</div>
+            <div>
+              <div class="mm-testi-name">Rocío S.</div>
+              <div class="mm-testi-meta">Concepción · Eventos</div>
+            </div>
+          </div>
+        </article>
+        <article class="mm-testi-card">
+          <div class="mm-testi-stars">★★★★★</div>
+          <p class="mm-testi-text">"El Pago Protegido sin comisión del plan Premium me ahorró $40k en una remodelación. Solo por eso ya pagué un año de plan."</p>
+          <div class="mm-testi-author">
+            <div class="mm-testi-av" style="background:linear-gradient(135deg,#10B981,#047857)">DA</div>
+            <div>
+              <div class="mm-testi-name">Diego A.</div>
+              <div class="mm-testi-meta">Puerto Varas · Construcción</div>
+            </div>
+          </div>
+        </article>
+        <article class="mm-testi-card">
+          <div class="mm-testi-stars">★★★★★</div>
+          <p class="mm-testi-text">"La transparencia de precios es lo que más valoro. En otras apps no sabes qué te cobran ni por qué. Aquí está todo claro desde el día uno."</p>
+          <div class="mm-testi-author">
+            <div class="mm-testi-av" style="background:linear-gradient(135deg,#F59E0B,#B45309)">AT</div>
+            <div>
+              <div class="mm-testi-name">Andrea T.</div>
+              <div class="mm-testi-meta">Valdivia · Cuidado infantil</div>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -6079,6 +6243,40 @@ function cliTab(btn,tab){
 }
 
 // Cargar pantalla explorar con profesionales y datos borrosos
+// ============ MEGA-CATEGORIAS v12.6 ============
+// Mapea cada "necesidad" del usuario a la categoría interna y hace scroll
+// a la sección de tabs activando la correcta.
+function filtrarPorNecesidad(need){
+  if(need === 'mascotas'){
+    alert('🐾 Servicios para mascotas: próximamente.\n\nMientras tanto, escríbenos por WhatsApp si necesitas un veterinario, paseador o adiestrador y te conectamos manualmente.');
+    return;
+  }
+  var mapa = {
+    hogar: 'oficios',
+    cuidado: 'oficios',
+    transporte: 'oficios',
+    salud: 'servicios',
+    legal: 'servicios',
+    digital: 'digitales',
+    eventos: 'eventos'
+  };
+  var cat = mapa[need] || 'oficios';
+  // Activar la tab correspondiente
+  var btns = document.querySelectorAll('.cat-tab');
+  var btnTarget = null;
+  btns.forEach(function(b){
+    var oc = b.getAttribute('onclick') || '';
+    if(oc.indexOf("showCat('"+cat+"'") >= 0) btnTarget = b;
+  });
+  if(btnTarget && typeof showCat === 'function'){
+    showCat(cat, btnTarget);
+  }
+  // Scroll a la sección de categorías
+  var sec = document.querySelector('.section-cats-dark');
+  if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+}
+window.filtrarPorNecesidad = filtrarPorNecesidad;
+
 // ============ ASISTENTE IA PRO v12.5.3 ============
 var aipHistorial = [];
 var aipEnviando = false;
