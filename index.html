@@ -1217,6 +1217,42 @@ input:checked+.slider:before{transform:translateX(20px)}
 .perfil-upsell p{color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1rem}
 .perfil-upsell .perfil-upsell-cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
+/* === HERO CHAT DEMO v12.6 — IA visible en el primer pliegue === */
+.hero-chatdemo{display:flex;flex-direction:column;background:rgba(255,255,255,0.03);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:1rem;color:var(--text-main);max-width:480px;backdrop-filter:blur(8px);box-shadow:0 16px 48px rgba(0,0,0,0.45)}
+.hcd-head{display:flex;align-items:center;gap:10px;padding:0 0.25rem 0.75rem;border-bottom:1px solid var(--border);margin-bottom:0.75rem}
+.hcd-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse-dot 2s infinite}
+.hcd-title{flex:1;font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-main);letter-spacing:-0.01em}
+.hcd-pill{font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--accent);border:1px solid var(--accent);padding:3px 8px;border-radius:var(--radius-full)}
+.hcd-window{display:flex;flex-direction:column;gap:0.6rem;min-height:240px;padding:0.5rem 0.25rem 1rem;font-size:13.5px;line-height:1.5}
+.hcd-msg{display:flex;gap:10px;align-items:flex-start;animation:hcd-fadein .35s var(--ease-out)}
+@keyframes hcd-fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.hcd-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;font-family:var(--font-display);flex-shrink:0;border:1px solid var(--border)}
+.hcd-msg-user .hcd-av{background:var(--surface-2);color:var(--text-main)}
+.hcd-msg-bot .hcd-av{background:var(--accent-tint);color:var(--accent);border-color:var(--accent)}
+.hcd-bubble{flex:1;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.6rem 0.85rem;color:var(--text-main);line-height:1.55}
+.hcd-msg-bot .hcd-bubble{background:var(--accent-tint);border-color:var(--accent)}
+.hcd-cursor{display:inline-block;width:2px;height:13px;background:var(--accent);vertical-align:middle;animation:hcd-blink 0.8s infinite;margin-left:2px}
+@keyframes hcd-blink{0%,100%{opacity:1}50%{opacity:0}}
+.hcd-cta{margin-top:0.75rem;background:var(--accent);color:#0A0A0B;border:none;border-radius:var(--radius-md);padding:14px 20px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;letter-spacing:0.01em;transition:background-color .2s var(--ease-out);width:100%}
+.hcd-cta:hover{background:var(--accent-hover)}
+
+/* === LANDING ASISTENTE PRO v12.6 === */
+.mm-aip-landing{background:var(--surface);padding:5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.mm-aip-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:center}
+@media (min-width:1024px){.mm-aip-grid{grid-template-columns:1.1fr 0.9fr;gap:4rem}}
+.mm-aip-copy h2{font-family:var(--font-display);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:500;color:var(--text-main);letter-spacing:-0.025em;line-height:1.15;margin:0.75rem 0}
+.mm-aip-copy .lead{color:var(--mu);font-size:15px;line-height:1.7;margin:0 0 1.5rem;max-width:540px}
+.mm-aip-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem}
+.mm-aip-bullets li{color:var(--text-main);font-size:14px;line-height:1.6;padding-left:1.5rem;position:relative}
+.mm-aip-bullets li::before{content:"◆";position:absolute;left:0;top:1px;color:var(--accent);font-size:10px;line-height:1.6}
+.mm-aip-bullets strong{color:var(--accent);font-weight:600}
+.mm-aip-mockup{background:var(--bg-deep);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:1.5rem;display:flex;flex-direction:column;gap:1rem;box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.mm-aip-mock-head{display:flex;align-items:center;gap:10px;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+.mm-aip-mock-msg{display:flex;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.1rem;font-size:14px;line-height:1.65;color:var(--text-main);letter-spacing:-0.005em}
+.mm-aip-mock-user{align-self:flex-end;max-width:80%;background:var(--surface-2)}
+.mm-aip-mock-bot{align-self:flex-start;max-width:90%;background:var(--accent-tint);border-color:var(--accent)}
+.mm-aip-mock-bot strong{color:var(--accent);font-weight:600}
+
 /* === STATS HERO v12.6 === */
 .mm-stats{background:var(--bg-deep);padding:5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .mm-stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
@@ -1434,13 +1470,17 @@ function ocultarSplashManual() {
           <button class="btn-o" onclick="go('registro')" style="margin-bottom:0">👷 Soy profesional →</button>
         </div>
       </div>
-      <div class="hero-right">
-        <h3>¿Por qué MasterMatch?</h3>
-        <div class="fr-item"><div class="fr-emoji">🤖</div><div><strong style="color:#fff">IA que filtra</strong><br>Entrevista al cliente antes de enviarte la solicitud.</div></div>
-        <div class="fr-item"><div class="fr-emoji">🛡️</div><div><strong style="color:#fff">Pago Protegido</strong><br>Dinero retenido vía Mercado Pago hasta confirmar trabajo.</div></div>
-        <div class="fr-item"><div class="fr-emoji">✅</div><div><strong style="color:#fff">Verificación real</strong><br>Carnet y antecedentes validados manualmente.</div></div>
-        <div class="fr-item"><div class="fr-emoji">📅</div><div><strong style="color:#fff">Agenda integrada</strong><br>El pro marca su disponibilidad real.</div></div>
-        <div class="fr-item"><div class="fr-emoji">📊</div><div><strong style="color:#fff">Guía de precios 2026</strong><br>Tarifas transparentes para clientes y profesionales.</div></div>
+      <!-- v12.6 — DEMO CHAT IA en hero-right (reemplaza la lista estática) -->
+      <div class="hero-right hero-chatdemo">
+        <div class="hcd-head">
+          <div class="hcd-dot"></div>
+          <div class="hcd-title">Asistente IA de MasterMatch</div>
+          <div class="hcd-pill">EN VIVO</div>
+        </div>
+        <div class="hcd-window" id="hcd-window">
+          <!-- Los mensajes se inyectan vía JS para efecto typing -->
+        </div>
+        <button class="hcd-cta" onclick="iniciar('Gasfiteria')">Empieza tu solicitud →</button>
       </div>
     </div>
   </div>
@@ -1638,6 +1678,43 @@ function ocultarSplashManual() {
           <div class="feat-icon">🛡️</div>
           <h3>3. Contrata con respaldo</h3>
           <p>Activa Pago Protegido con Mercado Pago. El dinero queda retenido hasta que confirmes que el trabajo está listo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: ASISTENTE IA PRO PREMIUM v12.6 — diferenciador único -->
+  <section class="mm-aip-landing">
+    <div class="container">
+      <div class="mm-aip-grid">
+        <div class="mm-aip-copy">
+          <div class="eyebrow">Exclusivo para profesionales Premium</div>
+          <h2>Tu copiloto IA personal</h2>
+          <p class="lead">El primer asistente de inteligencia artificial diseñado para profesionales independientes en Chile. Te ayuda a cobrar tarifas justas, responder a clientes difíciles, generar tu bio, planear marketing local y resolver dudas técnicas.</p>
+          <ul class="mm-aip-bullets">
+            <li><strong>Pricing por región</strong> con datos reales de Chile 2026.</li>
+            <li><strong>Borradores listos</strong> para responder a clientes hostiles, regateadores o ansiosos.</li>
+            <li><strong>Genera tu bio y posts</strong> de Instagram en segundos, en tu voz.</li>
+            <li><strong>Tips de marketing</strong> ejecutables esta semana, con primer paso explícito.</li>
+            <li><strong>Dudas técnicas</strong> de tu oficio resueltas como un colega más experimentado.</li>
+          </ul>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:1.5rem">
+            <button class="btn-p" onclick="go('planes')">Activar Premium →</button>
+            <button class="btn-s" onclick="abrirAsistentePro()" style="border-color:var(--border)">Probar el asistente</button>
+          </div>
+          <p style="font-size:11px;color:var(--mu);margin-top:1rem;letter-spacing:0.04em">Disponible 24/7 · 0 plataformas competidoras lo ofrecen en Chile.</p>
+        </div>
+        <div class="mm-aip-mockup">
+          <div class="mm-aip-mock-head">
+            <div class="hcd-dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal)"></div>
+            <span style="font-family:var(--font-display);font-size:13px;color:var(--text-main);letter-spacing:-0.01em">◆ Asistente Premium · Online</span>
+          </div>
+          <div class="mm-aip-mock-msg mm-aip-mock-user">
+            <div>¿Cuánto debería cobrar por instalar un calefón a gas en Las Condes?</div>
+          </div>
+          <div class="mm-aip-mock-msg mm-aip-mock-bot">
+            <div><strong>Rango:</strong> $90.000 - $150.000 (típico $120k).<br><strong>Sube</strong> si es urgencia, sábado o departamento sobre piso 10.<br><strong>Baja</strong> sólo si te traen el calefón. Mantén garantía mínima 3 meses por escrito. ¿Quieres que te arme un mensaje de cotización formal para mandarle al cliente?</div>
+          </div>
         </div>
       </div>
     </div>
@@ -6243,6 +6320,72 @@ function cliTab(btn,tab){
 }
 
 // Cargar pantalla explorar con profesionales y datos borrosos
+// ============ HERO CHAT DEMO v12.6 ============
+// Conversación de muestra que se escribe sola para mostrar el chat IA
+// como diferenciador en el primer pliegue. Loop continuo cuando el
+// usuario sigue en la home.
+var HCD_GUION = [
+  { role:'bot', text:'Hola 👋 Cuéntame qué necesitas y te conecto con el profesional correcto.' },
+  { role:'user', text:'Tengo una filtración en el baño, gotea desde anoche.' },
+  { role:'bot', text:'Entendido. ¿Es urgente que vaya hoy mismo o puedes esperar al martes?' },
+  { role:'user', text:'Hoy mejor, ya hay agua acumulándose.' },
+  { role:'bot', text:'Lo marco como urgente. ¿En qué comuna estás? Así te conecto con un gasfíter cercano y verificado.' },
+  { role:'user', text:'Las Condes.' },
+  { role:'bot', text:'Perfecto. Te abro 3 cotizaciones en menos de 1h. Pago Protegido activado por seguridad. ¿Te llaman ellos por WhatsApp o prefieres tú contactar?' }
+];
+var hcdRunning = false;
+
+function hcdEsc(s){ return String(s||'').replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c];}); }
+
+async function hcdTyping(text, container, typingMs){
+  // Cursor blinking mientras "escribe"
+  var bubble = container.querySelector('.hcd-bubble');
+  bubble.innerHTML = '<span class="hcd-cursor"></span>';
+  await hcdSleep(450);
+  bubble.innerHTML = '';
+  for(var i=0; i<text.length; i++){
+    bubble.textContent = text.slice(0, i+1);
+    await hcdSleep(typingMs);
+  }
+}
+
+function hcdSleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+async function hcdLoop(){
+  if(hcdRunning) return;
+  hcdRunning = true;
+  var win = document.getElementById('hcd-window');
+  if(!win) { hcdRunning = false; return; }
+  while(true){
+    // Reset
+    win.innerHTML = '';
+    for(var i=0; i<HCD_GUION.length; i++){
+      var msg = HCD_GUION[i];
+      // Si el usuario salió de la home, parar.
+      var home = document.getElementById('s-home');
+      if(!home || !home.classList.contains('active')){ hcdRunning = false; return; }
+      var div = document.createElement('div');
+      div.className = 'hcd-msg hcd-msg-' + msg.role;
+      div.innerHTML = '<div class="hcd-av">'+(msg.role==='user'?'Tú':'IA')+'</div>'+
+        '<div class="hcd-bubble"></div>';
+      win.appendChild(div);
+      win.scrollTop = win.scrollHeight;
+      var typingMs = msg.role === 'bot' ? 22 : 35;
+      await hcdTyping(msg.text, div, typingMs);
+      win.scrollTop = win.scrollHeight;
+      await hcdSleep(msg.role === 'bot' ? 900 : 700);
+    }
+    await hcdSleep(3500); // pausa antes de reiniciar
+  }
+}
+
+// Arrancar el demo cuando el DOM esté listo
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hcdLoop, 800); });
+} else {
+  setTimeout(hcdLoop, 800);
+}
+
 // ============ MEGA-CATEGORIAS v12.6 ============
 // Mapea cada "necesidad" del usuario a la categoría interna y hace scroll
 // a la sección de tabs activando la correcta.
