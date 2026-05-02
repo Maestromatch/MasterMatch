@@ -1217,6 +1217,51 @@ input:checked+.slider:before{transform:translateX(20px)}
 .perfil-upsell p{color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1rem}
 .perfil-upsell .perfil-upsell-cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
+/* === ESCROW POR HITOS v12.6.3 === */
+.esc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem}
+.esc-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+.esc-head-info{flex:1;min-width:200px}
+.esc-title{font-family:var(--font-display);font-size:1.5rem;font-weight:500;color:var(--text-main);letter-spacing:-0.02em;margin:0 0 0.25rem}
+.esc-meta{font-size:12px;color:var(--mu);letter-spacing:0.04em}
+.esc-total{font-family:var(--font-display);font-size:1.75rem;font-weight:500;color:var(--accent);letter-spacing:-0.02em;line-height:1}
+.esc-total-lbl{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:0.12em;margin-top:4px}
+.esc-state-pill{display:inline-block;padding:5px 12px;border-radius:var(--radius-full);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid}
+.esc-state-pendiente_pago_inicial{color:var(--warning);border-color:var(--warning)}
+.esc-state-activo{color:var(--accent);border-color:var(--accent)}
+.esc-state-en_disputa{color:var(--danger);border-color:var(--danger)}
+.esc-state-completado{color:var(--success);border-color:var(--success)}
+
+.esc-timeline{display:flex;flex-direction:column;gap:0}
+.esc-hito{display:grid;grid-template-columns:32px 1fr;gap:1rem;padding-bottom:1.5rem;position:relative}
+.esc-hito::before{content:"";position:absolute;left:15px;top:32px;bottom:0;width:1px;background:var(--border)}
+.esc-hito:last-child::before{display:none}
+.esc-hito-num{width:30px;height:30px;border-radius:50%;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;color:var(--mu);font-size:13px;flex-shrink:0;position:relative;z-index:1}
+.esc-hito.is-paid .esc-hito-num{background:var(--accent);color:#0A0A0B;border-color:var(--accent)}
+.esc-hito.is-released .esc-hito-num{background:var(--success);color:#0A0A0B;border-color:var(--success)}
+.esc-hito.is-disputed .esc-hito-num{background:var(--danger);color:#FFFFFF;border-color:var(--danger)}
+.esc-hito-card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem 1.25rem}
+.esc-hito-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:0.5rem;flex-wrap:wrap}
+.esc-hito-titulo{font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;flex:1}
+.esc-hito-monto{font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;white-space:nowrap}
+.esc-hito-monto small{font-size:11px;color:var(--mu);font-weight:400;letter-spacing:0}
+.esc-hito-desc{font-size:12px;color:var(--mu);line-height:1.55;margin:0.5rem 0 0}
+.esc-hito-actions{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap}
+.esc-hito-actions button{flex:1;min-width:140px;padding:9px 14px;border-radius:var(--radius-md);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;letter-spacing:0.02em;border:1px solid;transition:background-color .2s var(--ease-out),color .2s var(--ease-out)}
+.esc-hito-state-lbl{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.5rem}
+
+/* Modal definir hitos */
+.esc-modal{position:fixed;inset:0;background:rgba(10,10,11,0.85);backdrop-filter:blur(6px);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
+.esc-modal[style*="flex"]{display:flex !important}
+.esc-modal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+.esc-modal-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--mu);font-size:28px;cursor:pointer;line-height:1;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:color .2s var(--ease-out),background-color .2s var(--ease-out)}
+.esc-modal-close:hover{color:var(--text-main);background:var(--surface-2)}
+.esc-hito-form{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;margin-bottom:0.75rem;display:grid;grid-template-columns:1fr 80px 32px;gap:8px;align-items:end}
+.esc-hito-form label{display:block;font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+.esc-hito-form input{margin-bottom:0;background:var(--bg-deep);border:1px solid var(--border);color:var(--text-main);padding:8px 10px;border-radius:var(--radius-sm);font-size:13px;width:100%;font-family:inherit;outline:none}
+.esc-hito-form input:focus{border-color:var(--accent)}
+.esc-hito-form .esc-hito-rm{background:transparent;border:1px solid var(--border);color:var(--mu);width:32px;height:32px;border-radius:var(--radius-sm);cursor:pointer;font-size:18px;line-height:1;align-self:end}
+.esc-hito-form .esc-hito-rm:hover{color:var(--danger);border-color:var(--danger)}
+
 /* === HERO CHAT DEMO v12.6 — IA visible en el primer pliegue === */
 .hero-chatdemo{display:flex;flex-direction:column;background:rgba(255,255,255,0.03);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:1rem;color:var(--text-main);max-width:480px;backdrop-filter:blur(8px);box-shadow:0 16px 48px rgba(0,0,0,0.45)}
 .hcd-head{display:flex;align-items:center;gap:10px;padding:0 0.25rem 0.75rem;border-bottom:1px solid var(--border);margin-bottom:0.75rem}
@@ -2826,6 +2871,38 @@ function ocultarSplashManual() {
 
 <!-- AGENDA PRO (se abre desde tab en dash) -->
 
+<!-- ESCROW POR HITOS v12.6.3 — pantalla cliente/pro -->
+<div id="s-escrow" class="screen">
+  <div class="nav">
+    <button class="back" onclick="history.back()">← Volver</button>
+    <div class="nav-t">Pago por hitos</div>
+    <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--accent);letter-spacing:-0.02em">Master<span style="color:var(--text-main)">Match</span></span></div>
+  </div>
+  <div id="esc-content" style="max-width:760px;margin:0 auto;padding:1.5rem 1rem 5rem">
+    <div style="text-align:center;padding:3rem;color:var(--mu)">Cargando...</div>
+  </div>
+</div>
+
+<!-- MODAL: definir hitos al cerrar solicitud >$300k -->
+<div id="esc-modal" class="esc-modal" style="display:none">
+  <div class="esc-modal-card">
+    <button class="esc-modal-close" onclick="cerrarModalHitos()" aria-label="Cerrar">×</button>
+    <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:500;color:var(--text-main);letter-spacing:-0.02em;margin:0 0 0.5rem">Definir pago por hitos</h2>
+    <p style="font-size:13px;color:var(--mu);line-height:1.6;margin:0 0 1.5rem">Divide el pago en 2-5 hitos vinculados a entregables. El primero se cobra al iniciar; los siguientes se liberan cuando confirmes cada entrega. La suma debe dar 100%.</p>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:1rem;font-size:13px">
+      <span style="color:var(--mu)">Total trabajo:</span>
+      <input class="fi" id="esc-total" type="number" min="300000" step="10000" placeholder="ej: 850000" style="margin:0;flex:1;max-width:200px">
+      <span style="color:var(--text-main);font-weight:500">CLP</span>
+    </div>
+    <div id="esc-hitos-list"></div>
+    <div style="display:flex;gap:8px;margin-top:1rem">
+      <button class="btn-s" onclick="agregarHito()" style="flex:1">+ Agregar hito</button>
+      <button class="btn-p" onclick="confirmarCrearEscrow()" style="flex:1" id="esc-btn-create">Crear escrow →</button>
+    </div>
+    <p id="esc-modal-status" style="font-size:12px;color:var(--mu);margin-top:0.75rem;text-align:center;letter-spacing:0.02em"></p>
+  </div>
+</div>
+
 <!-- ASISTENTE IA PRO v12.5.3 — solo Premium -->
 <div id="s-asistente-pro" class="screen">
   <div class="nav">
@@ -2996,6 +3073,7 @@ function ocultarSplashManual() {
     <div class="cli-tabs">
       <button class="cli-tab active" data-tab="solicitudes" onclick="cliTab(this,'solicitudes')">Mis solicitudes</button>
       <button class="cli-tab" data-tab="favoritos" onclick="cliTab(this,'favoritos')">Favoritos</button>
+      <button class="cli-tab" data-tab="escrows" onclick="cliTab(this,'escrows')">Pago por hitos</button>
       <button class="cli-tab" data-tab="cuenta" onclick="cliTab(this,'cuenta')">Mi cuenta</button>
     </div>
   </div>
@@ -3028,6 +3106,19 @@ function ocultarSplashManual() {
           <div style="font-weight:600;font-size:16px;margin-bottom:8px">Sin favoritos guardados</div>
           <div style="font-size:13px;color:var(--mu);margin-bottom:1.25rem">Guarda profesionales que te gustaron para contactarlos fácilmente.</div>
           <button class="btn-p" style="max-width:280px" onclick="go('explorar')">Explorar profesionales →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Pago por hitos -->
+    <div id="cli-tab-escrows" class="cli-tab-panel" style="display:none">
+      <h2 style="font-size:17px;font-weight:700;margin-bottom:0.5rem">Pago por hitos</h2>
+      <p style="color:var(--mu);font-size:13px;line-height:1.6;margin-bottom:1.25rem">Para trabajos sobre $300.000, divide el pago en 2-5 hitos vinculados a entregables. El profesional recibe cada hito cuando confirmas la entrega.</p>
+      <div id="cli-escrow-list">
+        <div class="cli-empty-state">
+          <div style="font-size:40px;margin-bottom:12px">◆</div>
+          <div style="font-weight:600;font-size:16px;margin-bottom:8px">Sin escrows activos</div>
+          <div style="font-size:13px;color:var(--mu);margin-bottom:1.25rem">Cuando una solicitud supere $300k podrás dividirla en hitos para mayor seguridad.</div>
         </div>
       </div>
     </div>
@@ -6317,9 +6408,295 @@ function cliTab(btn,tab){
   btn.classList.add('active');
   var panel=document.getElementById('cli-tab-'+tab);
   if(panel)panel.style.display='block';
+  if(tab === 'escrows') cargarEscrowsCliente();
 }
 
+async function cargarEscrowsCliente(){
+  var lista = document.getElementById('cli-escrow-list');
+  if(!lista) return;
+  var cli = loadLocal('miCliente');
+  if(!cli || !cli.id) return;
+  lista.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--mu)">Cargando...</div>';
+  try{
+    // Reusar /api/solicitudes para listar las del cliente; filtrar las que tienen escrowId
+    var res = await fetch('/api/solicitudes?clienteId='+encodeURIComponent(cli.id));
+    var data = await res.json();
+    var sols = (data.solicitudes || []).filter(function(s){ return s.escrowId; });
+    if(sols.length === 0){
+      lista.innerHTML = '<div class="cli-empty-state"><div style="font-size:40px;margin-bottom:12px">◆</div><div style="font-weight:600;font-size:16px;margin-bottom:8px">Sin escrows activos</div><div style="font-size:13px;color:var(--mu)">Cuando una solicitud supere $300k podrás dividirla en hitos.</div></div>';
+      return;
+    }
+    var html = '';
+    for(var i=0; i<sols.length; i++){
+      var s = sols[i];
+      html += '<div class="cli-info-card" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem" onclick="abrirEscrow(\''+s.escrowId+'\')">';
+      html += '<div style="flex:1"><div style="font-weight:600;font-size:14px;color:var(--text-main)">'+(s.tipo||'Trabajo')+(s.zona?' · '+s.zona:'')+'</div>';
+      html += '<div style="font-size:12px;color:var(--mu);margin-top:4px">Escrow #'+s.escrowId.slice(-6)+'</div></div>';
+      html += '<span style="color:var(--accent);font-size:18px">→</span></div>';
+    }
+    lista.innerHTML = html;
+  }catch(e){
+    lista.innerHTML = '<div class="cli-empty-state"><div style="color:var(--danger)">Error al cargar</div></div>';
+  }
+}
+window.cargarEscrowsCliente = cargarEscrowsCliente;
+
 // Cargar pantalla explorar con profesionales y datos borrosos
+// ============ ESCROW POR HITOS v12.6.3 ============
+var escAbierto = null;     // estado del escrow actualmente cargado
+var escSolicitudCtx = null; // solicitudId al abrir el modal de definir hitos
+
+// Abrir pantalla de un escrow existente (cliente o pro)
+async function abrirEscrow(escrowId){
+  go('escrow');
+  var cont = document.getElementById('esc-content');
+  if(!cont) return;
+  cont.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--mu)">Cargando escrow...</div>';
+  try{
+    var r = await fetch('/api/pagos?escrowId='+encodeURIComponent(escrowId));
+    var d = await r.json();
+    if(!r.ok || !d.escrow){
+      cont.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--danger)">'+(d.error||'Escrow no encontrado')+'</div>';
+      return;
+    }
+    escAbierto = d.escrow;
+    pintarEscrow(escAbierto);
+  }catch(e){
+    cont.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--danger)">Error de conexión</div>';
+  }
+}
+window.abrirEscrow = abrirEscrow;
+
+function fmtCLP(n){ return '$'+(parseInt(n)||0).toLocaleString('es-CL'); }
+
+function pintarEscrow(esc){
+  var cont = document.getElementById('esc-content');
+  if(!cont) return;
+  var pro = loadLocal('miPerfil');
+  var cli = loadLocal('miCliente');
+  var esCliente = !!(cli && cli.id);
+  var esPro = !!(pro && pro.id);
+
+  var stateLabels = {
+    pendiente_pago_inicial: 'Esperando primer pago',
+    activo: 'En curso',
+    en_disputa: 'En disputa',
+    completado: 'Completado'
+  };
+
+  var html = '<div class="esc-card">';
+  html += '<div class="esc-head">';
+  html += '<div class="esc-head-info">';
+  html += '<h1 class="esc-title">Escrow #'+esc.id.slice(-6)+'</h1>';
+  html += '<div class="esc-meta">'+esc.hitos.length+' hitos · creado '+new Date(esc.creadoEn).toLocaleDateString('es-CL')+'</div>';
+  html += '<div class="esc-state-pill esc-state-'+esc.estado+'" style="margin-top:0.75rem">'+(stateLabels[esc.estado]||esc.estado)+'</div>';
+  html += '</div>';
+  html += '<div style="text-align:right">';
+  html += '<div class="esc-total">'+fmtCLP(esc.totalCLP)+'</div>';
+  html += '<div class="esc-total-lbl">Total trabajo</div>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="esc-timeline">';
+  esc.hitos.forEach(function(h){
+    var cls = 'esc-hito';
+    if(h.estado==='pagado_retenido') cls += ' is-paid';
+    if(h.estado==='liberado_pro') cls += ' is-released';
+    if(h.estado==='en_disputa') cls += ' is-disputed';
+    html += '<div class="'+cls+'">';
+    html += '<div class="esc-hito-num">'+h.n+'</div>';
+    html += '<div class="esc-hito-card">';
+    html += '<div class="esc-hito-row">';
+    html += '<div class="esc-hito-titulo">'+h.titulo+'</div>';
+    html += '<div class="esc-hito-monto">'+fmtCLP(h.monto)+' <small>('+h.pct+'%)</small></div>';
+    html += '</div>';
+    if(h.descripcion) html += '<p class="esc-hito-desc">'+h.descripcion+'</p>';
+
+    var stateMap = {
+      pendiente: {lbl:'Pendiente — esperando hito anterior', color:'var(--mu)'},
+      por_pagar: {lbl:'Por pagar', color:'var(--warning)'},
+      pagado_retenido: {lbl:'Pagado · retenido en escrow', color:'var(--accent)'},
+      liberado_pro: {lbl:'Liberado al profesional', color:'var(--success)'},
+      en_disputa: {lbl:'En disputa', color:'var(--danger)'}
+    };
+    var st = stateMap[h.estado] || {lbl:h.estado, color:'var(--mu)'};
+    html += '<div class="esc-hito-state-lbl" style="color:'+st.color+'">● '+st.lbl;
+    if(h.pagadoEn) html += ' · pagado '+new Date(h.pagadoEn).toLocaleDateString('es-CL');
+    if(h.liberadoEn) html += ' · liberado '+new Date(h.liberadoEn).toLocaleDateString('es-CL');
+    html += '</div>';
+
+    // Acciones según rol y estado
+    if(esCliente){
+      if(h.estado === 'por_pagar'){
+        html += '<div class="esc-hito-actions">';
+        html += '<button onclick="pagarHitoAccion(\''+esc.id+'\','+h.n+')" style="background:var(--accent);color:#0A0A0B;border-color:var(--accent)">Pagar este hito ('+fmtCLP(h.monto)+')</button>';
+        html += '</div>';
+      } else if(h.estado === 'pagado_retenido'){
+        html += '<div class="esc-hito-actions">';
+        html += '<button onclick="liberarHitoAccion(\''+esc.id+'\','+h.n+',\'confirmar\')" style="background:var(--success);color:#0A0A0B;border-color:var(--success)">✓ Confirmar entregable</button>';
+        html += '<button onclick="liberarHitoAccion(\''+esc.id+'\','+h.n+',\'disputar\')" style="background:transparent;color:var(--danger);border-color:var(--danger)">⚠ Disputar</button>';
+        html += '</div>';
+      }
+    }
+    html += '</div>'; // .esc-hito-card
+    html += '</div>'; // .esc-hito
+  });
+  html += '</div></div>';
+
+  // Resumen financiero al final
+  var pagado = esc.hitos.filter(function(h){return h.estado==='pagado_retenido' || h.estado==='liberado_pro';}).reduce(function(s,h){return s+h.monto;},0);
+  var liberado = esc.hitos.filter(function(h){return h.estado==='liberado_pro';}).reduce(function(s,h){return s+h.monto;},0);
+  html += '<div class="esc-card">';
+  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center">';
+  html += '<div><div class="esc-total" style="font-size:1.25rem">'+fmtCLP(pagado)+'</div><div class="esc-total-lbl">Pagado</div></div>';
+  html += '<div><div class="esc-total" style="font-size:1.25rem;color:var(--success)">'+fmtCLP(liberado)+'</div><div class="esc-total-lbl">Liberado al pro</div></div>';
+  html += '<div><div class="esc-total" style="font-size:1.25rem;color:var(--mu)">'+fmtCLP(esc.totalCLP - pagado)+'</div><div class="esc-total-lbl">Por pagar</div></div>';
+  html += '</div></div>';
+
+  cont.innerHTML = html;
+}
+
+async function pagarHitoAccion(escrowId, hitoN){
+  if(!confirm('Vas a pagar el hito #'+hitoN+'. El monto queda retenido en escrow hasta que confirmes el entregable. ¿Continuar?')) return;
+  try{
+    var r = await fetch('/api/pagos?action=pagar-hito',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({escrowId:escrowId, hitoN:hitoN})
+    });
+    var d = await r.json();
+    if(d.success && d.init_point){
+      window.location.href = d.init_point;
+    } else if(d.success && d.demo){
+      alert('Modo demo: pago simulado.');
+      abrirEscrow(escrowId);
+    } else {
+      alert(d.error || 'Error al crear el pago');
+    }
+  }catch(e){ alert('Error de conexión'); }
+}
+window.pagarHitoAccion = pagarHitoAccion;
+
+async function liberarHitoAccion(escrowId, hitoN, accion){
+  var msg = accion === 'disputar'
+    ? '⚠ Vas a DISPUTAR este hito. El flujo se congela y un admin revisa el caso. ¿Continuar?'
+    : '✓ Vas a CONFIRMAR el entregable. El monto se libera al profesional y se activa el siguiente hito. ¿Continuar?';
+  if(!confirm(msg)) return;
+  try{
+    var r = await fetch('/api/pagos?action=liberar-hito',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({escrowId:escrowId, hitoN:hitoN, accion:accion})
+    });
+    var d = await r.json();
+    if(d.ok){
+      if(d.completado){ alert('🎉 Escrow completado. Todos los hitos liberados al profesional.'); }
+      abrirEscrow(escrowId);
+    } else {
+      alert(d.error || 'No se pudo procesar');
+    }
+  }catch(e){ alert('Error de conexión'); }
+}
+window.liberarHitoAccion = liberarHitoAccion;
+
+// === MODAL: definir hitos al cerrar solicitud ===
+function abrirModalHitos(solicitudId){
+  escSolicitudCtx = solicitudId;
+  document.getElementById('esc-total').value = '';
+  document.getElementById('esc-modal-status').textContent = '';
+  document.getElementById('esc-hitos-list').innerHTML = '';
+  // Default: 3 hitos sugeridos
+  agregarHito({titulo:'Inicio (anticipo)', pct:30});
+  agregarHito({titulo:'Avance intermedio', pct:40});
+  agregarHito({titulo:'Entrega final', pct:30});
+  document.getElementById('esc-modal').style.display = 'flex';
+}
+window.abrirModalHitos = abrirModalHitos;
+
+function cerrarModalHitos(){
+  document.getElementById('esc-modal').style.display = 'none';
+}
+window.cerrarModalHitos = cerrarModalHitos;
+
+function agregarHito(opts){
+  var list = document.getElementById('esc-hitos-list');
+  if(!list) return;
+  var existentes = list.querySelectorAll('.esc-hito-form').length;
+  if(existentes >= 5){ alert('Máximo 5 hitos'); return; }
+  opts = opts || {};
+  var n = existentes + 1;
+  var div = document.createElement('div');
+  div.className = 'esc-hito-form';
+  div.innerHTML =
+    '<div><label>Hito #'+n+' — Título y descripción</label>'+
+    '<input class="esc-hito-tit" type="text" placeholder="Ej: Anteproyecto firmado" value="'+(opts.titulo||'')+'">'+
+    '<input class="esc-hito-desc" type="text" placeholder="Descripción del entregable (opcional)" style="margin-top:6px"></div>'+
+    '<div><label>%</label>'+
+    '<input class="esc-hito-pct" type="number" min="5" max="100" step="5" value="'+(opts.pct||'')+'"></div>'+
+    '<button class="esc-hito-rm" onclick="this.parentNode.remove()" title="Quitar">×</button>';
+  list.appendChild(div);
+}
+window.agregarHito = agregarHito;
+
+async function confirmarCrearEscrow(){
+  var status = document.getElementById('esc-modal-status');
+  var btn = document.getElementById('esc-btn-create');
+  var totalEl = document.getElementById('esc-total');
+  var total = parseInt(totalEl.value);
+  if(!total || total < 300000){
+    status.textContent = '⚠ El total debe ser de al menos $300.000';
+    status.style.color = 'var(--danger)';
+    return;
+  }
+  if(!escSolicitudCtx){
+    status.textContent = '⚠ Falta contexto de solicitud';
+    status.style.color = 'var(--danger)';
+    return;
+  }
+  var forms = document.querySelectorAll('#esc-hitos-list .esc-hito-form');
+  if(forms.length < 2 || forms.length > 5){
+    status.textContent = '⚠ Define entre 2 y 5 hitos';
+    status.style.color = 'var(--danger)';
+    return;
+  }
+  var hitos = [];
+  var sumPct = 0;
+  for(var i=0; i<forms.length; i++){
+    var f = forms[i];
+    var titulo = f.querySelector('.esc-hito-tit').value.trim();
+    var desc = f.querySelector('.esc-hito-desc').value.trim();
+    var pct = parseInt(f.querySelector('.esc-hito-pct').value);
+    if(!titulo){ status.textContent = '⚠ Hito #'+(i+1)+' necesita un título'; status.style.color='var(--danger)'; return; }
+    if(!pct || pct < 5){ status.textContent = '⚠ Hito #'+(i+1)+' debe tener un porcentaje válido (min 5%)'; status.style.color='var(--danger)'; return; }
+    hitos.push({titulo:titulo, descripcion:desc, pct:pct});
+    sumPct += pct;
+  }
+  if(sumPct !== 100){
+    status.textContent = '⚠ Los porcentajes suman '+sumPct+'%, deben sumar 100%';
+    status.style.color = 'var(--danger)';
+    return;
+  }
+  btn.disabled = true; status.textContent = 'Creando escrow...'; status.style.color = 'var(--mu)';
+  try{
+    var r = await fetch('/api/pagos?action=crear-escrow',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({solicitudId:escSolicitudCtx, hitos:hitos, totalCLP:total})
+    });
+    var d = await r.json();
+    if(d.ok && d.escrow){
+      cerrarModalHitos();
+      abrirEscrow(d.escrow.id);
+    } else {
+      status.textContent = '⚠ '+(d.error||'No se pudo crear');
+      status.style.color = 'var(--danger)';
+      btn.disabled = false;
+    }
+  }catch(e){
+    status.textContent = '⚠ Error de conexión';
+    status.style.color = 'var(--danger)';
+    btn.disabled = false;
+  }
+}
+window.confirmarCrearEscrow = confirmarCrearEscrow;
+
 // ============ HERO CHAT DEMO v12.6 ============
 // Conversación de muestra que se escribe sola para mostrar el chat IA
 // como diferenciador en el primer pliegue. Loop continuo cuando el
