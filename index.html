@@ -696,7 +696,17 @@ input:checked+.slider:before{transform:translateX(20px)}
 
 /* PRO HEADER v9.0 — rediseño premium */
 /* === PANEL PROFESIONAL — Editorial v12.4 === */
-.pro-header{background:var(--surface);color:var(--text-main);padding:0;position:relative;border-bottom:1px solid var(--border)}
+.pro-header{background:var(--surface);color:var(--text-main);padding:0;position:relative;border-bottom:1px solid var(--border);transition:padding .25s var(--ease-out)}
+
+/* v12.6.4 — Header contextual: en mobile y fuera de 'oportunidades' se colapsa */
+.pro-header.is-collapsed .ph-brand{display:none}
+.pro-header.is-collapsed .ph-progress{display:none}
+.pro-header.is-collapsed .ph-top{padding:14px 18px}
+.pro-header.is-collapsed .ph-av{width:38px;height:38px;font-size:13px}
+.pro-header.is-collapsed .ph-name{font-size:15px}
+.pro-header.is-collapsed .ph-meta{display:none}
+.pro-header.is-collapsed .ph-share-btn{display:none !important}
+@media (min-width:1024px){.pro-header.is-collapsed{transition:none}.pro-header.is-collapsed .ph-progress{display:block}.pro-header.is-collapsed .ph-meta{display:flex}.pro-header.is-collapsed .ph-av{width:56px;height:56px;font-size:18px}.pro-header.is-collapsed .ph-name{font-size:20px}.pro-header.is-collapsed .ph-top{padding:24px}}
 
 .ph-brand{display:flex;align-items:center;gap:10px;padding:18px 24px 0}
 .ph-brand-txt{font-family:var(--font-display);font-weight:600;font-size:16px;letter-spacing:-0.01em;color:var(--text-main)}
@@ -1216,6 +1226,24 @@ input:checked+.slider:before{transform:translateX(20px)}
 .perfil-upsell h3{font-family:var(--font-display);color:var(--accent);font-weight:600;font-size:1.25rem;margin:0 0 0.5rem;letter-spacing:-0.015em}
 .perfil-upsell p{color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1rem}
 .perfil-upsell .perfil-upsell-cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* === MI NEGOCIO HUB v12.6.4 === */
+.negocio-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+@media (min-width:640px){.negocio-grid{grid-template-columns:repeat(2,1fr)}}
+.negocio-card{background:var(--surface);border:none;padding:1.5rem;display:flex;align-items:center;gap:1rem;cursor:pointer;color:var(--text-main);font-family:inherit;text-align:left;transition:background-color .2s var(--ease-out)}
+.negocio-card:hover{background:var(--surface-2)}
+.negocio-ic{width:44px;height:44px;border-radius:var(--radius-md);background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0}
+.negocio-txt{flex:1;min-width:0}
+.negocio-name{font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;line-height:1.2}
+.negocio-desc{font-size:12px;color:var(--mu);margin-top:3px;letter-spacing:0.02em}
+.negocio-arrow{color:var(--mu);font-size:18px;flex-shrink:0;transition:color .2s var(--ease-out),transform .2s var(--ease-out)}
+.negocio-card:hover .negocio-arrow{color:var(--accent);transform:translateX(3px)}
+
+/* === MORE MENU v12.6.4 — secciones agrupadas === */
+.more-section-h{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--mu);padding:1rem 12px 0.5rem;opacity:0.6}
+.more-section-h:first-child{padding-top:0}
+.more-item-prem{border:1px solid var(--accent);background:var(--accent-tint)}
+.more-item-prem .more-item-t{color:var(--accent)}
 
 /* === ESCROW POR HITOS v12.6.3 === */
 .esc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem}
@@ -2389,6 +2417,48 @@ function ocultarSplashManual() {
         <div id="ps" style="padding:0 1.5rem 2rem"></div>
       </div>
 
+      <!-- SECCIÓN: Mi Negocio (hub v12.6.4) -->
+      <div id="sec-negocio" class="dash-section" style="display:none">
+        <div style="padding:1.5rem 1.5rem 2rem;max-width:760px;margin:0 auto">
+          <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:500;color:var(--text-main);letter-spacing:-0.02em;margin:0 0 0.5rem">Mi negocio</h2>
+          <p style="color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1.5rem">Todo lo que necesitas para gestionar tu presencia y disponibilidad.</p>
+          <div class="negocio-grid">
+            <button class="negocio-card" onclick="irSeccion('perfil')">
+              <div class="negocio-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="negocio-txt">
+                <div class="negocio-name">Mi perfil</div>
+                <div class="negocio-desc">Bio, tarifas, horario y redes</div>
+              </div>
+              <span class="negocio-arrow">→</span>
+            </button>
+            <button class="negocio-card" onclick="irSeccion('fotos')">
+              <div class="negocio-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+              <div class="negocio-txt">
+                <div class="negocio-name">Portafolio</div>
+                <div class="negocio-desc">Fotos y trabajos destacados</div>
+              </div>
+              <span class="negocio-arrow">→</span>
+            </button>
+            <button class="negocio-card" onclick="irSeccion('agenda')">
+              <div class="negocio-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <div class="negocio-txt">
+                <div class="negocio-name">Agenda</div>
+                <div class="negocio-desc">Disponibilidad y citas</div>
+              </div>
+              <span class="negocio-arrow">→</span>
+            </button>
+            <button class="negocio-card" onclick="irSeccion('verificar')">
+              <div class="negocio-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+              <div class="negocio-txt">
+                <div class="negocio-name">Verificación</div>
+                <div class="negocio-desc">Carnet y documentos</div>
+              </div>
+              <span class="negocio-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- SECCIÓN: Perfil -->
       <div id="sec-perfil" class="dash-section" style="display:none">
         <div style="padding:1.5rem 1.5rem 2rem">
@@ -2500,57 +2570,62 @@ function ocultarSplashManual() {
   </div>
 
   <!-- BOTTOMBAR MOBILE -->
+  <!-- BOTTOMBAR MOBILE v12.6.4 — 3 items: Inicio / Mi negocio / Más -->
   <div class="bottombar" id="bottombar">
     <button class="bb-item active" data-sec="oportunidades" onclick="irSeccion('oportunidades')">
-      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      <span>Solicitudes</span>
+      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h14V10"/><path d="M9 21V12h6v9"/></svg>
+      <span>Inicio</span>
       <span class="bb-badge" id="bb-badge-op" style="display:none">0</span>
     </button>
-    <button class="bb-item" data-sec="perfil" onclick="irSeccion('perfil')">
-      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>Perfil</span>
-    </button>
-    <button class="bb-item" data-sec="agenda" onclick="irSeccion('agenda')">
-      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <span>Agenda</span>
+    <button class="bb-item" data-sec="negocio" onclick="abrirMiNegocio()">
+      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13.255A23.931 23.931 0 0 1 12 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2m4 8h.01M5 20h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+      <span>Mi negocio</span>
     </button>
     <button class="bb-item" onclick="toggleMore()">
-      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      <svg class="bb-item-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
       <span>Más</span>
     </button>
   </div>
 
-  <!-- MORE MENU MOBILE -->
+  <!-- MORE MENU MOBILE v12.6.4 — agrupado en 3 secciones -->
   <div class="more-backdrop" id="more-backdrop" onclick="toggleMore()"></div>
   <div class="more-menu" id="more-menu">
     <div class="more-handle"></div>
-    <div class="more-item" onclick="toggleMore();irSeccion('fotos')">
-      <span class="more-item-ic">📸</span>
-      <div class="more-item-txt"><div class="more-item-t">Portafolio</div><div class="more-item-d">Fotos de tus trabajos</div></div>
-    </div>
-    <div class="more-item" onclick="toggleMore();irSeccion('verificar')">
-      <span class="more-item-ic">🔵</span>
-      <div class="more-item-txt"><div class="more-item-t">Verificación</div><div class="more-item-d">Sube tu carnet para validar</div></div>
-    </div>
+
+    <div class="more-section-h">Crecer</div>
     <div class="more-item" onclick="toggleMore();go('blog')">
       <span class="more-item-ic">📊</span>
       <div class="more-item-txt"><div class="more-item-t">Guía de precios</div><div class="more-item-d">Tarifas oficiales 2026</div></div>
     </div>
-    <div class="more-item" onclick="toggleMore();go('blog-premium')" style="border:1.2px solid rgba(201,168,76,0.3);background:rgba(201,168,76,0.05)">
-      <span class="more-item-ic">💎</span>
-      <div class="more-item-txt"><div class="more-item-t" style="color:var(--gold)">Blog Premium</div><div class="more-item-d">Estrategias exclusivas</div></div>
+    <div class="more-item more-item-prem" onclick="toggleMore();go('blog-premium')">
+      <span class="more-item-ic">◆</span>
+      <div class="more-item-txt"><div class="more-item-t">Blog Premium</div><div class="more-item-d">Estrategias y casos exclusivos</div></div>
+    </div>
+    <div class="more-item more-item-prem" onclick="toggleMore();abrirAsistentePro()">
+      <span class="more-item-ic">⚡</span>
+      <div class="more-item-txt"><div class="more-item-t">Asistente IA</div><div class="more-item-d">Tu copiloto personal Premium</div></div>
     </div>
     <div class="more-item" onclick="toggleMore();irSeccion('referidos')">
       <span class="more-item-ic">🎁</span>
       <div class="more-item-txt"><div class="more-item-t">Referidos</div><div class="more-item-d">Invita colegas y gana meses Pro</div></div>
     </div>
+
+    <div class="more-section-h">Cuenta</div>
     <div class="more-item" onclick="toggleMore();irSeccion('plan')">
-      <span class="more-item-ic">💎</span>
+      <span class="more-item-ic">▦</span>
       <div class="more-item-txt"><div class="more-item-t">Mi plan</div><div class="more-item-d">Gestiona tu suscripción</div></div>
     </div>
     <div class="more-item" onclick="toggleMore();compartirPerfil()">
       <span class="more-item-ic">🔗</span>
       <div class="more-item-txt"><div class="more-item-t">Compartir mi perfil</div><div class="more-item-d">Enlace para redes y WhatsApp</div></div>
+    </div>
+    <div class="more-item" onclick="toggleMore();verComoCliente()">
+      <span class="more-item-ic">👁</span>
+      <div class="more-item-txt"><div class="more-item-t">Vista cliente</div><div class="more-item-d">Ver cómo te ven los clientes</div></div>
+    </div>
+    <div class="more-item" onclick="toggleMore();cerrarSesion()" style="color:#ef4444">
+      <span class="more-item-ic">⎋</span>
+      <div class="more-item-txt"><div class="more-item-t" style="color:#ef4444">Cerrar sesión</div><div class="more-item-d">Salir de tu cuenta</div></div>
     </div>
   </div>
 </div>
@@ -4377,6 +4452,18 @@ var notifCount = 0;
 function irSeccion(sec) {
     console.log('[DASH] Sección:', sec);
     seccionActual = sec;
+
+    // v12.6.4 — Header pro contextual: solo full en oportunidades
+    var hdr = document.querySelector('.pro-header');
+    if(hdr){ hdr.classList.toggle('is-collapsed', sec !== 'oportunidades'); }
+
+    // Bottombar: marcar activo el item agrupador correcto
+    var bbItems = document.querySelectorAll('.bb-item');
+    bbItems.forEach(function(b){ b.classList.remove('active'); });
+    var bbActiveSec = sec;
+    if(['perfil','fotos','agenda','verificar'].indexOf(sec) >= 0) bbActiveSec = 'negocio';
+    var bbTarget = document.querySelector('.bb-item[data-sec="'+bbActiveSec+'"]');
+    if(bbTarget) bbTarget.classList.add('active');
 
     // Ocultar todas las sub-secciones (soporte para múltiples layouts)
     document.querySelectorAll('.dash-sec, .dash-section, #exec-content-area .dash-section').forEach(function(el) {
@@ -6442,6 +6529,12 @@ async function cargarEscrowsCliente(){
 window.cargarEscrowsCliente = cargarEscrowsCliente;
 
 // Cargar pantalla explorar con profesionales y datos borrosos
+// ============ HUB MI NEGOCIO v12.6.4 ============
+function abrirMiNegocio(){
+  irSeccion('negocio');
+}
+window.abrirMiNegocio = abrirMiNegocio;
+
 // ============ ESCROW POR HITOS v12.6.3 ============
 var escAbierto = null;     // estado del escrow actualmente cargado
 var escSolicitudCtx = null; // solicitudId al abrir el modal de definir hitos
