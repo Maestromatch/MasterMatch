@@ -878,14 +878,38 @@ input:checked+.slider:before{transform:translateX(20px)}
   .dash-content{padding:0 0 5rem;min-height:100%;background:var(--bg-deep)}
 }
 @media (max-width:1023px){
-  .sidebar{display:none}
-  .dash-content{padding-bottom:90px;background:var(--bg-deep)}
+  /* Sidebar como drawer en mobile */
+  .sidebar{display:block;position:fixed;top:0;left:0;bottom:0;width:280px;height:100vh;z-index:60;transform:translateX(-100%);transition:transform .25s var(--ease-out);box-shadow:none;overflow-y:auto;background:var(--bg-deep);border-right:1px solid var(--border);padding:5rem 0 1rem}
+  .sidebar.is-open{transform:translateX(0);box-shadow:0 0 30px rgba(0,0,0,0.5)}
+  .sidebar-inner{display:flex;flex-direction:column;gap:2px;padding:0 1rem}
+  .side-item{display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:8px;color:var(--mu);font-size:14px;font-weight:400;cursor:pointer;transition:color .15s var(--ease-out),background-color .15s var(--ease-out);border:none;background:none;width:100%;text-align:left;font-family:inherit;letter-spacing:-0.005em;position:relative}
+  .side-item:hover,.side-item:active{color:var(--text-main);background:var(--surface)}
+  .side-item.active{color:var(--text-main);background:transparent;font-weight:500}
+  .side-item.active::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--accent)}
+  .side-item-ic{width:18px;height:18px;flex-shrink:0;stroke-width:1.5;color:currentColor}
+  .side-item.active .side-item-ic{color:var(--accent)}
+  .side-item-badge{background:var(--accent);color:#0A0A0B;font-size:10px;font-weight:600;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 5px;margin-left:auto;font-family:var(--font-body)}
+  .side-sub{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--mu);padding:1.5rem 14px 0.5rem;font-weight:500;opacity:0.6}
+  .dash-content{padding-bottom:2rem;background:var(--bg-deep)}
+  /* Backdrop drawer */
+  .dash-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:55}
+  .dash-backdrop.is-open{display:block}
+  /* Header pro fuera de Inicio en mobile: OCULTO completamente */
+  .pro-header.is-collapsed{display:none}
+  /* Hamburger visible solo en mobile */
+  .dash-hamburger{display:flex}
+  /* Title bar contextual mobile */
+  .dash-titlebar{display:flex}
 }
 
-/* === BOTTOMBAR MOBILE — Editorial v12.4 === */
-.bottombar{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg-deep);border-top:1px solid var(--border);z-index:50;padding:8px 0 calc(10px + env(safe-area-inset-bottom, 0))}
-.bottombar.show{display:flex}
-@media (min-width:1024px){.bottombar.show{display:none}}
+/* Hamburger button (mobile) */
+.dash-hamburger{position:fixed;top:14px;left:14px;z-index:50;width:42px;height:42px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);align-items:center;justify-content:center;cursor:pointer;color:var(--text-main);box-shadow:0 4px 12px rgba(0,0,0,0.4);display:none}
+.dash-hamburger:active{background:var(--surface-2)}
+.dash-titlebar{display:none;align-items:center;gap:14px;padding:14px 18px 14px 70px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:40;font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;min-height:54px}
+.pro-header.is-hidden{display:none !important}
+
+/* === BOTTOMBAR MOBILE — DESACTIVADO v12.6.6 === */
+.bottombar{display:none !important}
 .bb-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 4px;color:var(--mu);cursor:pointer;border:none;background:none;font-family:inherit;font-size:10px;font-weight:500;letter-spacing:0.02em;position:relative;transition:color .15s var(--ease-out)}
 .bb-item:hover{color:var(--text-main)}
 .bb-item.active{color:var(--accent)}
@@ -1226,6 +1250,14 @@ input:checked+.slider:before{transform:translateX(20px)}
 .perfil-upsell h3{font-family:var(--font-display);color:var(--accent);font-weight:600;font-size:1.25rem;margin:0 0 0.5rem;letter-spacing:-0.015em}
 .perfil-upsell p{color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1rem}
 .perfil-upsell .perfil-upsell-cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* === BANNER VISTA CLIENTE v12.6.6 === */
+.vista-cli-banner{background:var(--accent-tint);border:1px solid var(--accent);border-radius:var(--radius-md);padding:1rem 1.25rem;margin:1rem 1.25rem 1.5rem;display:flex;flex-direction:column;gap:8px}
+.vista-cli-h{font-family:var(--font-display);font-size:14px;color:var(--text-main);letter-spacing:-0.01em;font-weight:500}
+.vista-cli-h strong{color:var(--accent);font-weight:600}
+.vista-cli-d{font-size:12px;color:var(--mu);line-height:1.55}
+.vista-cli-back{align-self:flex-start;background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:var(--radius-full);padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;letter-spacing:0.02em;transition:background-color .2s var(--ease-out),color .2s var(--ease-out);margin-top:4px}
+.vista-cli-back:hover{background:var(--accent);color:#0A0A0B}
 
 /* === DASHBOARD WIDGETS v12.6.5 === */
 .dw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:1.25rem}
@@ -2288,7 +2320,14 @@ function ocultarSplashManual() {
     <div class="nav-t">Panel profesional</div>
     <div class="nav-l"><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--o);letter-spacing:-0.02em">Master<span style="color:var(--dk)">Match</span></span></div>
   </div>
-  
+
+  <!-- v12.6.6 Hamburger mobile + drawer backdrop -->
+  <button class="dash-hamburger" onclick="toggleSidebarDrawer()" aria-label="Menú">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="dash-backdrop" id="dash-backdrop" onclick="toggleSidebarDrawer()"></div>
+  <div class="dash-titlebar" id="dash-titlebar">Inicio</div>
+
   <!-- HEADER DEL PRO -->
   <div class="pro-header">
     <div class="ph-brand">
@@ -4291,11 +4330,23 @@ async function verPerfil(idOrSlug){
     var nivelInfo=(typeof NIVEL_INFO!=='undefined' && NIVEL_INFO[p.nivel||'bronce'])||{emoji:'🥉',nombre:'Bronce',color:'#cd7f32'};
     
     var esMiPerfil=miPerfil && miPerfil.id===p.id;
+    // v12.6.6 — Cuando el pro usa "Vista cliente", forzamos que NO sea
+    // tratado como dueño del perfil (para aplicar blur + upsell).
+    if(window._verComoOtroPerfil){ esMiPerfil=false; }
     var puedeEditarPortada=esMiPerfil && (p.plan==='pro'||p.plan==='premium');
     var avatarBg=p.fotoPerfil?'background-image:url('+p.fotoPerfil+');color:transparent':(p.fotos&&p.fotos.length>0?'background-image:url('+p.fotos[0]+');color:transparent':'background:linear-gradient(135deg,var(--o),var(--trust))');
     var portadaBg=p.fotoPortada?'background-image:url('+p.fotoPortada+')':'';
     
-    var html='<div class="profile-hdr">';
+    var html='';
+    // v12.6.6 — Banner de "vista cliente" cuando el pro mira su propio perfil
+    if(window._verComoOtroPerfil){
+      html+='<div class="vista-cli-banner">'+
+        '<div class="vista-cli-h"><span style="font-size:14px">👁</span> Estás viendo tu perfil como un cliente <strong>básico</strong></div>'+
+        '<div class="vista-cli-d">Así te ven los clientes sin Plan Plus o Premium. Activa o motiva a tus clientes a hacerlo para que vean todos tus datos sin blur.</div>'+
+        '<button class="vista-cli-back" onclick="salirVistaCliente()">← Volver al panel</button>'+
+      '</div>';
+    }
+    html+='<div class="profile-hdr">';
     html+='<div class="profile-cover" style="'+portadaBg+'">';
     if(esMiPerfil){
       if(puedeEditarPortada){
@@ -4483,17 +4534,25 @@ function irSeccion(sec) {
     console.log('[DASH] Sección:', sec);
     seccionActual = sec;
 
-    // v12.6.4 — Header pro contextual: solo full en oportunidades
+    // v12.6.6 — Header pro contextual: solo se ve en oportunidades
     var hdr = document.querySelector('.pro-header');
-    if(hdr){ hdr.classList.toggle('is-collapsed', sec !== 'oportunidades'); }
+    if(hdr){
+      hdr.classList.toggle('is-collapsed', sec !== 'oportunidades');
+    }
 
-    // Bottombar: marcar activo el item agrupador correcto
-    var bbItems = document.querySelectorAll('.bb-item');
-    bbItems.forEach(function(b){ b.classList.remove('active'); });
-    var bbActiveSec = sec;
-    if(['perfil','fotos','agenda','verificar'].indexOf(sec) >= 0) bbActiveSec = 'negocio';
-    var bbTarget = document.querySelector('.bb-item[data-sec="'+bbActiveSec+'"]');
-    if(bbTarget) bbTarget.classList.add('active');
+    // Title bar contextual mobile
+    var tb = document.getElementById('dash-titlebar');
+    if(tb){
+      var titulos = {
+        oportunidades: 'Inicio', negocio: 'Mi negocio', perfil: 'Mi perfil',
+        fotos: 'Portafolio', agenda: 'Agenda', verificar: 'Verificación',
+        referidos: 'Referidos', plan: 'Mi plan'
+      };
+      tb.textContent = titulos[sec] || 'Panel';
+    }
+
+    // Cerrar drawer mobile al cambiar sección
+    cerrarSidebarDrawer();
 
     // Ocultar todas las sub-secciones (soporte para múltiples layouts)
     document.querySelectorAll('.dash-sec, .dash-section, #exec-content-area .dash-section').forEach(function(el) {
@@ -6674,6 +6733,23 @@ function abrirMiNegocio(){
 }
 window.abrirMiNegocio = abrirMiNegocio;
 
+// ============ DRAWER SIDEBAR MOBILE v12.6.6 ============
+function toggleSidebarDrawer(){
+  var sb = document.querySelector('.sidebar');
+  var bd = document.getElementById('dash-backdrop');
+  if(!sb || !bd) return;
+  var open = sb.classList.toggle('is-open');
+  bd.classList.toggle('is-open', open);
+}
+function cerrarSidebarDrawer(){
+  var sb = document.querySelector('.sidebar');
+  var bd = document.getElementById('dash-backdrop');
+  if(sb) sb.classList.remove('is-open');
+  if(bd) bd.classList.remove('is-open');
+}
+window.toggleSidebarDrawer = toggleSidebarDrawer;
+window.cerrarSidebarDrawer = cerrarSidebarDrawer;
+
 // ============ ESCROW POR HITOS v12.6.3 ============
 var escAbierto = null;     // estado del escrow actualmente cargado
 var escSolicitudCtx = null; // solicitudId al abrir el modal de definir hitos
@@ -7195,12 +7271,25 @@ window.clienteSesionPlan=clienteSesionPlan;
 function actualizarUIPlan(){ try{ renderPlanPill(); }catch(e){} }
 window.actualizarUIPlan=actualizarUIPlan;
 
-// Vista cliente para el profesional (botón sidebar) — simula cliente básico
+// Vista cliente para el profesional v12.6.6 — muestra SU PROPIO perfil
+// como lo vería un cliente básico (datos borrosos, CTA upgrade Premium).
 function verComoCliente(){
+  var pro = loadLocal('miPerfil');
+  if(!pro || !pro.id){ alert('Necesitas estar logueado como profesional.'); return; }
+  // Activamos las dos flags: simulación de cliente básico Y de "no es mi perfil"
+  // para que verPerfil aplique blur + upsell sin tratarlo como dueño.
   window._asClienteSimulado = true;
-  go('explorar');
+  window._verComoOtroPerfil = true;
+  verPerfil(pro.id);
 }
 window.verComoCliente=verComoCliente;
+
+function salirVistaCliente(){
+  window._asClienteSimulado = false;
+  window._verComoOtroPerfil = false;
+  go('dash');
+}
+window.salirVistaCliente=salirVistaCliente;
 
 // ============ EXPLORAR PROFESIONALES (cliente) v12.4.5 ============
 function clienteEsPremium(){
