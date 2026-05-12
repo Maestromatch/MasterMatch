@@ -1295,6 +1295,29 @@ input:checked+.slider:before{transform:translateX(20px)}
 .negocio-desc{font-size:12px;color:var(--mu);margin-top:3px;letter-spacing:0.02em}
 .negocio-arrow{color:var(--mu);font-size:18px;flex-shrink:0;transition:color .2s var(--ease-out),transform .2s var(--ease-out)}
 .negocio-card:hover .negocio-arrow{color:var(--accent);transform:translateX(3px)}
+.gam-card{background:linear-gradient(180deg,rgba(201,168,76,.12),rgba(255,255,255,.025));border:1px solid var(--accent);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;overflow:hidden}
+.gam-top{display:grid;grid-template-columns:1fr;gap:1rem;align-items:center}
+@media (min-width:720px){.gam-top{grid-template-columns:1fr 220px}}
+.gam-k{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:.35rem}
+.gam-title{font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--text-main);letter-spacing:-.02em;margin:0}
+.gam-sub{font-size:12px;color:var(--mu);line-height:1.6;margin:.4rem 0 0}
+.gam-score{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;text-align:center}
+.gam-xp{font-family:var(--font-display);font-size:2rem;font-weight:500;color:var(--accent);letter-spacing:-.03em;line-height:1}
+.gam-xp-l{font-size:10px;color:var(--mu);letter-spacing:.12em;text-transform:uppercase;margin-top:.35rem}
+.gam-progress{height:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:99px;overflow:hidden;margin:1rem 0 .65rem}
+.gam-progress span{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .4s var(--ease-out)}
+.gam-row{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-top:1rem}
+@media (min-width:720px){.gam-row{grid-template-columns:repeat(4,1fr)}}
+.gam-metric{background:var(--surface);padding:.9rem;text-align:center}
+.gam-metric strong{display:block;font-family:var(--font-display);font-size:1.1rem;color:var(--text-main);font-weight:500}
+.gam-metric span{display:block;font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.1em;margin-top:.25rem}
+.gam-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.gam-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-full);padding:.5rem .7rem;color:var(--text-main);font-size:12px;font-weight:500}
+.gam-badge.is-earned{border-color:var(--accent);background:var(--accent-tint);color:var(--accent)}
+.gam-next{margin-top:1rem;display:grid;grid-template-columns:1fr;gap:.65rem}
+@media (min-width:720px){.gam-next{grid-template-columns:repeat(2,1fr)}}
+.gam-task{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:.85rem;color:var(--text-main);font-size:12px;line-height:1.55}
+.gam-task strong{display:block;color:var(--accent);font-size:12px;margin-bottom:.2rem}
 
 /* === MORE MENU v12.6.4 — secciones agrupadas === */
 .more-section-h{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--mu);padding:1rem 12px 0.5rem;opacity:0.6}
@@ -2485,6 +2508,7 @@ function ocultarSplashManual() {
         <div style="padding:1.5rem 1.5rem 2rem;max-width:760px;margin:0 auto">
           <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:500;color:var(--text-main);letter-spacing:-0.02em;margin:0 0 0.5rem">Mi negocio</h2>
           <p style="color:var(--mu);font-size:13px;line-height:1.6;margin:0 0 1.5rem">Todo lo que necesitas para gestionar tu presencia y disponibilidad.</p>
+          <div id="gamificacion-content"></div>
           <div class="negocio-grid">
             <button class="negocio-card" onclick="irSeccion('perfil')">
               <div class="negocio-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
@@ -4472,7 +4496,8 @@ function irSeccion(sec) {
     });
 
     // Cargar data específica
-    if (sec === 'oportunidades') { cargarSolicitudesExec(); cargarWidgetsPro(); }
+    if (sec === 'oportunidades') { cargarSolicitudesExec(); cargarWidgetsPro(); renderGamificacionPro(); }
+    if (sec === 'negocio') renderGamificacionPro();
     if (sec === 'fotos') cargarGaleria();
     if (sec === 'agenda') cargarAgenda();
     if (sec === 'verificar') cargarVerificacion();
@@ -6098,6 +6123,86 @@ function togOpcion(tipo){
     document.getElementById('p-veh').classList.toggle('sel',pVeh);
   }
 }
+
+
+function calcularGamificacionPro(){
+  var p=miPerfil||{};
+  var fotos=(p.fotos||[]).length;
+  var reviews=p.reviewCount||p.reviewsCount||0;
+  var rating=Number(p.rating||0);
+  var trabajos=p.trabajosCerrados||p.trabajosCompletados||0;
+  var referidos=(p.referidosExitosos||[]).length;
+  var perfilCompleto=0;
+  if((p.descripcion||'').length>80) perfilCompleto++;
+  if((p.biografia||'').length>120) perfilCompleto++;
+  if(p.tarifaHora||p.tarifaVisita) perfilCompleto++;
+  if(p.horarioAtencion) perfilCompleto++;
+  if((p.serviciosOfrecidos||[]).length>=3) perfilCompleto++;
+  if(fotos>=3) perfilCompleto++;
+  var xp=0;
+  xp+=perfilCompleto*35;
+  xp+=Math.min(fotos,25)*8;
+  xp+=p.verificado?160:0;
+  xp+=(p.plan==='premium'?180:p.plan==='pro'?90:0);
+  xp+=Math.min(trabajos,30)*18;
+  xp+=Math.min(reviews,30)*14;
+  xp+=rating>=4.8&&reviews>=5?120:0;
+  xp+=referidos*80;
+  var niveles=[
+    {id:'bronce',min:0,next:350},
+    {id:'plata',min:350,next:800},
+    {id:'oro',min:800,next:1400},
+    {id:'platino',min:1400,next:2200}
+  ];
+  var nivel=niveles[0];
+  for(var i=0;i<niveles.length;i++){if(xp>=niveles[i].min)nivel=niveles[i];}
+  var info=NIVEL_INFO[nivel.id]||NIVEL_INFO.bronce;
+  var next=nivel.next;
+  var pct=next?Math.max(4,Math.min(100,Math.round(((xp-nivel.min)/(next-nivel.min))*100))):100;
+  var earned=['pionero'];
+  if(p.verificado) earned.push('verificado');
+  if(fotos>=10) earned.push('portafolio');
+  if(trabajos>=10) earned.push('experimentado');
+  if(rating>=4.8&&reviews>=5) earned.push('excelencia');
+  if(p.plan==='premium') earned.push('premium');
+  if(referidos>=3) earned.push('embajador');
+  if(perfilCompleto>=5) earned.push('perfil_completo');
+  if(p.respondeRapido||p.tiempoRespuestaMin<=60) earned.push('responde_rapido');
+  var rank=Math.max(1,Math.round(18-(xp/120)-(p.verificado?2:0)-(p.plan==='premium'?3:0)));
+  var tasks=[];
+  if(!p.verificado) tasks.push(['+160 XP','Verifica identidad y documentos para activar confianza real.']);
+  if(fotos<10) tasks.push(['+'+((10-fotos)*8)+' XP','Sube '+(10-fotos)+' fotos más para ganar Gran portafolio.']);
+  if(perfilCompleto<5) tasks.push(['+35 XP c/u','Completa bio, tarifas, horario y servicios ofrecidos.']);
+  if(p.plan!=='premium') tasks.push(['+180 XP','Activa Premium para badge dorado, ranking y garantía visible.']);
+  if(tasks.length===0) tasks.push(['Mantener racha','Responde cada lead en menos de 1 hora para conservar prioridad.']);
+  return {xp:xp,nivel:nivel.id,info:info,next:next,pct:pct,badges:earned,rank:rank,fotos:fotos,reviews:reviews,rating:rating,trabajos:trabajos,tasks:tasks};
+}
+
+function renderGamificacionPro(){
+  var el=document.getElementById('gamificacion-content');
+  if(!el||!miPerfil) return;
+  var g=calcularGamificacionPro();
+  miPerfil.xp=g.xp;
+  miPerfil.nivel=g.nivel;
+  miPerfil.badges=g.badges;
+  saveLocal('miPerfil',miPerfil);
+  var nextTxt=g.next?('Faltan '+Math.max(0,g.next-g.xp)+' XP para el siguiente nivel'):'Nivel máximo activo';
+  var badges=g.badges.map(function(b){
+    var info=BADGES_INFO[b]||{emoji:'✓',nombre:b,desc:''};
+    return '<span class="gam-badge is-earned" title="'+info.desc+'">'+info.emoji+' '+info.nombre+'</span>';
+  }).join('');
+  var locked=['verificado','portafolio','experimentado','excelencia','premium','responde_rapido'].filter(function(b){return g.badges.indexOf(b)<0;}).slice(0,4).map(function(b){
+    var info=BADGES_INFO[b]; return '<span class="gam-badge" title="'+info.desc+'">'+info.emoji+' '+info.nombre+'</span>';
+  }).join('');
+  var tasks=g.tasks.slice(0,4).map(function(t){return '<div class="gam-task"><strong>'+t[0]+'</strong>'+t[1]+'</div>';}).join('');
+  el.innerHTML='<div class="gam-card">'+
+    '<div class="gam-top"><div><div class="gam-k">Reputación MasterMatch</div><h3 class="gam-title">'+g.info.emoji+' Nivel '+g.info.nombre+'</h3><p class="gam-sub">Tu ranking sube por acciones verificables: perfil completo, respuesta rápida, reseñas, trabajos cerrados y garantía activa.</p></div><div class="gam-score"><div class="gam-xp">'+g.xp+'</div><div class="gam-xp-l">XP acumulado</div></div></div>'+
+    '<div class="gam-progress"><span style="width:'+g.pct+'%"></span></div><div style="font-size:11px;color:var(--mu);letter-spacing:.04em">'+nextTxt+'</div>'+
+    '<div class="gam-row"><div class="gam-metric"><strong>#'+g.rank+'</strong><span>Ranking comuna</span></div><div class="gam-metric"><strong>'+g.fotos+'</strong><span>Fotos</span></div><div class="gam-metric"><strong>'+g.trabajos+'</strong><span>Trabajos</span></div><div class="gam-metric"><strong>'+(g.rating?g.rating.toFixed(1):'Nuevo')+'</strong><span>Rating</span></div></div>'+
+    '<div class="gam-badges">'+badges+locked+'</div><div class="gam-next">'+tasks+'</div>'+
+  '</div>';
+}
+window.renderGamificacionPro=renderGamificacionPro;
 
 var BADGES_INFO={
   pionero:{emoji:'🌟',nombre:'Pionero',desc:'Parte del primer grupo de MasterMatch'},
