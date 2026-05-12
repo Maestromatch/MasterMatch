@@ -1447,6 +1447,22 @@ input:checked+.slider:before{transform:translateX(20px)}
 @keyframes mm-tab-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .mm-gamify-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.65rem}
 .mm-gamify-list li{color:var(--text-main);font-size:13px;line-height:1.55;border-top:1px solid var(--border);padding-top:.65rem}
+.mm-launch{border:1px solid var(--accent);background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(255,255,255,.03));border-radius:var(--radius-lg);padding:1.25rem 1.35rem;margin:0 auto 2rem;max-width:900px;display:grid;grid-template-columns:1fr;gap:.85rem;align-items:center}
+@media (min-width:760px){.mm-launch{grid-template-columns:1fr auto}}
+.mm-launch-k{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:.35rem}
+.mm-launch-t{font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--text-main);letter-spacing:-.02em;margin:0}
+.mm-launch-d{font-size:13px;color:var(--mu);line-height:1.55;margin:.35rem 0 0}
+.mm-launch-pill{display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-full);background:var(--accent);color:#0A0A0B;padding:.65rem 1rem;font-size:12px;font-weight:700;white-space:nowrap}
+.mm-guarantee{margin-top:2rem;border:1px solid var(--accent);border-radius:var(--radius-lg);background:var(--surface);overflow:hidden}
+.mm-guarantee-head{padding:1.35rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:1rem}
+.mm-guarantee-ic{width:42px;height:42px;border-radius:var(--radius-full);background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.mm-guarantee-title{font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--text-main);letter-spacing:-.02em;margin:0}
+.mm-guarantee-copy{font-size:13px;color:var(--mu);line-height:1.65;margin:.35rem 0 0}
+.mm-guarantee-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border)}
+@media (min-width:760px){.mm-guarantee-grid{grid-template-columns:repeat(3,1fr)}}
+.mm-guarantee-item{background:var(--surface);padding:1.15rem}
+.mm-guarantee-item strong{display:block;color:var(--text-main);font-size:13px;margin-bottom:.35rem}
+.mm-guarantee-item span{display:block;color:var(--mu);font-size:12px;line-height:1.55}
 
 /* === FOOTER Editorial v12.4 === */
 .mm-footer{background:var(--bg-deep);color:var(--text-main);border-top:1px solid var(--border);padding:5rem 0 2rem}
@@ -1919,7 +1935,7 @@ function ocultarSplashManual() {
         <button class="btn btn-gh btn-lg" onclick="go('planes')">Ver planes</button>
       </div>
       <div style="text-align:center;margin-top:var(--space-lg);font-size:14px;color:var(--color-muted)">
-        Plan Gratis siempre · Pro $6.990/mes · Premium $14.990/mes
+        Plan Gratis siempre · Fundador Pro $3.490/mes · Premium $7.490/mes
       </div>
     </div>
   </section>
@@ -1988,13 +2004,22 @@ function ocultarSplashManual() {
   </div>
   <div class="fw" style="max-width:1100px">
     <div style="text-align:center;padding:2.5rem 0 3.5rem">
-      <div style="font-family:var(--font-display);font-weight:800;font-size:clamp(28px, 4vw, 42px);margin-bottom:12px;letter-spacing:-0.03em">El impulso que tu <span style="color:var(--o)">negocio</span> merece</div>
-      <div style="font-size:16px;color:var(--mu);max-width:600px;margin:0 auto;line-height:1.6">Elige el plan que mejor se adapte a tu etapa actual. Sin contratos forzosos, cancela cuando quieras.</div>
+      <div style="font-family:var(--font-display);font-weight:800;font-size:clamp(28px, 4vw, 42px);margin-bottom:12px;letter-spacing:-0.03em">Planes para comprar <span style="color:var(--o)">confianza</span>, no humo</div>
+      <div style="font-size:16px;color:var(--mu);max-width:680px;margin:0 auto;line-height:1.6">Premium no compite con la IA gratis. Compite con perder tiempo, arriesgar dinero y contratar sin respaldo.</div>
     </div>
 
     <div class="plans-toggle" style="margin-bottom:3.5rem">
       <button class="ptg-btn active" id="ptg-pro" onclick="togglePlanes('pro')">👷 Soy profesional / Empresa</button>
       <button class="ptg-btn" id="ptg-cli" onclick="togglePlanes('cli')">👤 Soy cliente / Particular</button>
+    </div>
+
+    <div class="mm-launch">
+      <div>
+        <div class="mm-launch-k">Lanzamiento controlado</div>
+        <h3 class="mm-launch-t">50% off los primeros 2 meses + precio congelado para los primeros 100</h3>
+        <p class="mm-launch-d">La rebaja acelera adopción sin bajar el valor real del producto. El precio normal queda visible para no devaluar la marca.</p>
+      </div>
+      <div class="mm-launch-pill">Cupos fundadores</div>
     </div>
 
     <!-- PLANES CLIENTE — 5 tiers v12.5 -->
@@ -2038,8 +2063,8 @@ function ocultarSplashManual() {
         <div class="plan-card featured">
           <div class="plan-badge">RECOMENDADO</div>
           <div class="plan-name">Plus</div>
-          <div class="plan-price">$4.990<span> / mes</span></div>
-          <div class="plan-desc">El equilibrio justo</div>
+          <div class="plan-price">$2.490<span> / mes</span></div>
+          <div class="plan-desc"><s style="color:var(--mu);font-weight:400">$4.990</s> lanzamiento fundador</div>
           <ul class="plan-feats">
             <li>✓ Todo lo del plan Gratis</li>
             <li>✓ <strong>Datos completos</strong> de todos los pros</li>
@@ -2056,13 +2081,13 @@ function ocultarSplashManual() {
         <div class="plan-card gold">
           <div class="plan-badge g">PREMIUM</div>
           <div class="plan-name">Premium</div>
-          <div class="plan-price">$9.990<span> / mes</span></div>
-          <div class="plan-desc">Para uso intensivo</div>
+          <div class="plan-price">$4.990<span> / mes</span></div>
+          <div class="plan-desc"><s style="color:var(--mu);font-weight:400">$9.990</s> lanzamiento fundador</div>
           <ul class="plan-feats">
             <li>✓ Todo lo del plan Plus</li>
             <li>✓ <strong>Chats ilimitados</strong> con cualquier pro</li>
-            <li>✓ <strong>Blog Premium exclusivo</strong></li>
-            <li>✓ Concierge IA (respuestas más rápidas)</li>
+            <li>✓ <strong>Garantía MasterMatch</strong> en trabajos con Pago Protegido</li>
+            <li>✓ Concierge humano si no hay match en 24h</li>
             <li>✓ <strong>1 Cotización Exprés gratis</strong> al mes</li>
             <li>✓ Pago Protegido con <strong>0% fee</strong></li>
             <li>✓ Soporte prioritario por WhatsApp</li>
@@ -2077,8 +2102,8 @@ function ocultarSplashManual() {
       <div style="margin-top:2rem;background:var(--surface);border:1px solid var(--teal);border-radius:var(--radius-lg);padding:2rem;display:flex;gap:24px;align-items:center;flex-wrap:wrap">
         <div style="font-size:36px;flex-shrink:0">⬢</div>
         <div style="flex:1;min-width:240px">
-          <div style="font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:var(--text-main);letter-spacing:-0.015em;margin-bottom:6px">Empresa <span style="color:var(--teal);font-size:1rem;font-weight:500;margin-left:8px">$24.990 / mes</span></div>
-          <div style="font-size:14px;color:var(--mu);line-height:1.6;margin-bottom:14px">Para inmobiliarias, conserjerías y PyMEs. Premium x5 usuarios, dashboard de gastos, factura empresa, reportes mensuales y opción de pro asignado fijo.</div>
+          <div style="font-family:var(--font-display);font-weight:600;font-size:1.4rem;color:var(--text-main);letter-spacing:-0.015em;margin-bottom:6px">Empresa <span style="color:var(--teal);font-size:1rem;font-weight:500;margin-left:8px">$12.490 / mes</span></div>
+          <div style="font-size:14px;color:var(--mu);line-height:1.6;margin-bottom:14px"><s style="color:var(--mu);font-weight:400">$24.990</s> lanzamiento fundador. Para inmobiliarias, conserjerías y PyMEs. Premium x5 usuarios, dashboard de gastos, factura empresa, reportes mensuales y opción de pro asignado fijo.</div>
           <button class="btn-s" style="border-color:var(--teal);color:var(--teal)" onclick="contratarPlanCli('empresa')">Contactar para activar →</button>
         </div>
       </div>
@@ -2120,8 +2145,8 @@ function ocultarSplashManual() {
         <div class="plan-card featured">
           <div class="plan-badge">MÁS POPULAR</div>
           <div class="plan-name">Plan Pro</div>
-          <div class="plan-price">$6.990<span> / mes</span></div>
-          <div class="plan-desc">Para profesionales que quieren crecer</div>
+          <div class="plan-price">$3.490<span> / mes</span></div>
+          <div class="plan-desc"><s style="color:var(--mu);font-weight:400">$6.990</s> lanzamiento fundador</div>
           <ul class="plan-feats">
             <li>✓ <strong>Solicitudes ilimitadas</strong> sin tope mensual</li>
             <li>✓ Hasta <strong>25 fotos</strong> de tus trabajos</li>
@@ -2140,23 +2165,38 @@ function ocultarSplashManual() {
         <div class="plan-card gold">
           <div class="plan-badge g">PROFESIONAL SERIO</div>
           <div class="plan-name">Plan Premium</div>
-          <div class="plan-price">$14.990<span> / mes</span></div>
-          <div class="plan-desc">Para los que van en serio</div>
+          <div class="plan-price">$7.490<span> / mes</span></div>
+          <div class="plan-desc"><s style="color:var(--mu);font-weight:400">$14.990</s> lanzamiento fundador</div>
           <ul class="plan-feats">
             <li>✓ Todo lo del Plan Pro</li>
             <li>✓ Hasta <strong>40 fotos + video</strong> de presentación</li>
             <li>✓ <strong>Badge dorado "Top"</strong> — mayor confianza</li>
             <li>✓ <strong>Primero en todos los resultados</strong></li>
             <li>✓ <strong>0% comisión</strong> en Pago Protegido</li>
-            <li>✓ <strong>Blog Premium exclusivo</strong> — tendencias y estrategias</li>
+            <li>✓ <strong>Lead Quality Score</strong> antes de responder</li>
             <li>✓ Portada de perfil personalizable</li>
             <li>✓ Soporte prioritario 24h por WhatsApp</li>
-            <li>✓ Sistema de referidos — 1 mes gratis por referido</li>
+            <li>✓ Gamificación: XP, badges, ranking por comuna y rachas</li>
           </ul>
           <button class="btn-p" style="width:100%" onclick="activarPlan('premium')">Activar Plan Premium →</button>
           <p style="text-align:center;font-size:11px;color:var(--mu);margin-top:10px">Todo incluido, sin sorpresas.</p>
         </div>
 
+      </div>
+
+      <div class="mm-guarantee">
+        <div class="mm-guarantee-head">
+          <div class="mm-guarantee-ic">✓</div>
+          <div>
+            <h3 class="mm-guarantee-title">Garantía MasterMatch</h3>
+            <p class="mm-guarantee-copy">La promesa Premium es operativa: seguimiento, evidencia, mediación y pago retenido por hitos. Eso sí vale más que una respuesta genérica de IA.</p>
+          </div>
+        </div>
+        <div class="mm-guarantee-grid">
+          <div class="mm-guarantee-item"><strong>Antes</strong><span>Brief validado por IA: comuna, presupuesto, urgencia, alcance y fotos si aplica.</span></div>
+          <div class="mm-guarantee-item"><strong>Durante</strong><span>Pago protegido, hitos, chat y evidencia del avance antes de liberar dinero.</span></div>
+          <div class="mm-guarantee-item"><strong>Si falla</strong><span>Mediación y concierge para corregir, reagendar o derivar a otro profesional.</span></div>
+        </div>
       </div>
 
       <!-- Tabla comparativa -->
@@ -3886,10 +3926,51 @@ function datosChatCompletos(){
   return !!(chatData.tipo && chatData.descripcion && chatData.descripcion.length>=18 && chatData.ppto && chatData.plazo && chatData.zona && chatData.region);
 }
 
+function resumenSolicitudChat(){
+  return 'Trabajo: '+formatOficio(chatData.tipo||'General')+
+    '\nComuna: '+(chatData.zona||'por definir')+
+    '\nPresupuesto: '+(chatData.ppto||'por cotizar')+
+    '\nPlazo: '+(chatData.plazo||'flexible')+
+    '\nDetalle: '+(chatData.descripcion||'sin detalle');
+}
+function solicitarConfirmacionSolicitud(clean){
+  chatPendienteConfirmacion = true;
+  if(clean) addBot(clean);
+  addBot('Antes de enviarla, confirmemos el brief:\n\n'+resumenSolicitudChat()+'\n\n¿Está correcto?');
+  var el=document.getElementById('qo');
+  if(el){
+    el.innerHTML='<button class="qb" onclick="confirmarSolicitudChat()">Sí, enviar solicitud</button><button class="qb" onclick="editarSolicitudChat()">Editar datos</button>';
+    el.style.display='flex';
+  }
+}
+function confirmarSolicitudChat(){
+  chatPendienteConfirmacion = false;
+  var el=document.getElementById('qo'); if(el) el.style.display='none';
+  addUser('Sí, enviar solicitud');
+  addBot('Perfecto. Ahora sí busco profesionales con ese brief.');
+  setTimeout(guardarYMostrar,800);
+}
+function editarSolicitudChat(){
+  chatPendienteConfirmacion = false;
+  var el=document.getElementById('qo'); if(el) el.style.display='none';
+  addUser('Editar datos');
+  addBot('Dime qué corregimos: comuna, presupuesto, plazo o detalle del trabajo. No enviaré nada hasta que confirmes.');
+}
+window.confirmarSolicitudChat = confirmarSolicitudChat;
+window.editarSolicitudChat = editarSolicitudChat;
+
 async function enviar(){
   var inp=document.getElementById('ci');
   var txt=inp.value.trim();
   if(!txt||writing)return;
+  if(chatPendienteConfirmacion){
+    var nt=normalizarTextoChat(txt);
+    inp.value='';
+    if(/^(si|sí|ok|dale|confirmo|enviar)/.test(nt)){ confirmarSolicitudChat(); return; }
+    editarSolicitudChat();
+    addUser(txt);
+    return;
+  }
   var avisoValidacion=validarRespuestaChat(txt);
   if(avisoValidacion){ addBot(avisoValidacion); return; }
   inp.value='';
@@ -3949,9 +4030,8 @@ function procReply(reply){
         addBot('Antes de lanzar la solicitud necesito cerrar datos mínimos: qué trabajo es, presupuesto, plazo y comuna. ¿Me das el dato que falta?');
         chatHist.push({role:'assistant',content:'Faltan datos mínimos para crear la solicitud.'});
       }else{
-        if(clean)addBot(clean);
         chatHist.push({role:'assistant',content:reply});
-        setTimeout(guardarYMostrar,1800);
+        solicitarConfirmacionSolicitud(clean);
       }
     }catch(e){addBot(reply);}
   }else{
@@ -4755,10 +4835,10 @@ function cargarMiPlan(){
     html='<div class="plan-card"><div class="plan-name">Tu plan actual: Gratis</div><div class="plan-price">$0</div><div class="plan-desc">Tienes 3 solicitudes/mes. Mejora para crecer más rápido.</div><button class="btn-p" onclick="go(\'planes\')">Ver planes →</button></div>';
   } else if(plan==='pro'){
     var expira=miPerfil.planExpira?new Date(miPerfil.planExpira).toLocaleDateString('es-CL'):'—';
-    html='<div class="plan-card pro" style="border-color:var(--purple)"><div class="plan-name" style="color:var(--purple)">✓ Plan Pro activo</div><div class="plan-price" style="color:var(--purple)">$6.990/mes</div><div class="plan-desc">Solicitudes ilimitadas, 18 fotos, insignia verificado.</div><div style="font-size:12px;color:var(--mu)">Renueva: '+expira+'</div></div>';
+    html='<div class="plan-card pro" style="border-color:var(--purple)"><div class="plan-name" style="color:var(--purple)">✓ Plan Pro activo</div><div class="plan-price" style="color:var(--purple)">$3.490/mes fundador</div><div class="plan-desc">Solicitudes ilimitadas, 25 fotos, insignia verificado.</div><div style="font-size:12px;color:var(--mu)">Renueva: '+expira+'</div></div>';
   } else {
     var expira=miPerfil.planExpira?new Date(miPerfil.planExpira).toLocaleDateString('es-CL'):'—';
-    html='<div class="plan-card gold"><div class="plan-name" style="color:var(--gold)">⭐ Plan Premium activo</div><div class="plan-price" style="color:var(--gold)">$14.990/mes</div><div class="plan-desc">24 fotos, primero en resultados, 0% comisión.</div><div style="font-size:12px;color:var(--mu)">Renueva: '+expira+'</div></div>';
+    html='<div class="plan-card gold"><div class="plan-name" style="color:var(--gold)">⭐ Plan Premium activo</div><div class="plan-price" style="color:var(--gold)">$7.490/mes fundador</div><div class="plan-desc">40 fotos + video, primero en resultados, 0% comisión, XP y badges.</div><div style="font-size:12px;color:var(--mu)">Renueva: '+expira+'</div></div>';
   }
   document.getElementById('mi-plan').innerHTML=html;
 }
@@ -4878,9 +4958,9 @@ function togglePlanes(tipo){
 // SKUs cliente v12.5 — Pase 24h, Plus, Premium, Empresa
 var SKU_CLIENTE = {
   pase24h: { precio: 490,   label: 'Pase 24h',  desc: 'Acceso completo a 1 perfil por 24 horas, chat directo incluido.' },
-  plus:    { precio: 4990,  label: 'Plus',      desc: 'Mensual. Datos completos de todos los pros + 5 chats al mes.' },
-  premium: { precio: 9990,  label: 'Premium',   desc: 'Mensual. Chats ilimitados, Blog Premium, Concierge IA, 1 Exprés gratis.' },
-  empresa: { precio: 24990, label: 'Empresa',   desc: 'Mensual B2B. Premium x5 usuarios, dashboard, factura empresa.' }
+  plus:    { precio: 2490,  label: 'Plus fundador',      desc: 'Lanzamiento 50% off. Datos completos + 5 chats al mes.' },
+  premium: { precio: 4990,  label: 'Premium fundador',   desc: 'Lanzamiento 50% off. Garantía, concierge, chats ilimitados y 1 Exprés gratis.' },
+  empresa: { precio: 12490, label: 'Empresa fundador',   desc: 'Lanzamiento 50% off. Premium x5 usuarios, dashboard, factura empresa.' }
 };
 
 async function contratarPlanCli(plan){
@@ -4890,7 +4970,7 @@ async function contratarPlanCli(plan){
 
   // Empresa: derivar a WhatsApp con plantilla, no auto-checkout
   if(plan==='empresa'){
-    var msg='Hola, quiero activar el plan Empresa de MasterMatch ($24.990/mes). Email cuenta: '+miCli.email;
+    var msg='Hola, quiero activar el plan Empresa fundador de MasterMatch ($12.490/mes). Email cuenta: '+miCli.email;
     window.open('https://wa.me/56912345678?text='+encodeURIComponent(msg),'_blank');
     return;
   }
@@ -4946,8 +5026,14 @@ window.clienteTieneChatDirecto=clienteTieneChatDirecto;
 async function activarPlan(plan){
   if(!miPerfil){alert('Primero debes registrarte como profesional');go('registro');return;}
   if(plan==='gratis'){alert('Ya estás en Plan Gratis');return;}
-  var precio=plan==='pro'?6990:14990;
-  if(!confirm('¿Activar Plan '+plan.toUpperCase()+' por $'+precio+'/mes?\n\nSerás redirigido a Mercado Pago para el pago.'))return;
+  var precio=plan==='pro'?3490:7490;
+  var normal=plan==='pro'?6990:14990;
+  var msg=[
+    '¿Activar Plan '+plan.toUpperCase()+' fundador por $'+precio.toLocaleString('es-CL')+'/mes?',
+    'Precio normal: $'+normal.toLocaleString('es-CL')+'/mes. Lanzamiento 50% off para primeros cupos.',
+    'Serás redirigido a Mercado Pago para el pago.'
+  ].join('\n\n');
+  if(!confirm(msg))return;
   
   var loading=document.createElement('div');
   loading.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);color:var(--text-main);padding:2rem;border-radius:14px;border:1px solid var(--border);box-shadow:0 10px 40px rgba(0,0,0,.5);z-index:9999;text-align:center;font-family:inherit';
@@ -6922,6 +7008,8 @@ window.filtrarPorNecesidad = filtrarPorNecesidad;
 window.cerrarNecesidad = cerrarNecesidad;
 
 // ============ ASISTENTE IA PRO v12.5.3 ============
+var chatPendienteConfirmacion = false;
+
 var aipHistorial = [];
 var aipEnviando = false;
 
