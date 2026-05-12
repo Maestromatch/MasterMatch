@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -1415,6 +1415,38 @@ input:checked+.slider:before{transform:translateX(20px)}
 .mm-need-ic{width:48px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--accent)}
 .mm-need-name{font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;line-height:1.2}
 .mm-need-count{font-size:11px;color:var(--mu);letter-spacing:0.04em}
+.mm-need.is-active{background:var(--bg-deep);box-shadow:inset 0 0 0 1px var(--accent)}
+.mm-need.is-active .mm-need-ic{transform:translateY(-2px);filter:drop-shadow(0 8px 18px rgba(201,168,76,.25))}
+.mm-need-detail{display:none;margin-top:1.5rem;border:1px solid var(--border);border-radius:var(--radius-lg);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));overflow:hidden;animation:hcd-fadein .28s var(--ease-out)}
+.mm-need-detail.is-open{display:block}
+.mm-need-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.25rem 1.25rem;border-bottom:1px solid var(--border)}
+.mm-need-detail-title{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--text-main);letter-spacing:-.02em;margin:0}
+.mm-need-detail-copy{font-size:13px;color:var(--mu);line-height:1.6;margin:.35rem 0 0;max-width:620px}
+.mm-need-detail-close{width:36px;height:36px;border-radius:var(--radius-full);border:1px solid var(--border);background:var(--surface);color:var(--text-main);cursor:pointer;font-size:20px;line-height:1}
+.mm-need-cats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
+@media (min-width:720px){.mm-need-cats{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1024px){.mm-need-cats{grid-template-columns:repeat(4,1fr)}}
+.mm-need-cat{background:var(--surface);border:0;color:var(--text-main);padding:1rem;text-align:left;cursor:pointer;display:flex;align-items:center;gap:.75rem;font-family:inherit;min-height:72px;transition:background-color .18s var(--ease-out),color .18s var(--ease-out)}
+.mm-need-cat:hover{background:var(--surface-2);color:var(--accent)}
+.mm-need-cat-ic{width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;flex-shrink:0}
+.mm-need-cat-name{font-size:13px;font-weight:500;line-height:1.25;letter-spacing:-.005em}
+.mm-premium-diff{background:var(--surface);padding:5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.mm-diff-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:2rem}
+@media (min-width:900px){.mm-diff-grid{grid-template-columns:1.05fr .95fr}}
+.mm-diff-panel{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg-deep);overflow:hidden}
+.mm-diff-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.mm-diff-cell{background:var(--surface);padding:1rem;min-height:86px}
+.mm-diff-cell strong{display:block;color:var(--text-main);font-size:13px;margin-bottom:.35rem}
+.mm-diff-cell span{display:block;color:var(--mu);font-size:12px;line-height:1.55}
+.mm-diff-cell.is-mm{background:var(--accent-tint);border-left:1px solid rgba(201,168,76,.25)}
+.mm-diff-cell.is-mm strong{color:var(--accent)}
+.mm-gamify{border:1px solid var(--accent);border-radius:var(--radius-lg);background:linear-gradient(180deg,rgba(201,168,76,.12),rgba(255,255,255,.02));padding:1.25rem;position:relative;overflow:hidden}
+.mm-gamify-tabs{display:flex;gap:.5rem;margin:1rem 0;overflow:hidden}
+.mm-gamify-tab{border:1px solid var(--border);background:var(--surface);color:var(--text-main);border-radius:var(--radius-full);padding:.5rem .75rem;font-size:11px;font-weight:600;animation:mm-tab-drift 7s ease-in-out infinite}
+.mm-gamify-tab:nth-child(2){animation-delay:.8s}.mm-gamify-tab:nth-child(3){animation-delay:1.6s}
+@keyframes mm-tab-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.mm-gamify-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.65rem}
+.mm-gamify-list li{color:var(--text-main);font-size:13px;line-height:1.55;border-top:1px solid var(--border);padding-top:.65rem}
 
 /* === FOOTER Editorial v12.4 === */
 .mm-footer{background:var(--bg-deep);color:var(--text-main);border-top:1px solid var(--border);padding:5rem 0 2rem}
@@ -1627,7 +1659,7 @@ function ocultarSplashManual() {
         <button class="mm-need" onclick="filtrarPorNecesidad('hogar')">
           <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12L12 3l9 9"/><path d="M5 10v10h14V10"/><path d="M9 21V12h6v9"/></svg>
           <div class="mm-need-name">Hogar</div>
-          <div class="mm-need-count">21 oficios</div>
+          <div class="mm-need-count">16 servicios</div>
         </button>
         <button class="mm-need" onclick="filtrarPorNecesidad('salud')">
           <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.5V14a8.5 8.5 0 1 1-9.6-8.4"/><path d="M16 5l-3.5 3.5L10 6"/><path d="M22 4l-9 9-3-3"/></svg>
@@ -1637,12 +1669,12 @@ function ocultarSplashManual() {
         <button class="mm-need" onclick="filtrarPorNecesidad('cuidado')">
           <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <div class="mm-need-name">Cuidado de personas</div>
-          <div class="mm-need-count">3 servicios</div>
+          <div class="mm-need-count">4 servicios</div>
         </button>
         <button class="mm-need" onclick="filtrarPorNecesidad('legal')">
           <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
           <div class="mm-need-name">Legal y negocio</div>
-          <div class="mm-need-count">5 servicios</div>
+          <div class="mm-need-count">8 servicios</div>
         </button>
         <button class="mm-need" onclick="filtrarPorNecesidad('digital')">
           <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -1662,128 +1694,14 @@ function ocultarSplashManual() {
         <button class="mm-need" onclick="filtrarPorNecesidad('mascotas')">
           <svg class="mm-need-ic" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3a4 4 0 0 1-4 4 4 4 0 0 1-4-4 5 5 0 0 1 3-5"/></svg>
           <div class="mm-need-name">Mascotas</div>
-          <div class="mm-need-count">Próximamente</div>
+          <div class="mm-need-count">5 servicios</div>
         </button>
       </div>
+      <div class="mm-need-detail" id="mm-need-detail"></div>
     </div>
   </section>
 
-  <!-- SECCIÓN: CATEGORÍAS — fondo dark premium v9.1 -->
-  <section class="section section-cats-dark">
-    <div class="container">
-      <div class="section-head section-head-dark">
-        <div class="eyebrow">Categorías</div>
-        <h2>¿Qué necesitas hoy?</h2>
-        <p class="lead">Elige una categoría y te conectamos con el profesional correcto en minutos.</p>
-      </div>
-      <div class="cat-tabs cat-tabs-dark" style="max-width:680px;margin:0 auto 2rem;display:flex;flex-wrap:wrap;justify-content:center">
-        <button class="cat-tab active" onclick="showCat('oficios',this)">🔨 Oficios</button>
-        <button class="cat-tab" onclick="showCat('servicios',this)">💼 Profesionales</button>
-        <button class="cat-tab" onclick="showCat('digitales',this)">💻 Digitales</button>
-        <button class="cat-tab" onclick="showCat('eventos',this)">🎉 Eventos</button>
-      </div>
 
-      <!-- 1. OFICIOS (21 cards) -->
-      <div id="cat-oficios">
-        <div class="category-grid cat-collapsable" data-cat-id="oficios" data-visible="12">
-          <div class="cat-card" onclick="iniciar('Gasfiteria')"><div class="cat-icon">🔧</div><div class="cat-name">Gasfitería</div></div>
-          <div class="cat-card" onclick="iniciar('Electricidad')"><div class="cat-icon">⚡</div><div class="cat-name">Electricidad</div></div>
-          <div class="cat-card" onclick="iniciar('Pintura')"><div class="cat-icon">🎨</div><div class="cat-name">Pintura</div></div>
-          <div class="cat-card" onclick="iniciar('Carpinteria')"><div class="cat-icon">🪵</div><div class="cat-name">Carpintería</div></div>
-          <div class="cat-card" onclick="iniciar('Albañileria')"><div class="cat-icon">🧱</div><div class="cat-name">Albañilería</div></div>
-          <div class="cat-card" onclick="iniciar('Cerrajeria')"><div class="cat-icon">🔑</div><div class="cat-name">Cerrajería</div></div>
-          <div class="cat-card" onclick="iniciar('Jardineria')"><div class="cat-icon">🌿</div><div class="cat-name">Jardinería</div></div>
-          <div class="cat-card" onclick="iniciar('Climatizacion')"><div class="cat-icon">❄️</div><div class="cat-name">Climatización</div></div>
-          <div class="cat-card" onclick="iniciar('Flete')"><div class="cat-icon">🚛</div><div class="cat-name">Flete</div></div>
-          <div class="cat-card" onclick="iniciar('Conductor')"><div class="cat-icon">🚗</div><div class="cat-name">Conductor / RentCar</div></div>
-          <div class="cat-card" onclick="iniciar('Limpieza')"><div class="cat-icon">🧹</div><div class="cat-name">Limpieza</div></div>
-          <div class="cat-card" onclick="iniciar('Asesora')"><div class="cat-icon">🏠</div><div class="cat-name">Asesora hogar</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Mallas')"><div class="cat-icon">🛡️</div><div class="cat-name">Mallas seguridad</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Cuidadora')"><div class="cat-icon">💊</div><div class="cat-name">Cuidado de enfermos</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('CuidadoInfantil')"><div class="cat-icon">👶</div><div class="cat-name">Cuidado infantil / Niñera</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Fumigacion')"><div class="cat-icon">🐜</div><div class="cat-name">Fumigación</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('TecElectro')"><div class="cat-icon">📺</div><div class="cat-name">Téc. electrodomésticos</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Piscinas')"><div class="cat-icon">🏊</div><div class="cat-name">Mantención piscinas</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('ArmadoMuebles')"><div class="cat-icon">🔨</div><div class="cat-name">Armado muebles</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Masajes')"><div class="cat-icon">💆</div><div class="cat-name">Masajes</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Otros')"><div class="cat-icon">🛠️</div><div class="cat-name">Otros trabajos</div></div>
-        </div>
-        <button class="cat-toggle-btn" onclick="toggleCategorias('oficios',this)">
-          <span class="ctb-show">Ver más oficios <span class="ctb-arrow">▾</span></span>
-          <span class="ctb-hide" style="display:none">Ver menos <span class="ctb-arrow">▴</span></span>
-        </button>
-      </div>
-
-      <!-- 2. SERVICIOS PROFESIONALES (17 cards) -->
-      <div id="cat-servicios" style="display:none">
-        <div class="category-grid cat-collapsable" data-cat-id="servicios" data-visible="12">
-          <div class="cat-card" onclick="iniciar('Doctor')"><div class="cat-icon">👨‍⚕️</div><div class="cat-name">Doctor particular</div></div>
-          <div class="cat-card" onclick="iniciar('Enfermero')"><div class="cat-icon">💉</div><div class="cat-name">Enfermero/a</div></div>
-          <div class="cat-card" onclick="iniciar('Psiquiatra')"><div class="cat-icon">🧑‍⚕️</div><div class="cat-name">Psiquiatra</div></div>
-          <div class="cat-card" onclick="iniciar('Psicologo')"><div class="cat-icon">🧠</div><div class="cat-name">Psicólogo/a</div></div>
-          <div class="cat-card" onclick="iniciar('Psicopedagoga')"><div class="cat-icon">📚</div><div class="cat-name">Psicopedagoga</div></div>
-          <div class="cat-card" onclick="iniciar('Kinesiologo')"><div class="cat-icon">🏃</div><div class="cat-name">Kinesiólogo/a</div></div>
-          <div class="cat-card" onclick="iniciar('Nutricionista')"><div class="cat-icon">🥗</div><div class="cat-name">Nutricionista</div></div>
-          <div class="cat-card" onclick="iniciar('Tecnologo')"><div class="cat-icon">🩻</div><div class="cat-name">Tecnólogo médico</div></div>
-          <div class="cat-card" onclick="iniciar('Holistico')"><div class="cat-icon">🌿</div><div class="cat-name">Terapias holísticas</div></div>
-          <div class="cat-card" onclick="iniciar('Arquitecto')"><div class="cat-icon">📐</div><div class="cat-name">Arquitecto</div></div>
-          <div class="cat-card" onclick="iniciar('Constructor')"><div class="cat-icon">🏗️</div><div class="cat-name">Constructor civil</div></div>
-          <div class="cat-card" onclick="iniciar('Ingeniero')"><div class="cat-icon">⚙️</div><div class="cat-name">Ing. civil</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Corredor')"><div class="cat-icon">🏠</div><div class="cat-name">Corredor propiedades</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Abogado')"><div class="cat-icon">⚖️</div><div class="cat-name">Abogado</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Contador')"><div class="cat-icon">📊</div><div class="cat-name">Contador</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Diseno')"><div class="cat-icon">🛋️</div><div class="cat-name">Diseño interior</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('Prevencionista')"><div class="cat-icon">🦺</div><div class="cat-name">Prevencionista</div></div>
-        </div>
-        <button class="cat-toggle-btn" onclick="toggleCategorias('servicios',this)">
-          <span class="ctb-show">Ver más servicios <span class="ctb-arrow">▾</span></span>
-          <span class="ctb-hide" style="display:none">Ver menos <span class="ctb-arrow">▴</span></span>
-        </button>
-      </div>
-
-      <!-- 3. DIGITALES v10.7 (12 oficios remotos en alta demanda) -->
-      <div id="cat-digitales" style="display:none">
-        <div style="text-align:center;margin-bottom:1.5rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:1rem 1.25rem;backdrop-filter:blur(8px)"><div style="font-size:13px;color:var(--o);font-weight:600">🌎 Servicios remotos disponibles en todo Chile</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">Nuestros profesionales digitales atienden online sin importar tu región.</div></div>
-        <div class="category-grid cat-collapsable" data-cat-id="digitales" data-visible="12">
-          <div class="cat-card" onclick="iniciar('Programador')"><div class="cat-icon">💻</div><div class="cat-name">Programador / Web</div></div>
-          <div class="cat-card" onclick="iniciar('DisenoGrafico')"><div class="cat-icon">📱</div><div class="cat-name">Diseño gráfico / UX</div></div>
-          <div class="cat-card" onclick="iniciar('MarketingDigital')"><div class="cat-icon">📊</div><div class="cat-name">Marketing digital / CM</div></div>
-          <div class="cat-card" onclick="iniciar('EditorVideo')"><div class="cat-icon">🎬</div><div class="cat-name">Editor de video</div></div>
-          <div class="cat-card" onclick="iniciar('Fotografo')"><div class="cat-icon">📸</div><div class="cat-name">Fotógrafo profesional</div></div>
-          <div class="cat-card" onclick="iniciar('Copywriter')"><div class="cat-icon">✍️</div><div class="cat-name">Redactor / Copywriter</div></div>
-          <div class="cat-card" onclick="iniciar('Locutor')"><div class="cat-icon">🎙️</div><div class="cat-name">Locutor / Voice over</div></div>
-          <div class="cat-card" onclick="iniciar('Ilustrador')"><div class="cat-icon">🎨</div><div class="cat-name">Ilustrador / Animador</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('SEO')"><div class="cat-icon">📈</div><div class="cat-name">Asesor SEO</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('ConsultorIA')"><div class="cat-icon">🤖</div><div class="cat-name">Consultor IA / Automatización</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('ProfesorOnline')"><div class="cat-icon">🎓</div><div class="cat-name">Profesor particular online</div></div>
-          <div class="cat-card cat-hidden" onclick="iniciar('AsistenteVirtual')"><div class="cat-icon">💼</div><div class="cat-name">Asistente virtual</div></div>
-        </div>
-        <button class="cat-toggle-btn" onclick="toggleCategorias('digitales',this)">
-          <span class="ctb-show">Ver más digitales <span class="ctb-arrow">▾</span></span>
-          <span class="ctb-hide" style="display:none">Ver menos <span class="ctb-arrow">▴</span></span>
-        </button>
-      </div>
-
-      <!-- 4. EVENTOS Y ESPECTÁCULOS v10.7 -->
-      <div id="cat-eventos" style="display:none">
-        <div style="text-align:center;margin-bottom:1.5rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem 1.25rem;backdrop-filter:blur(8px)"><div style="font-size:13px;color:var(--gold);font-weight:600">🎉 Para tu cumpleaños, matrimonio, corporativo o show</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">Músicos, DJs, fotógrafos, animadores y más. Cotiza por evento.</div></div>
-        <div class="category-grid cat-collapsable" data-cat-id="eventos" data-visible="12">
-          <div class="cat-card" onclick="iniciar('Musico')"><div class="cat-icon">🎸</div><div class="cat-name">Músico / Banda</div></div>
-          <div class="cat-card" onclick="iniciar('DJ')"><div class="cat-icon">🎧</div><div class="cat-name">DJ profesional</div></div>
-          <div class="cat-card" onclick="iniciar('Cantante')"><div class="cat-icon">🎤</div><div class="cat-name">Cantante solista</div></div>
-          <div class="cat-card" onclick="iniciar('FotografoEvento')"><div class="cat-icon">📷</div><div class="cat-name">Fotógrafo de evento</div></div>
-          <div class="cat-card" onclick="iniciar('VideografoEvento')"><div class="cat-icon">🎥</div><div class="cat-name">Videógrafo de evento</div></div>
-          <div class="cat-card" onclick="iniciar('AnimadorInfantil')"><div class="cat-icon">🤡</div><div class="cat-name">Animador infantil</div></div>
-          <div class="cat-card" onclick="iniciar('Bartender')"><div class="cat-icon">🍹</div><div class="cat-name">Bartender</div></div>
-          <div class="cat-card" onclick="iniciar('Mago')"><div class="cat-icon">🎩</div><div class="cat-name">Mago / Showman</div></div>
-          <div class="cat-card" onclick="iniciar('Sonidista')"><div class="cat-icon">🔊</div><div class="cat-name">Sonidista / Iluminación</div></div>
-          <div class="cat-card" onclick="iniciar('Decorador')"><div class="cat-icon">🎈</div><div class="cat-name">Decorador de eventos</div></div>
-          <div class="cat-card" onclick="iniciar('ChefPrivado')"><div class="cat-icon">👨‍🍳</div><div class="cat-name">Chef privado / Catering</div></div>
-          <div class="cat-card" onclick="iniciar('MaestroCeremonias')"><div class="cat-icon">🎙️</div><div class="cat-name">Maestro de ceremonias</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- SECCIÓN: CÓMO FUNCIONA (features-grid) -->
   <section class="section section-surface">
@@ -1812,6 +1730,42 @@ function ocultarSplashManual() {
       </div>
     </div>
   </section>
+
+  <!-- SECCIÓN: DIFERENCIA PREMIUM v12.6.7 -->
+  <section class="mm-premium-diff">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Por qué pagar Premium</div>
+        <h2>No vendemos IA. Vendemos resultado protegido.</h2>
+        <p class="lead">La IA gratis conversa; MasterMatch coordina disponibilidad, verificación, pago protegido, mediación y avance real del trabajo.</p>
+      </div>
+      <div class="mm-diff-grid">
+        <div class="mm-diff-panel">
+          <div class="mm-diff-row">
+            <div class="mm-diff-cell"><strong>IA gratis</strong><span>Te da ideas, pero no sabe quién está disponible hoy ni responde por el resultado.</span></div>
+            <div class="mm-diff-cell is-mm"><strong>MasterMatch Premium</strong><span>Match prioritario con profesionales verificados, agenda real y pago protegido por hitos.</span></div>
+            <div class="mm-diff-cell"><strong>Directorio común</strong><span>Te entrega teléfonos y te deja negociar solo, sin respaldo si algo sale mal.</span></div>
+            <div class="mm-diff-cell is-mm"><strong>Garantía operativa</strong><span>Concierge, mediación, seguimiento de SLA y evidencia del trabajo antes de liberar el pago.</span></div>
+            <div class="mm-diff-cell"><strong>Promesa barata</strong><span>Más leads no sirven si llegan sin presupuesto, urgencia o datos claros.</span></div>
+            <div class="mm-diff-cell is-mm"><strong>Leads filtrados</strong><span>Brief inteligente, presupuesto probable, comuna, plazo y nivel de urgencia antes de molestar al profesional.</span></div>
+          </div>
+        </div>
+        <div class="mm-gamify">
+          <div class="eyebrow">Sistema tipo Skool</div>
+          <h3 style="font-family:var(--font-display);font-size:1.35rem;font-weight:500;color:var(--text-main);margin:.5rem 0;letter-spacing:-.02em">Reputación que se gana, no se compra</h3>
+          <p style="color:var(--mu);font-size:13px;line-height:1.7;margin:0">Cada profesional sube de nivel por responder rápido, cerrar trabajos, subir evidencia y mantener reseñas reales.</p>
+          <div class="mm-gamify-tabs"><span class="mm-gamify-tab">Nivel 4</span><span class="mm-gamify-tab">Top comuna</span><span class="mm-gamify-tab">Racha 7 días</span></div>
+          <ul class="mm-gamify-list">
+            <li><strong>XP por conducta útil:</strong> respuesta en menos de 15 min, trabajo finalizado, foto antes/después y cliente conforme.</li>
+            <li><strong>Badges verificables:</strong> puntualidad, documentación aprobada, especialidad validada, cero reclamos abiertos.</li>
+            <li><strong>Ranking sano:</strong> leaderboard por comuna y categoría, filtrado por calidad y no solo por quién paga más.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
   <!-- SECCIÓN: ASISTENTE IA PRO PREMIUM v12.6 — diferenciador único -->
   <section class="mm-aip-landing">
@@ -2800,7 +2754,7 @@ function ocultarSplashManual() {
       <input class="fi" placeholder="WhatsApp +56 9 XXXX XXXX *" id="rw" type="tel">
       <input class="fi" placeholder="Email *" id="re" type="email" autocomplete="email">
       <input class="fi" placeholder="Contraseña (mínimo 8 caracteres)" id="rp" type="password" autocomplete="new-password">
-      <small style="display:block;color:var(--mu);font-size:11px;margin:-6px 0 14px;line-height:1.5">Opcional. Te permite iniciar sesión con email + contraseña además de Google.</small>
+      <small style="display:block;color:var(--mu);font-size:11px;margin:-6px 0 14px;line-height:1.5">Obligatoria. La cuenta se crea solo con email y contraseña para mantener datos completos.</small>
 
       <label class="fl">Categoría *</label>
       <div class="osg" style="grid-template-columns:1fr 1fr">
@@ -2879,21 +2833,6 @@ function ocultarSplashManual() {
       <input class="fi" placeholder="Certificaciones (SEC, ESSAL, título profesional, etc)" id="rc">
 
       <button class="btn-p" id="btn-reg" onclick="registrar()" style="font-size:15px;padding:17px;margin-top:1.25rem">Registrarme gratis →</button>
-
-      <!-- Google login dentro del registro pro v10.7 -->
-      <div class="auth-divider">
-        <span>o regístrate más rápido con</span>
-      </div>
-      <button class="btn-social-light" onclick="loginSocial('Google','pro')">
-        <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-          <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-          <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-          <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-        </svg>
-        Continuar con Google
-      </button>
-      <p style="font-size:11px;color:var(--mu);text-align:center;margin-top:10px;line-height:1.5">Si te registras con Google, completarás tu perfil profesional después.</p>
     </div>
   </div>
   <div id="rok" style="display:none">
@@ -3082,7 +3021,7 @@ function ocultarSplashManual() {
   </div>
 </div>
 
-<!-- LOGIN v12.4 — email + password + Google -->
+<!-- LOGIN v12.6.7 — email + password -->
 <div id="s-login" class="screen">
   <div class="nav">
     <button class="back" onclick="go('home')">← Volver</button>
@@ -3091,7 +3030,7 @@ function ocultarSplashManual() {
   </div>
   <div class="fw" style="max-width:440px;margin:3rem auto;padding:0 1.5rem">
     <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:500;letter-spacing:-0.02em;color:var(--text-main);margin-bottom:0.5rem">Bienvenido de vuelta</h1>
-    <p style="color:var(--mu);font-size:14px;line-height:1.6;margin-bottom:2.5rem">Ingresa con tu email y contraseña, o continúa con tu cuenta de Google.</p>
+    <p style="color:var(--mu);font-size:14px;line-height:1.6;margin-bottom:2.5rem">Ingresa con tu email y contraseña. Queremos perfiles completos y trazables desde el primer día.</p>
 
     <div class="err-msg" id="err-login"></div>
 
@@ -3102,12 +3041,6 @@ function ocultarSplashManual() {
     <input class="fi" id="login-password" type="password" placeholder="Mínimo 8 caracteres" autocomplete="current-password">
 
     <button class="btn-p" id="btn-login" onclick="loginEmailPassword()" style="font-size:15px;padding:16px;margin-top:1rem;width:100%">Iniciar sesión</button>
-
-    <div class="auth-divider"><span>o continuar con</span></div>
-    <button class="btn-social-light" onclick="loginSocial('Google','cliente')">
-      <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"/><path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z" fill="#34A853"/><path d="M4.5 10.48a4.8 4.8 0 0 1 0-3.04V5.37H1.83a8 8 0 0 0 0 7.18l2.67-2.07z" fill="#FBBC05"/><path d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.37L4.5 7.44a4.77 4.77 0 0 1 4.48-3.26z" fill="#EA4335"/></svg>
-      Continuar con Google
-    </button>
 
     <p style="text-align:center;color:var(--mu);font-size:13px;margin-top:2rem">
       ¿No tienes cuenta?
@@ -3146,7 +3079,7 @@ function ocultarSplashManual() {
       <input class="fi" placeholder="WhatsApp +56 9 XXXX XXXX *" id="rcw" type="tel">
       <input class="fi" placeholder="Email *" id="rce" type="email" autocomplete="email">
       <input class="fi" placeholder="Contraseña (mínimo 8 caracteres)" id="rcp" type="password" autocomplete="new-password">
-      <small style="display:block;color:var(--mu);font-size:11px;margin:-6px 0 14px;line-height:1.5">Opcional. Te permite iniciar sesión con email + contraseña además de Google.</small>
+      <small style="display:block;color:var(--mu);font-size:11px;margin:-6px 0 14px;line-height:1.5">Obligatoria. La cuenta se crea solo con email y contraseña para mantener datos completos.</small>
 
       <label class="fl">Región</label>
       <select class="fs" id="rcreg" onchange="actualizarComunasCliente()">
@@ -3171,20 +3104,6 @@ function ocultarSplashManual() {
       </div>
 
       <button class="btn-p" id="btn-rc" onclick="registrarCliente()" style="font-size:15px;padding:17px;margin-top:1.25rem">Crear mi cuenta →</button>
-
-      <!-- Google login dentro del registro v10.7 -->
-      <div class="auth-divider">
-        <span>o regístrate más rápido con</span>
-      </div>
-      <button class="btn-social-light" onclick="loginSocial('Google','cliente')">
-        <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-          <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-          <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-          <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-        </svg>
-        Continuar con Google
-      </button>
     </div>
   </div>
   <div id="rcok" style="display:none">
@@ -3441,137 +3360,6 @@ function ocultarSplashManual() {
 </div>
 
 </div>
-
-
-<!-- ============ FIREBASE AUTH SOCIAL v12.3.1 ============ -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyD00qJNDbDqbCbbkpvn4NbGxqUdBqjjbuM",
-    authDomain: "mastermatch-762c1.firebaseapp.com",
-    projectId: "mastermatch-762c1",
-    storageBucket: "mastermatch-762c1.firebasestorage.app",
-    messagingSenderId: "373732274519",
-    appId: "1:373732274519:web:b964c28f2849b4372f8e12",
-    measurementId: "G-PB6H7CBRDB"
-  };
-
-  try {
-    const fbApp = initializeApp(firebaseConfig);
-    const fbAuth = getAuth(fbApp);
-    const googleProvider = new GoogleAuthProvider();
-
-    // EXPOSICIÓN GLOBAL PARA LOGIN (Crucial para que window.loginSocial los vea)
-    window.fbAuth = fbAuth;
-    window.signInWithPopup = signInWithPopup;
-    window.googleProvider = googleProvider;
-
-    console.log('[MM] Firebase Social Auth listo.');
-  } catch(e) {
-    console.error('[MM] Fallo crítico Firebase:', e.message);
-  }
-
-  /**
-   * loginSocial v10.7 — el rol se pasa desde el botón en cada formulario
-   * @param {string} providerName - 'Google' (Apple eliminado en v9.1.1)
-   * @param {string} role - 'cliente' o 'pro' (pre-asignado según desde dónde se invoque)
-   */
-  window.loginSocial = async function(providerName, role) {
-    if(!fbAuth) {
-      alert('Firebase no está disponible. Recarga la página o intenta más tarde.');
-      return;
-    }
-    if(!role) role = 'cliente';
-
-    var loader = document.getElementById('loading-overlay');
-    var msg = document.getElementById('load-msg');
-    if(loader) loader.classList.add('show');
-    if(msg) msg.textContent = 'Conectando de forma segura con Google...';
-
-    try {
-      var result = await signInWithPopup(fbAuth, googleProvider);
-      var user = result.user;
-
-      if(msg) msg.textContent = 'Verificando tu cuenta...';
-
-      var res = await fetch('/api/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: user.email,
-          nombre: user.displayName || 'Usuario',
-          foto: user.photoURL || '',
-          uid: user.uid,
-          provider: providerName.toLowerCase(),
-          role: role
-        })
-      });
-
-      var data = await res.json();
-
-      if(data.success && data.exists && data.profile && data.profile.id) {
-        // LOGIN DIRECTO — Solo si tiene ID
-        if(data.role === 'pro') {
-          saveLocal('miPerfil', data.profile);
-          toast('¡Bienvenido de nuevo, ' + data.profile.nombre.split(' ')[0] + '! 👋');
-          go('dash');
-        } else {
-          saveLocal('miCliente', data.profile);
-          toast('¡Bienvenido de nuevo, ' + data.profile.nombre.split(' ')[0] + '! 👋');
-          go('perfil-cli');
-        }
-      } else {
-        // REGISTRO — Pre-llenar formulario
-        window.tempSocialUser = data.prefill || {
-          email: user.email,
-          nombre: user.displayName || 'Usuario',
-          foto: user.photoURL || '',
-          uid: user.uid,
-          role: role
-        };
-
-        if(role === 'pro') {
-          go('registro');
-          setTimeout(() => {
-            var rn = document.getElementById('rn');
-            var re = document.getElementById('re');
-            if(rn) rn.value = window.tempSocialUser.nombre;
-            if(re) re.value = window.tempSocialUser.email;
-            toast('✓ Conectado con Google. Completa tu perfil.');
-          }, 500);
-        } else {
-          go('registro-cli');
-          setTimeout(() => {
-            var rcn = document.getElementById('rcn');
-            var rce = document.getElementById('rce');
-            if(rcn) rcn.value = window.tempSocialUser.nombre;
-            if(rce) rce.value = window.tempSocialUser.email;
-            toast('✓ Conectado con Google. Completa tu registro.');
-          }, 500);
-        }
-      }
-    } catch(error) {
-      console.error('[MM] Login social error:', error);
-      if(error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request'){
-        // usuario cerró el popup, no avisamos
-      } else if(error.code === 'auth/unauthorized-domain'){
-        alert('Este dominio no está autorizado en Firebase Auth.\n\nAgrega "' + location.hostname + '" en Firebase Console → Authentication → Settings → Authorized domains.');
-      } else if(error.code === 'auth/popup-blocked'){
-        alert('Tu navegador bloqueó la ventana emergente de Google.\n\nPermite popups en este sitio y vuelve a intentarlo.');
-      } else if(error.code === 'auth/operation-not-supported-in-this-environment'){
-        alert('El login con Google no funciona abriendo el archivo localmente (file://).\n\nDebes abrirlo desde un servidor (https://master-match.vercel.app o un servidor local).');
-      } else {
-        alert('No pudimos conectar con ' + providerName + '.\n\nDetalle: ' + (error.code || 'desconocido') + '\n' + (error.message || '') + '\n\nIntenta de nuevo.');
-      }
-    } finally {
-      if(loader) loader.classList.remove('show');
-    }
-  };
-
-</script>
-
 <script>
 var oficioPre='';
 var regionActiva='Metropolitana';
@@ -4034,7 +3822,7 @@ function initChat(){
 }
 
 function formatOficio(o){
-  var m={Gasfiteria:'Gasfitería',Electricidad:'Electricidad',Pintura:'Pintura',Carpinteria:'Carpintería',Albañileria:'Albañilería',Cerrajeria:'Cerrajería',Jardineria:'Jardinería',Climatizacion:'Climatización',Flete:'Flete',Conductor:'Conductor/RentCar',Limpieza:'Limpieza',Asesora:'Asesora del hogar',Mallas:'Mallas de seguridad',Cuidadora:'Cuidado de enfermos',CuidadoInfantil:'Cuidado infantil/Niñera',Fumigacion:'Fumigación',TecElectro:'Técnico de electrodomésticos',Piscinas:'Mantención de piscinas',ArmadoMuebles:'Armado de muebles',Masajes:'Masajes a domicilio',Otros:'Otros trabajos',Doctor:'Doctor particular',Enfermero:'Enfermero/a a domicilio',Psiquiatra:'Psiquiatra',Psicologo:'Psicólogo/a',Psicopedagoga:'Psicopedagoga',Kinesiologo:'Kinesiólogo/a',Nutricionista:'Nutricionista',Tecnologo:'Tecnólogo médico',Holistico:'Terapias holísticas',Arquitecto:'Arquitecto',Constructor:'Constructor civil',Ingeniero:'Ing. civil',Corredor:'Corredor de propiedades',Abogado:'Abogado/a',Contador:'Contador/a',Diseno:'Diseño interior',Prevencionista:'Prevencionista de riesgos',Programador:'Programador / Desarrollador web',DisenoGrafico:'Diseñador gráfico / UX',MarketingDigital:'Marketing digital / Community Manager',EditorVideo:'Editor de video',Fotografo:'Fotógrafo profesional',Copywriter:'Redactor / Copywriter',Locutor:'Locutor / Voice over',Ilustrador:'Ilustrador / Animador',SEO:'Asesor SEO',ConsultorIA:'Consultor IA / Automatizaciones',ProfesorOnline:'Profesor particular online',AsistenteVirtual:'Asistente virtual',Musico:'Músico / Banda',DJ:'DJ profesional',Cantante:'Cantante solista',FotografoEvento:'Fotógrafo de evento',VideografoEvento:'Videógrafo de evento',AnimadorInfantil:'Animador infantil',Bartender:'Bartender',Mago:'Mago / Showman',Sonidista:'Sonidista / Iluminación',Decorador:'Decorador de eventos',ChefPrivado:'Chef privado / Catering',MaestroCeremonias:'Maestro de ceremonias'};
+  var m={Gasfiteria:'Gasfitería',Electricidad:'Electricidad',Pintura:'Pintura',Carpinteria:'Carpintería',Albañileria:'Albañilería',Cerrajeria:'Cerrajería',Jardineria:'Jardinería',Climatizacion:'Climatización',Flete:'Flete',Conductor:'Conductor/RentCar',Limpieza:'Limpieza',Asesora:'Asesora del hogar',Mallas:'Mallas de seguridad',Cuidadora:'Cuidado de enfermos',CuidadoInfantil:'Cuidado infantil/Niñera',Fumigacion:'Fumigación',TecElectro:'Técnico de electrodomésticos',Piscinas:'Mantención de piscinas',ArmadoMuebles:'Armado de muebles',Masajes:'Masajes a domicilio',Otros:'Otros trabajos',Doctor:'Doctor particular',Enfermero:'Enfermero/a a domicilio',Psiquiatra:'Psiquiatra',Psicologo:'Psicólogo/a',Psicopedagoga:'Psicopedagoga',Kinesiologo:'Kinesiólogo/a',Nutricionista:'Nutricionista',Tecnologo:'Tecnólogo médico',Holistico:'Terapias holísticas',Arquitecto:'Arquitecto',Constructor:'Constructor civil',Ingeniero:'Ing. civil',Corredor:'Corredor de propiedades',Abogado:'Abogado/a',Contador:'Contador/a',Diseno:'Diseño interior',Prevencionista:'Prevencionista de riesgos',Programador:'Programador / Desarrollador web',DisenoGrafico:'Diseñador gráfico / UX',MarketingDigital:'Marketing digital / Community Manager',EditorVideo:'Editor de video',Fotografo:'Fotógrafo profesional',Copywriter:'Redactor / Copywriter',Locutor:'Locutor / Voice over',Ilustrador:'Ilustrador / Animador',SEO:'Asesor SEO',ConsultorIA:'Consultor IA / Automatizaciones',ProfesorOnline:'Profesor particular online',AsistenteVirtual:'Asistente virtual',Musico:'Músico / Banda',DJ:'DJ profesional',Cantante:'Cantante solista',FotografoEvento:'Fotógrafo de evento',VideografoEvento:'Videógrafo de evento',AnimadorInfantil:'Animador infantil',Bartender:'Bartender',Mago:'Mago / Showman',Sonidista:'Sonidista / Iluminación',Decorador:'Decorador de eventos',ChefPrivado:'Chef privado / Catering',MaestroCeremonias:'Maestro de ceremonias',Veterinario:'Veterinario/a',PaseadorMascotas:'Paseador de mascotas',PeluqueriaMascotas:'Peluquería canina/felina',Adiestrador:'Adiestrador',HotelMascotas:'Hotel de mascotas'};
   return m[o]||o;
 }
 
@@ -4077,10 +3865,33 @@ function elegir(v){document.getElementById('qo').style.display='none';if(!chatDa
 function showTyp(){var d=document.createElement('div');d.className='typ';d.id='typ';d.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';document.getElementById('cmsgs').appendChild(d);sc();}
 function hideTyp(){var t=document.getElementById('typ');if(t)t.remove();}
 
+function normalizarTextoChat(txt){return (txt||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+function respuestaIncoherente(txt){
+  var t=normalizarTextoChat(txt);
+  if(t.length<3) return true;
+  if(/^(no se|nose|n\/a|na|asdf|qwerty|123|xxx|---|\.\.\.)$/.test(t)) return true;
+  if(t.length<8 && chatStep>0 && !/\d/.test(t)) return true;
+  return false;
+}
+function validarRespuestaChat(txt){
+  if(respuestaIncoherente(txt)){
+    return 'Necesito un dato real para avanzar. Por ejemplo: "se rompió una cañería bajo el lavaplatos en Ñuñoa", "presupuesto 80 mil" o "lo necesito mañana".';
+  }
+  if(chatStep===3 && !/(\$|mil|lucas|presupuesto|cotizar|[0-9])/.test(normalizarTextoChat(txt))){
+    return 'Para filtrar bien necesito un presupuesto aproximado. Puede ser un rango: "50 a 80 mil", "hasta 150 mil" o "quiero cotizar".';
+  }
+  return '';
+}
+function datosChatCompletos(){
+  return !!(chatData.tipo && chatData.descripcion && chatData.descripcion.length>=18 && chatData.ppto && chatData.plazo && chatData.zona && chatData.region);
+}
+
 async function enviar(){
   var inp=document.getElementById('ci');
   var txt=inp.value.trim();
   if(!txt||writing)return;
+  var avisoValidacion=validarRespuestaChat(txt);
+  if(avisoValidacion){ addBot(avisoValidacion); return; }
   inp.value='';
   document.getElementById('qo').style.display='none';
   addUser(txt);
@@ -4117,9 +3928,10 @@ function fallback(msg){
   if(chatStep===3){chatData.ppto=msg;return'¿Para cuándo? ¿Urgente o tienes días?';}
   if(chatStep===4){chatData.plazo=msg;return'¿Es en casa, depto u oficina? ¿Tiene estacionamiento?';}
   if(chatStep>=5){
-    if(!chatData.zona)chatData.zona='Santiago';
+    if(!chatData.zona){chatStep=2;return'Antes de buscar necesito la comuna exacta donde se hará el trabajo.';}
     if(!chatData.region)chatData.region=regionActiva;
     if(!chatData.tipo)chatData.tipo='General';
+    if(!chatData.descripcion || chatData.descripcion.length<18){chatStep=1;return'Necesito una descripción más concreta del trabajo para no enviar una solicitud débil.';}
     return'Perfecto. Buscando... 🔍 DATOS:{"tipo":"'+chatData.tipo+'","descripcion":"'+chatData.descripcion+'","ppto":"'+chatData.ppto+'","plazo":"'+chatData.plazo+'","zona":"'+chatData.zona+'","region":"'+chatData.region+'"}';
   }
   return'¿Puedes contarme más?';
@@ -4133,9 +3945,14 @@ function procReply(reply){
       var p=JSON.parse(m[1]);
       Object.keys(p).forEach(function(k){if(p[k])chatData[k]=p[k];});
       var clean=reply.replace(/DATOS:\{.*\}/,'').trim();
-      if(clean)addBot(clean);
-      chatHist.push({role:'assistant',content:reply});
-      setTimeout(guardarYMostrar,1800);
+      if(!datosChatCompletos()){
+        addBot('Antes de lanzar la solicitud necesito cerrar datos mínimos: qué trabajo es, presupuesto, plazo y comuna. ¿Me das el dato que falta?');
+        chatHist.push({role:'assistant',content:'Faltan datos mínimos para crear la solicitud.'});
+      }else{
+        if(clean)addBot(clean);
+        chatHist.push({role:'assistant',content:reply});
+        setTimeout(guardarYMostrar,1800);
+      }
     }catch(e){addBot(reply);}
   }else{
     addBot(reply);
@@ -7071,39 +6888,38 @@ if(document.readyState === 'loading'){
   setTimeout(hcdLoop, 800);
 }
 
-// ============ MEGA-CATEGORIAS v12.6 ============
-// Mapea cada "necesidad" del usuario a la categoría interna y hace scroll
-// a la sección de tabs activando la correcta.
+// ============ MEGA-CATEGORIAS v12.6.7 ============
+// Los 8 grupos ahora son la navegación principal: cada grupo despliega sus servicios sin duplicar secciones.
+var MM_NEED_GROUPS = {
+  hogar:{title:'Hogar y mantención',copy:'Problemas de casa, reparación, instalación, limpieza y mejoras con profesionales filtrados por comuna.',items:[['🔧','Gasfiteria'],['⚡','Electricidad'],['🎨','Pintura'],['🪵','Carpinteria'],['🧱','Albañileria'],['🔑','Cerrajeria'],['🌿','Jardineria'],['❄️','Climatizacion'],['🧹','Limpieza'],['🏠','Asesora'],['🛡️','Mallas'],['🐜','Fumigacion'],['📺','TecElectro'],['🏊','Piscinas'],['🔨','ArmadoMuebles'],['🛠️','Otros']]},
+  salud:{title:'Salud y bienestar',copy:'Atención particular, terapias y especialistas con enfoque en confianza, agenda y validación profesional.',items:[['👨‍⚕️','Doctor'],['💉','Enfermero'],['🧑‍⚕️','Psiquiatra'],['🧠','Psicologo'],['📚','Psicopedagoga'],['🏃','Kinesiologo'],['🥗','Nutricionista'],['🩻','Tecnologo'],['🌿','Holistico'],['💆','Masajes']]},
+  cuidado:{title:'Cuidado de personas',copy:'Apoyo humano sensible para niños, adultos mayores, enfermos y acompañamiento cotidiano.',items:[['💊','Cuidadora'],['👶','CuidadoInfantil'],['🏠','Asesora'],['💉','Enfermero']]},
+  legal:{title:'Legal, vivienda y negocio',copy:'Servicios profesionales donde el respaldo documental y la claridad de alcance importan desde el minuto uno.',items:[['⚖️','Abogado'],['📊','Contador'],['📐','Arquitecto'],['🏗️','Constructor'],['⚙️','Ingeniero'],['🏠','Corredor'],['🛋️','Diseno'],['🦺','Prevencionista']]},
+  digital:{title:'Digital y creativo',copy:'Servicios remotos para marcas, negocios y creadores en todo Chile.',items:[['💻','Programador'],['📱','DisenoGrafico'],['📊','MarketingDigital'],['🎬','EditorVideo'],['📸','Fotografo'],['✍️','Copywriter'],['🎙️','Locutor'],['🎨','Ilustrador'],['📈','SEO'],['🤖','ConsultorIA'],['🎓','ProfesorOnline'],['💼','AsistenteVirtual']]},
+  eventos:{title:'Eventos y experiencias',copy:'Producción, entretenimiento y soporte para cumpleaños, matrimonios, empresas y shows.',items:[['🎸','Musico'],['🎧','DJ'],['🎤','Cantante'],['📷','FotografoEvento'],['🎥','VideografoEvento'],['🎈','AnimadorInfantil'],['🍹','Bartender'],['🎩','Mago'],['🔊','Sonidista'],['🎈','Decorador'],['👨‍🍳','ChefPrivado'],['🎙️','MaestroCeremonias']]},
+  transporte:{title:'Transporte y flete',copy:'Traslados, carga, apoyo logístico y conductores con disponibilidad clara.',items:[['🚛','Flete'],['🚗','Conductor']]},
+  mascotas:{title:'Mascotas',copy:'Nuevo grupo para que el lanzamiento no deje fuera una necesidad cotidiana de alta recurrencia.',items:[['🩺','Veterinario'],['🦮','PaseadorMascotas'],['🧼','PeluqueriaMascotas'],['🎓','Adiestrador'],['🏡','HotelMascotas']]}
+};
 function filtrarPorNecesidad(need){
-  if(need === 'mascotas'){
-    alert('🐾 Servicios para mascotas: próximamente.\n\nMientras tanto, escríbenos por WhatsApp si necesitas un veterinario, paseador o adiestrador y te conectamos manualmente.');
-    return;
-  }
-  var mapa = {
-    hogar: 'oficios',
-    cuidado: 'oficios',
-    transporte: 'oficios',
-    salud: 'servicios',
-    legal: 'servicios',
-    digital: 'digitales',
-    eventos: 'eventos'
-  };
-  var cat = mapa[need] || 'oficios';
-  // Activar la tab correspondiente
-  var btns = document.querySelectorAll('.cat-tab');
-  var btnTarget = null;
-  btns.forEach(function(b){
-    var oc = b.getAttribute('onclick') || '';
-    if(oc.indexOf("showCat('"+cat+"'") >= 0) btnTarget = b;
-  });
-  if(btnTarget && typeof showCat === 'function'){
-    showCat(cat, btnTarget);
-  }
-  // Scroll a la sección de categorías
-  var sec = document.querySelector('.section-cats-dark');
-  if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+  var group = MM_NEED_GROUPS[need] || MM_NEED_GROUPS.hogar;
+  document.querySelectorAll('.mm-need').forEach(function(b){b.classList.remove('is-active');});
+  var active = document.querySelector('.mm-need[onclick*="'+need+'"]');
+  if(active) active.classList.add('is-active');
+  var box=document.getElementById('mm-need-detail');
+  if(!box) return;
+  var html='<div class="mm-need-detail-head"><div><h3 class="mm-need-detail-title">'+group.title+'</h3><p class="mm-need-detail-copy">'+group.copy+'</p></div><button class="mm-need-detail-close" onclick="cerrarNecesidad()" aria-label="Cerrar">×</button></div>';
+  html+='<div class="mm-need-cats">'+group.items.map(function(item){return '<button class="mm-need-cat" onclick="iniciar(\''+item[1]+'\')"><span class="mm-need-cat-ic">'+item[0]+'</span><span class="mm-need-cat-name">'+formatOficio(item[1])+'</span></button>';}).join('')+'</div>';
+  box.innerHTML=html;
+  box.classList.add('is-open');
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function cerrarNecesidad(){
+  var box=document.getElementById('mm-need-detail');
+  if(box){box.classList.remove('is-open');box.innerHTML='';}
+  document.querySelectorAll('.mm-need').forEach(function(b){b.classList.remove('is-active');});
 }
 window.filtrarPorNecesidad = filtrarPorNecesidad;
+window.cerrarNecesidad = cerrarNecesidad;
 
 // ============ ASISTENTE IA PRO v12.5.3 ============
 var aipHistorial = [];
@@ -7567,6 +7383,7 @@ function verificarLimiteFotos() {
   }
 }
 </script>
+
 
 
 
