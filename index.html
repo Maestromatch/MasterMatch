@@ -1180,31 +1180,46 @@ input:checked+.slider:before{transform:translateX(20px)}
 .oppx-empty-icon{font-size:36px;margin-bottom:0.75rem;opacity:0.7}
 .oppx-empty-title{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--text-main);margin-bottom:0.5rem;letter-spacing:-0.01em}
 .oppx-empty-desc{font-size:13px;color:var(--mu);line-height:1.6;max-width:380px;margin:0 auto}
-.oppx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1rem;color:var(--text-main);transition:border-color .2s var(--ease-out)}
-.oppx-card:hover{border-color:var(--accent)}
-.oppx-head{display:flex;align-items:center;gap:14px;margin-bottom:0.75rem}
+.oppx-card{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1rem;color:var(--text-main);transition:border-color .2s var(--ease-out),transform .2s var(--ease-out),box-shadow .2s var(--ease-out);position:relative;overflow:hidden}
+.oppx-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--border);transition:background-color .2s var(--ease-out)}
+.oppx-card.is-hot{border-color:rgba(201,168,76,.55);box-shadow:0 18px 46px rgba(0,0,0,.26)}
+.oppx-card.is-hot::before{background:var(--accent)}
+.oppx-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 18px 54px rgba(0,0,0,.32)}
+.oppx-head{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;margin-bottom:.95rem}
 .oppx-cli-av{width:42px;height:42px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;color:var(--accent);border:1px solid var(--border);flex-shrink:0;font-size:16px}
-.oppx-id{flex:1;min-width:0}
+.oppx-id{min-width:0}
 .oppx-title{font-family:var(--font-display);font-size:1.15rem;font-weight:500;color:var(--text-main);margin:0;letter-spacing:-0.015em;line-height:1.2}
-.oppx-cli{font-size:12px;color:var(--mu);margin-top:3px;letter-spacing:0.01em}
-.oppx-pills{display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
-.oppx-pill{font-size:10px;font-weight:500;padding:4px 10px;border-radius:var(--radius-full);letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border)}
-.oppx-urg{color:var(--danger);border-color:var(--danger)}
-.oppx-soon{color:var(--warning);border-color:var(--warning)}
+.oppx-cli{font-size:12px;color:var(--mu);margin-top:4px;letter-spacing:0.01em}
+.oppx-pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.oppx-pill{font-size:10px;font-weight:600;padding:5px 10px;border-radius:var(--radius-full);letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border);line-height:1}
+.oppx-urg{color:var(--danger);border-color:var(--danger);background:rgba(255,80,80,.08)}
+.oppx-soon{color:var(--warning);border-color:var(--warning);background:rgba(255,193,7,.08)}
 .oppx-flex{color:var(--mu);border-color:var(--border)}
-.oppx-open{color:var(--teal);border-color:var(--teal-soft)}
-.oppx-desc{color:var(--mu);font-size:13px;line-height:1.65;margin:0 0 1rem;padding:0 0 1rem;border-bottom:1px solid var(--border)}
-.oppx-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1.25rem}
-@media (min-width:520px){.oppx-grid{grid-template-columns:repeat(4,1fr)}}
-.oppx-cell{display:flex;flex-direction:column;gap:3px;padding:0.5rem 0;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);align-items:center;text-align:center}
+.oppx-open{color:var(--teal);border-color:var(--teal-soft);background:rgba(0,168,150,.08)}
+.oppx-score{min-width:74px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:.65rem .7rem}
+.oppx-score strong{display:block;font-family:var(--font-display);font-size:1.25rem;color:var(--accent);font-weight:500;line-height:1}
+.oppx-score span{display:block;font-size:9px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
+.oppx-desc{color:var(--text-main);font-size:13px;line-height:1.65;margin:0 0 1rem;padding:0 0 1rem;border-bottom:1px solid var(--border)}
+.oppx-insight{background:rgba(0,168,150,.06);border:1px solid rgba(0,168,150,.22);border-radius:var(--radius-md);padding:.75rem .9rem;margin-bottom:1rem;color:var(--text-main);font-size:12px;line-height:1.55}
+.oppx-insight strong{color:var(--teal);font-weight:600}
+.oppx-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1.1rem}
+@media (min-width:640px){.oppx-grid{grid-template-columns:1.2fr .9fr .9fr .7fr}}
+.oppx-cell{display:flex;flex-direction:column;gap:4px;padding:.8rem .75rem;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-md);align-items:flex-start;text-align:left;min-height:72px}
 .oppx-cell-lbl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:0.08em;font-weight:500}
-.oppx-cell-val{font-family:var(--font-display);font-size:0.95rem;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;padding:0 0.5rem}
-.oppx-actions{display:flex;gap:8px;flex-wrap:wrap}
-.oppx-btn{flex:1;min-width:140px;padding:11px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;letter-spacing:0.01em;transition:background-color .2s var(--ease-out),border-color .2s var(--ease-out),color .2s var(--ease-out)}
-.oppx-btn-primary{background:var(--accent);color:#0A0A0B;border:1px solid var(--accent);font-weight:600}
+.oppx-cell-val{font-family:var(--font-display);font-size:1rem;font-weight:500;color:var(--text-main);letter-spacing:-0.01em;line-height:1.25;word-break:break-word}
+.oppx-actions{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:640px){.oppx-actions{grid-template-columns:1.1fr .9fr auto}}
+.oppx-btn{padding:12px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:0.01em;transition:background-color .2s var(--ease-out),border-color .2s var(--ease-out),color .2s var(--ease-out),transform .2s var(--ease-out);min-height:44px}
+.oppx-btn:hover{transform:translateY(-1px)}
+.oppx-btn-primary{background:var(--accent);color:#0A0A0B;border:1px solid var(--accent)}
 .oppx-btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
 .oppx-btn-ghost{background:transparent;color:var(--text-main);border:1px solid var(--border)}
 .oppx-btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.oppx-btn-soft{background:var(--surface);color:var(--mu);border:1px solid var(--border)}
+.oppx-btn-soft:hover{color:var(--text-main);border-color:var(--mu)}
+.dash-op-head{padding:1.25rem 1.5rem .75rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.dash-op-title{font-family:var(--font-display);font-size:1.35rem;font-weight:500;color:var(--text-main);letter-spacing:-.02em;margin:0}
+.dash-op-sub{font-size:12px;color:var(--mu);margin:.25rem 0 0;line-height:1.5}
 
 /* === Asistente IA Pro v12.5.3 === */
 .aip-sug{background:var(--surface);border:1px solid var(--border);color:var(--mu);font-size:12px;font-weight:500;padding:8px 14px;border-radius:var(--radius-full);cursor:pointer;font-family:inherit;letter-spacing:0.01em;transition:border-color .2s var(--ease-out),color .2s var(--ease-out)}
@@ -2496,8 +2511,11 @@ function ocultarSplashManual() {
       <!-- SECCIÓN: Oportunidades + Widgets v12.6.5 -->
       <div id="sec-oportunidades" class="dash-section">
         <div id="dash-widgets" style="padding:1.25rem 1.5rem 0"></div>
-        <div style="padding:0.5rem 1.5rem 0.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-          <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--text-main);letter-spacing:-0.015em;margin:0">Oportunidades cerca de ti</h2>
+        <div class="dash-op-head">
+          <div>
+            <h2 class="dash-op-title">Oportunidades cerca de ti</h2>
+            <p class="dash-op-sub">Leads ordenados por calidad, urgencia y probabilidad de cierre.</p>
+          </div>
           <button class="dw-refresh" onclick="cargarSolicitudesExec()" title="Actualizar">↻</button>
         </div>
         <div id="ps" style="padding:0 1.5rem 2rem"></div>
@@ -4635,7 +4653,7 @@ async function cargarSolicitudesExec() {
             return 'hace '+Math.floor(diff/1440)+' d';
         }
         function urgenciaPill(plazo){
-            if(!plazo) return '';
+            if(!plazo) return '<span class="oppx-pill oppx-flex">Flexible</span>';
             var p=plazo.toLowerCase();
             if(p.indexOf('urg')>=0||p.indexOf('hoy')>=0||p.indexOf('inmedi')>=0)
                 return '<span class="oppx-pill oppx-urg">Urgente</span>';
@@ -4650,32 +4668,72 @@ async function cargarSolicitudesExec() {
             var n=parseInt(s.replace(/\D/g,''));
             return isNaN(n)?s:'$'+n.toLocaleString('es-CL');
         }
+        function limpiarZona(s, desc){
+            var z=(s.zona||s.comuna||'').trim();
+            var comunas=[];
+            try{Object.keys(COMUNAS||{}).forEach(function(r){(COMUNAS[r]||[]).forEach(function(c){comunas.push(c);});});}catch(e){}
+            var all=(z+' '+(desc||'')).toLowerCase();
+            var found=comunas.find(function(c){return all.indexOf(c.toLowerCase())>=0;});
+            if(found) return found;
+            if(!z || z.length>42 || z.indexOf(' necesito ')>=0 || z.indexOf(' y ')>=0) return 'Comuna por confirmar';
+            return z;
+        }
+        function leadScore(s, desc, zona){
+            var score=42;
+            var p=String(s.plazo||'').toLowerCase();
+            var ppto=s.ppto||s.presupuesto;
+            if(p.indexOf('urg')>=0||p.indexOf('hoy')>=0) score+=18;
+            if(ppto) score+=18;
+            if(zona && zona!=='Comuna por confirmar') score+=12;
+            if(desc && desc.length>35) score+=10;
+            if(s.pagoProtegido) score+=8;
+            if(s.openMatch) score-=5;
+            return Math.max(35,Math.min(98,score));
+        }
+        function scoreLabel(score){
+            if(score>=82) return 'Alto';
+            if(score>=65) return 'Bueno';
+            return 'Medio';
+        }
+        function insight(score, zona, ppto){
+            if(score>=82) return 'Lead prioritario: tiene urgencia, presupuesto y datos suficientes para responder rápido.';
+            if(zona==='Comuna por confirmar') return 'La IA detectó que falta confirmar comuna antes de coordinar visita.';
+            if(!ppto) return 'Conviene responder pidiendo rango de presupuesto antes de bloquear agenda.';
+            return 'Lead viable: responde con disponibilidad, rango de precio y siguiente paso claro.';
+        }
 
         cont.innerHTML = sols.map(function(s){
             var oficio=s.oficio||s.tipo||'Solicitud';
             var desc=s.descripcion||s.detalle||'';
+            var zona=limpiarZona(s, desc);
+            var ppto=s.ppto||s.presupuesto;
+            var score=leadScore(s, desc, zona);
             var clienteIni=(s.clienteNombre||'C').charAt(0).toUpperCase();
-            var openMatch=s.openMatch?'<span class="oppx-pill oppx-open">🌎 Open Match</span>':'';
+            var openMatch=s.openMatch?'<span class="oppx-pill oppx-open">Open Match</span>':'';
+            var hot=score>=82?' is-hot':'';
             return ''
-              +'<article class="oppx-card">'
+              +'<article class="oppx-card'+hot+'">'
                 +'<header class="oppx-head">'
                   +'<div class="oppx-cli-av">'+clienteIni+'</div>'
                   +'<div class="oppx-id">'
                     +'<h3 class="oppx-title">'+oficio+'</h3>'
                     +'<div class="oppx-cli">'+(s.clienteNombre||'Cliente')+' · '+tiempoDesde(s.creadoEn||s.createdAt)+'</div>'
                   +'</div>'
-                  +'<div class="oppx-pills">'+urgenciaPill(s.plazo)+openMatch+'</div>'
+                  +'<div class="oppx-score"><strong>'+score+'</strong><span>'+scoreLabel(score)+'</span></div>'
                 +'</header>'
-                +(desc?'<p class="oppx-desc">'+desc.slice(0,180)+(desc.length>180?'…':'')+'</p>':'')
+                +'<div class="oppx-pills" style="justify-content:flex-start;margin-bottom:.8rem">'+urgenciaPill(s.plazo)+openMatch+(s.pagoProtegido?'<span class="oppx-pill oppx-open">Pago protegido</span>':'')+'</div>'
+                +(desc?'<p class="oppx-desc">'+desc.slice(0,220)+(desc.length>220?'…':'')+'</p>':'')
+                +'<div class="oppx-insight"><strong>Lectura IA:</strong> '+insight(score,zona,ppto)+'</div>'
                 +'<div class="oppx-grid">'
-                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Zona</span><span class="oppx-cell-val">'+(s.zona||'—')+(s.region?', '+s.region:'')+'</span></div>'
+                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Comuna</span><span class="oppx-cell-val">'+zona+'</span></div>'
                   +'<div class="oppx-cell"><span class="oppx-cell-lbl">Plazo</span><span class="oppx-cell-val">'+(s.plazo||'A convenir')+'</span></div>'
-                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Presupuesto</span><span class="oppx-cell-val">'+presupuestoFmt(s.ppto||s.presupuesto)+'</span></div>'
+                  +'<div class="oppx-cell"><span class="oppx-cell-lbl">Presupuesto</span><span class="oppx-cell-val">'+presupuestoFmt(ppto)+'</span></div>'
                   +'<div class="oppx-cell"><span class="oppx-cell-lbl">ID</span><span class="oppx-cell-val">#'+(s.id||'').slice(-6)+'</span></div>'
                 +'</div>'
                 +'<footer class="oppx-actions">'
-                  +'<button class="oppx-btn oppx-btn-primary" onclick="aceptarTrabajo(\''+s.id+'\')">Aceptar y contactar</button>'
-                  +'<button class="oppx-btn oppx-btn-ghost" onclick="abrirChatMatch(\''+s.id+'\',\''+oficio+'\',\''+(s.clienteNombre||'Cliente')+'\')">💬 Chatear</button>'
+                  +'<button class="oppx-btn oppx-btn-primary" onclick="aceptarTrabajo(\''+s.id+'\')">Aceptar lead</button>'
+                  +'<button class="oppx-btn oppx-btn-ghost" onclick="abrirChatMatch(\''+s.id+'\',\''+oficio+'\',\''+(s.clienteNombre||'Cliente')+'\')">Responder con IA</button>'
+                  +'<button class="oppx-btn oppx-btn-soft" onclick="this.closest(\'.oppx-card\').style.display=\'none\'">Descartar</button>'
                 +'</footer>'
               +'</article>';
         }).join('');
