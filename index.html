@@ -1231,6 +1231,17 @@ input:checked+.slider:before{transform:translateX(20px)}
 .oppx-btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 .oppx-btn-soft{background:var(--surface);color:var(--mu);border:1px solid var(--border)}
 .oppx-btn-soft:hover{color:var(--text-main);border-color:var(--mu)}
+.oppx-radar{margin:0 1.5rem 1rem;background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(0,214,201,.055));border:1px solid rgba(255,255,255,.09);border-radius:var(--radius-lg);overflow:hidden}
+.oppx-radar-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1rem .85rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.oppx-radar-title{font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:#fff;letter-spacing:0;margin:0}
+.oppx-radar-sub{font-size:12px;color:var(--mu);line-height:1.5;margin:.25rem 0 0}
+.oppx-radar-chip{border:1px solid var(--accent);color:var(--accent);background:var(--accent-tint);border-radius:var(--radius-full);padding:.45rem .7rem;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.oppx-radar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.08)}
+@media (min-width:760px){.oppx-radar-grid{grid-template-columns:repeat(4,1fr)}}
+.oppx-radar-m{background:rgba(10,10,11,.62);padding:.9rem 1rem;min-height:78px}
+.oppx-radar-m strong{display:block;font-family:var(--font-display);font-size:1.45rem;font-weight:500;color:#fff;line-height:1}
+.oppx-radar-m span{display:block;font-size:10px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-top:.45rem}
+.oppx-radar-m em{display:block;font-style:normal;font-size:11px;color:var(--accent);margin-top:.25rem;line-height:1.35}
 .dash-op-head{padding:1.25rem 1.5rem .75rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
 .dash-op-title{font-family:var(--font-display);font-size:1.35rem;font-weight:500;color:var(--text-main);letter-spacing:-.02em;margin:0}
 .dash-op-sub{font-size:12px;color:var(--mu);margin:.25rem 0 0;line-height:1.5}
@@ -1554,7 +1565,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 </head>
 <body onload="ocultarSplashManual()">
 <!-- Tag de versión -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.3 Dashboard Premium</div>
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.4 Radar IA</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -1705,7 +1716,7 @@ function ocultarSplashManual() {
       <span class="plan-pill" id="plan-pill-tb" onclick="go('planes')"></span>
       <button class="tb-btn-login" onclick="go('login')">Iniciar sesión</button>
       <button class="tb-btn-cuenta" onclick="irMiCuenta()">👤 Mi cuenta</button>
-      <span class="tb-ver">v12.7.3</span>
+      <span class="tb-ver">v12.7.4</span>
     </div>
   </div>
 </div>
@@ -2609,6 +2620,7 @@ function ocultarSplashManual() {
           </div>
           <button class="dw-refresh" onclick="cargarSolicitudesExec()" title="Actualizar">↻</button>
         </div>
+        <div id="dash-lead-radar"></div>
         <div id="ps" style="padding:0 1.5rem 2rem"></div>
       </div>
 
@@ -4700,6 +4712,32 @@ function renderDashboardPremiumPulse(){
 }
 window.renderDashboardPremiumPulse = renderDashboardPremiumPulse;
 
+function renderLeadRadar(sols){
+    var box = document.getElementById('dash-lead-radar');
+    if(!box) return;
+    sols = sols || [];
+    var total = sols.length;
+    var high = sols.filter(function(s){return (s._mmScore||0) >= 82;}).length;
+    var urg = sols.filter(function(s){var p=String(s.plazo||'').toLowerCase();return p.indexOf('urg')>=0||p.indexOf('hoy')>=0||p.indexOf('inmedi')>=0;}).length;
+    var escrow = sols.filter(function(s){return !!s.pagoProtegido;}).length;
+    var avg = total ? Math.round(sols.reduce(function(acc,s){return acc+(s._mmScore||0);},0)/total) : 0;
+    var lectura = total ? (high ? 'Ataca primero los leads Alto: ahí está la mayor probabilidad de cierre.' : 'Hay demanda, pero conviene filtrar presupuesto y comuna antes de bloquear agenda.') : 'Sin leads nuevos: prepara tu perfil para capturar mejor el próximo pico.';
+    box.innerHTML =
+      '<div class="oppx-radar">' +
+        '<div class="oppx-radar-top">' +
+          '<div><h3 class="oppx-radar-title">Radar IA de oportunidades</h3><p class="oppx-radar-sub">'+lectura+'</p></div>' +
+          '<span class="oppx-radar-chip">Premium signal</span>' +
+        '</div>' +
+        '<div class="oppx-radar-grid">' +
+          '<div class="oppx-radar-m"><strong>'+total+'</strong><span>Leads abiertos</span><em>Ordenados por score</em></div>' +
+          '<div class="oppx-radar-m"><strong>'+high+'</strong><span>Prioritarios</span><em>Score 82+</em></div>' +
+          '<div class="oppx-radar-m"><strong>'+urg+'</strong><span>Urgentes</span><em>Responder primero</em></div>' +
+          '<div class="oppx-radar-m"><strong>'+avg+'</strong><span>Score promedio</span><em>'+escrow+' con pago protegido</em></div>' +
+        '</div>' +
+      '</div>';
+}
+window.renderLeadRadar = renderLeadRadar;
+
 async function cargarDash() {
     miPerfil = loadLocal('miPerfil');
 
@@ -4764,11 +4802,6 @@ async function cargarSolicitudesExec() {
         var data = await res.json();
         var sols = data.solicitudes || [];
 
-        if (!sols.length) {
-            cont.innerHTML = '<div class="oppx-empty"><div class="oppx-empty-icon">📭</div><div class="oppx-empty-title">Sin oportunidades nuevas</div><div class="oppx-empty-desc">Cuando un cliente publique en <strong>'+((miPerfil.oficios||[]).join(' o ')||'tu oficio')+'</strong> en <strong>'+(miPerfil.region||'tu región')+'</strong>, te avisamos aquí.</div></div>';
-            return;
-        }
-
         function tiempoDesde(iso){
             if(!iso) return '';
             var diff=Math.floor((Date.now()-new Date(iso).getTime())/60000);
@@ -4826,13 +4859,31 @@ async function cargarSolicitudesExec() {
             if(!ppto) return 'Conviene responder pidiendo rango de presupuesto antes de bloquear agenda.';
             return 'Lead viable: responde con disponibilidad, rango de precio y siguiente paso claro.';
         }
-
-        cont.innerHTML = sols.map(function(s){
-            var oficio=s.oficio||s.tipo||'Solicitud';
+        function decorarLead(s){
             var desc=s.descripcion||s.detalle||'';
             var zona=limpiarZona(s, desc);
             var ppto=s.ppto||s.presupuesto;
             var score=leadScore(s, desc, zona);
+            s._mmDesc=desc;
+            s._mmZona=zona;
+            s._mmPpto=ppto;
+            s._mmScore=score;
+            return s;
+        }
+        sols=sols.map(decorarLead).sort(function(a,b){return (b._mmScore||0)-(a._mmScore||0);});
+        renderLeadRadar(sols);
+
+        if (!sols.length) {
+            cont.innerHTML = '<div class="oppx-empty"><div class="oppx-empty-icon">◆</div><div class="oppx-empty-title">Radar limpio por ahora</div><div class="oppx-empty-desc">Mientras llegan solicitudes de <strong>'+((miPerfil.oficios||[]).join(' o ')||'tu oficio')+'</strong>, completa perfil, sube evidencia y activa verificación para aparecer más arriba cuando entre demanda.</div></div>';
+            return;
+        }
+
+        cont.innerHTML = sols.map(function(s){
+            var oficio=s.oficio||s.tipo||'Solicitud';
+            var desc=s._mmDesc||'';
+            var zona=s._mmZona||'Comuna por confirmar';
+            var ppto=s._mmPpto;
+            var score=s._mmScore||0;
             var clienteIni=(s.clienteNombre||'C').charAt(0).toUpperCase();
             var openMatch=s.openMatch?'<span class="oppx-pill oppx-open">Open Match</span>':'';
             var hot=score>=82?' is-hot':'';
@@ -4864,6 +4915,7 @@ async function cargarSolicitudesExec() {
         }).join('');
     } catch (e) {
         console.error('[oppx] error', e);
+        renderLeadRadar([]);
         cont.innerHTML = '<div class="oppx-empty"><div class="oppx-empty-icon">⚠️</div><div class="oppx-empty-title">Error al cargar</div><div class="oppx-empty-desc">Revisa tu conexión y vuelve a intentar.</div></div>';
     }
 }
