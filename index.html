@@ -1303,6 +1303,25 @@ input:checked+.slider:before{transform:translateX(20px)}
 .dw-delta.down{color:var(--danger)}
 .dw-skel{height:60px;background:linear-gradient(90deg,var(--surface-2) 0%,var(--surface) 50%,var(--surface-2) 100%);background-size:200% 100%;animation:dw-shimmer 1.4s infinite}
 @keyframes dw-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.dash-premium-pulse{margin:1.15rem 0 1.25rem;background:linear-gradient(135deg,rgba(0,214,201,.14),rgba(201,168,76,.12) 52%,rgba(255,255,255,.025));border:1px solid rgba(0,214,201,.42);border-radius:var(--radius-lg);box-shadow:0 18px 44px rgba(0,0,0,.28);overflow:hidden}
+.dash-pulse-top{display:grid;grid-template-columns:1fr;gap:1rem;padding:1rem}
+@media (min-width:820px){.dash-pulse-top{grid-template-columns:minmax(260px,1.1fr) repeat(3,minmax(130px,.7fr));align-items:stretch}}
+.dash-pulse-main{display:flex;gap:.9rem;align-items:flex-start;min-width:0}
+.dash-pulse-orb{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--accent) 34%,#007f79 70%);box-shadow:0 0 24px rgba(0,214,201,.28);flex:0 0 auto}
+.dash-pulse-k{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:.25rem}
+.dash-pulse-title{font-family:var(--font-display);font-size:1.18rem;line-height:1.12;font-weight:500;color:var(--text-main);letter-spacing:0;margin:0}
+.dash-pulse-copy{font-size:12px;color:var(--mu);line-height:1.55;margin:.4rem 0 0;max-width:540px}
+.dash-pulse-metric{background:rgba(10,10,11,.62);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-md);padding:.85rem .9rem;min-height:86px;display:flex;flex-direction:column;justify-content:space-between}
+.dash-pulse-metric strong{font-family:var(--font-display);font-size:1.5rem;font-weight:500;color:#fff;letter-spacing:0;line-height:1}
+.dash-pulse-metric span{font-size:10px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-top:.45rem}
+.dash-pulse-metric em{font-style:normal;font-size:11px;color:var(--accent);margin-top:.45rem}
+.dash-pulse-next{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.08)}
+@media (min-width:720px){.dash-pulse-next{grid-template-columns:repeat(3,1fr)}}
+.dash-pulse-action{background:rgba(12,12,14,.74);border:none;color:var(--text-main);font-family:inherit;text-align:left;padding:.9rem 1rem;cursor:pointer;display:flex;align-items:center;gap:.75rem;min-height:64px}
+.dash-pulse-action:hover{background:rgba(0,214,201,.08)}
+.dash-pulse-action i{font-style:normal;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent-tint);color:var(--accent);flex:0 0 auto}
+.dash-pulse-action b{display:block;font-size:12px;color:#fff;margin-bottom:.15rem}
+.dash-pulse-action small{display:block;font-size:11px;line-height:1.35;color:var(--mu)}
 
 /* Banner de próxima cita */
 .dw-cita{display:flex;align-items:center;gap:14px;background:var(--accent-tint);border:1px solid var(--accent);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.25rem}
@@ -1535,7 +1554,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 </head>
 <body onload="ocultarSplashManual()">
 <!-- Tag de versión -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.4.5 Editorial</div>
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.3 Dashboard Premium</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -1686,7 +1705,7 @@ function ocultarSplashManual() {
       <span class="plan-pill" id="plan-pill-tb" onclick="go('planes')"></span>
       <button class="tb-btn-login" onclick="go('login')">Iniciar sesión</button>
       <button class="tb-btn-cuenta" onclick="irMiCuenta()">👤 Mi cuenta</button>
-      <span class="tb-ver">v12.5</span>
+      <span class="tb-ver">v12.7.3</span>
     </div>
   </div>
 </div>
@@ -2539,6 +2558,7 @@ function ocultarSplashManual() {
           <div class="brief-hola" id="brief-hola">Hola 👋</div>
           <div class="brief-sub" id="brief-sub">Este es el resumen de tu actividad en 2026</div>
         </div>
+        <div id="dash-premium-pulse" class="dash-premium-pulse"></div>
         
         <div class="brief-cards">
           <div class="brief-card primary" onclick="irSeccion('oportunidades')">
@@ -4587,7 +4607,7 @@ function irSeccion(sec) {
     });
 
     // Cargar data específica
-    if (sec === 'oportunidades') { cargarSolicitudesExec(); cargarWidgetsPro(); renderGamificacionPro(); }
+    if (sec === 'oportunidades') { cargarSolicitudesExec(); cargarWidgetsPro(); renderGamificacionPro(); renderDashboardPremiumPulse(); }
     if (sec === 'negocio') renderGamificacionPro();
     if (sec === 'fotos') cargarGaleria();
     if (sec === 'agenda') cargarAgenda();
@@ -4649,6 +4669,37 @@ function calcularPerfilCompleto(p) {
     return Math.round((campos / total) * 100);
 }
 
+function renderDashboardPremiumPulse(){
+    var box = document.getElementById('dash-premium-pulse');
+    if (!box || !miPerfil) return;
+    var pct = calcularPerfilCompleto(miPerfil);
+    var gam = (typeof calcularGamificacionPro === 'function') ? calcularGamificacionPro() : {xp:0,rank:18,info:{emoji:'◆',nombre:'Inicial'},next:350,tasks:[]};
+    var oficio = ((miPerfil.oficios || [])[0] || 'tu oficio');
+    var comuna = miPerfil.comuna || miPerfil.region || 'tu zona';
+    var leadScore = Math.max(62, Math.min(96, 58 + Math.round(pct * .22) + (miPerfil.verificado ? 9 : 0) + ((miPerfil.fotos || []).length >= 3 ? 7 : 0) + (miPerfil.plan === 'premium' ? 8 : 0)));
+    var cierre = Math.max(18, Math.min(72, 16 + Math.round(leadScore * .42) + (miPerfil.rating >= 4.7 ? 8 : 0)));
+    var nextTxt = gam.next ? ('Faltan ' + Math.max(0, gam.next - gam.xp) + ' XP') : 'Nivel máximo activo';
+    var tarea1 = gam.tasks && gam.tasks[0] ? gam.tasks[0][1] : 'Responde rápido para sostener prioridad en tu comuna.';
+    box.innerHTML =
+      '<div class="dash-pulse-top">' +
+        '<div class="dash-pulse-main">' +
+          '<div class="dash-pulse-orb"></div>' +
+          '<div><div class="dash-pulse-k">Centro premium del negocio</div>' +
+          '<h3 class="dash-pulse-title">Tu panel ahora trabaja como copiloto comercial</h3>' +
+          '<p class="dash-pulse-copy">MasterMatch mide tu perfil, prioriza leads de ' + oficio + ' en ' + comuna + ' y te muestra qué acción mejora ranking, confianza y conversión.</p></div>' +
+        '</div>' +
+        '<div class="dash-pulse-metric"><strong>' + leadScore + '<small style="font-size:.75rem;color:var(--mu)">/100</small></strong><span>Score comercial</span><em>Lead Quality visible</em></div>' +
+        '<div class="dash-pulse-metric"><strong>#' + gam.rank + '</strong><span>Ranking comuna</span><em>' + nextTxt + '</em></div>' +
+        '<div class="dash-pulse-metric"><strong>' + cierre + '<small style="font-size:.75rem;color:var(--mu)">%</small></strong><span>Prob. de cierre</span><em>Sube con perfil completo</em></div>' +
+      '</div>' +
+      '<div class="dash-pulse-next">' +
+        '<button class="dash-pulse-action" onclick="irSeccion(\'perfil\')"><i>1</i><span><b>Completar perfil</b><small>' + pct + '% completo. Más datos, más confianza.</small></span></button>' +
+        '<button class="dash-pulse-action" onclick="irSeccion(\'fotos\')"><i>2</i><span><b>Subir evidencia</b><small>Antes/después y trabajos reales elevan tu ranking.</small></span></button>' +
+        '<button class="dash-pulse-action" onclick="irSeccion(\'negocio\')"><i>3</i><span><b>Siguiente movimiento</b><small>' + tarea1 + '</small></span></button>' +
+      '</div>';
+}
+window.renderDashboardPremiumPulse = renderDashboardPremiumPulse;
+
 async function cargarDash() {
     miPerfil = loadLocal('miPerfil');
 
@@ -4697,6 +4748,7 @@ async function cargarDash() {
     var pct = calcularPerfilCompleto(miPerfil);
     if (mProg) mProg.textContent = pct + '%';
     if (mFill) mFill.style.width = pct + '%';
+    renderDashboardPremiumPulse();
 
     irSeccion('oportunidades');
 }
@@ -7768,6 +7820,3 @@ function verificarLimiteFotos() {
   }
 }
 </script>
-
-
-
