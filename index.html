@@ -12,23 +12,37 @@
 <!-- Vercel Analytics + Speed Insights (HTML puro) -->
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<title>MasterMatch v12.4.5 — Editorial Executive</title>
-<meta name="description" content="Plataforma chilena para servicios de alto estándar. Profesionales verificados, IA de filtrado y pagos protegidos.">
-<meta name="version" content="12.4.5">
+<title>MasterMatch Chile | Profesionales verificados, precios claros y pago protegido</title>
+<meta name="description" content="Encuentra profesionales verificados en Chile por oficio y comuna. IA para filtrar solicitudes, perfiles con reseñas, precios referenciales 2026 y pago protegido.">
+<meta name="keywords" content="profesionales verificados Chile, gasfiter Santiago, maestros Chile, servicios profesionales, pago protegido, precios oficios 2026">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://master-match.vercel.app/">
+<meta name="version" content="12.7.1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta property="og:title" content="MasterMatch: Excelencia en Servicios">
-<meta property="og:description" content="Conectamos la élite de los servicios con quienes buscan excelencia.">
+<meta property="og:title" content="MasterMatch Chile | Profesionales verificados por comuna">
+<meta property="og:description" content="Busca, compara y contrata profesionales verificados con pago protegido, reseñas y precios claros.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://master-match.vercel.app/">
 <meta property="og:image" content="https://master-match.vercel.app/og-image-v12.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MasterMatch Chile | Profesionales verificados">
+<meta name="twitter:description" content="Servicios por oficio y comuna, con IA de filtrado, reseñas y pago protegido.">
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "MasterMatch Chile",
-  "url": "https://master-match.vercel.app"
+  "url": "https://master-match.vercel.app",
+  "inLanguage": "es-CL",
+  "description": "Marketplace chileno de profesionales verificados por oficio y comuna, con IA de filtrado y pago protegido.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://master-match.vercel.app/#buscar?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1534,6 +1548,63 @@ input:checked+.slider:before{transform:translateX(20px)}
    La versión completa de go() y appHistory vive en el script grande
    más abajo. Aquí solo vive ocultarSplashManual para que el body onload
    pueda invocarla aunque el script grande no haya cargado todavía. */
+
+
+function seoText(v){return String(v||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();}
+function setMetaAttr(selector, attr, value){
+  var el=document.querySelector(selector);
+  if(el&&value) el.setAttribute(attr,value);
+}
+function setJsonLd(id, obj){
+  var clean=JSON.parse(JSON.stringify(obj,function(k,v){return v===undefined?undefined:v;}));
+  var el=document.getElementById(id);
+  if(!el){
+    el=document.createElement('script');
+    el.type='application/ld+json';
+    el.id=id;
+    document.head.appendChild(el);
+  }
+  el.textContent=JSON.stringify(clean);
+}
+function actualizarSeoBase(){
+  document.title='MasterMatch Chile | Profesionales verificados, precios claros y pago protegido';
+  setMetaAttr('meta[name="description"]','content','Encuentra profesionales verificados en Chile por oficio y comuna. IA para filtrar solicitudes, perfiles con reseñas, precios referenciales 2026 y pago protegido.');
+  setMetaAttr('link[rel="canonical"]','href','https://master-match.vercel.app/');
+  setMetaAttr('meta[property="og:title"]','content','MasterMatch Chile | Profesionales verificados por comuna');
+  setMetaAttr('meta[property="og:description"]','content','Busca, compara y contrata profesionales verificados con pago protegido, reseñas y precios claros.');
+  setMetaAttr('meta[property="og:url"]','content','https://master-match.vercel.app/');
+}
+function actualizarSeoPerfil(p,reviews){
+  if(!p) return;
+  var oficio=((p.oficios||[])[0]||'profesional');
+  var zona=p.zona||p.comuna||p.region||'Chile';
+  var nombre=seoText(p.nombre||'Profesional MasterMatch');
+  var title=nombre+' | '+formatOficio(oficio)+' en '+zona+' | MasterMatch';
+  var desc=seoText((p.biografia||p.descripcion||('Contrata a '+nombre+' en '+zona+'. Profesional verificado en MasterMatch con reseñas, portafolio y pago protegido.'))).slice(0,155);
+  var url='https://master-match.vercel.app/#p-'+(p.slug||p.id);
+  var img=(p.fotoPerfil||(p.fotos&&p.fotos[0]))||'https://master-match.vercel.app/og-image-v12.jpg';
+  document.title=title;
+  setMetaAttr('meta[name="description"]','content',desc);
+  setMetaAttr('link[rel="canonical"]','href',url);
+  setMetaAttr('meta[property="og:title"]','content',title);
+  setMetaAttr('meta[property="og:description"]','content',desc);
+  setMetaAttr('meta[property="og:url"]','content',url);
+  setMetaAttr('meta[property="og:image"]','content',img);
+  setMetaAttr('meta[name="twitter:title"]','content',title);
+  setMetaAttr('meta[name="twitter:description"]','content',desc);
+  setJsonLd('schema-profesional', {
+    '@context':'https://schema.org',
+    '@type':'LocalBusiness',
+    name:nombre,
+    url:url,
+    image:img,
+    areaServed:zona,
+    description:desc,
+    aggregateRating:(p.rating&&p.reviewCount)?{'@type':'AggregateRating',ratingValue:p.rating,reviewCount:p.reviewCount}:undefined,
+    review:(reviews||[]).slice(0,5).map(function(r){return {'@type':'Review',reviewRating:{'@type':'Rating',ratingValue:r.rating||5},author:{'@type':'Person',name:r.clienteNombre||'Cliente MasterMatch'},reviewBody:seoText(r.comentario||'')};}),
+    makesOffer:(p.oficios||[]).map(function(o){return {'@type':'Offer',itemOffered:{'@type':'Service',name:formatOficio(o)},areaServed:zona};})
+  });
+}
 
 function ocultarSplashManual() {
   const s = document.getElementById('splash');
@@ -3495,6 +3566,7 @@ function go(id) {
       }
     }
 
+    if(id==='home') actualizarSeoBase();
     if (id === appHistory[appHistory.length - 1] && appHistory.length > 1) return;
     appHistory.push(id);
 
@@ -4260,6 +4332,7 @@ async function verPerfil(idOrSlug){
     var revRes=await fetch('/api/reviews?proId='+p.id);
     var revData=await revRes.json();
     var reviews=revData.reviews||[];
+    actualizarSeoPerfil(p,reviews);
     var iniciales=p.nombre.split(' ').map(function(n){return n[0];}).join('').slice(0,2).toUpperCase();
     var avStyle=p.fotos&&p.fotos.length>0?'background-image:url('+p.fotos[0]+');color:transparent':'background:var(--o)';
     var rating=p.rating||0;

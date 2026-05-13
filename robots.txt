@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://master-match.vercel.app/sitemap.xml
