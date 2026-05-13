@@ -1333,6 +1333,39 @@ input:checked+.slider:before{transform:translateX(20px)}
 .dash-pulse-action i{font-style:normal;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent-tint);color:var(--accent);flex:0 0 auto}
 .dash-pulse-action b{display:block;font-size:12px;color:#fff;margin-bottom:.15rem}
 .dash-pulse-action small{display:block;font-size:11px;line-height:1.35;color:var(--mu)}
+.perfil-preview-shell{padding:1.5rem 1.5rem 0;max-width:980px;margin:0 auto}
+.perfil-preview-top{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+.perfil-preview-k{font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:.25rem}
+.perfil-preview-title{font-family:var(--font-display);font-size:1.45rem;font-weight:500;color:#fff;letter-spacing:0;margin:0}
+.perfil-preview-sub{font-size:12px;color:var(--mu);line-height:1.55;margin:.35rem 0 0;max-width:560px}
+.perfil-preview-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.perfil-preview-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 18px 52px rgba(0,0,0,.24)}
+.perfil-preview-note{background:linear-gradient(135deg,rgba(0,214,201,.12),rgba(201,168,76,.09));border-bottom:1px solid rgba(255,255,255,.08);padding:.85rem 1rem;font-size:12px;color:var(--text-main);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.perfil-preview-note strong{color:var(--accent)}
+.perfil-public-sim{background:#0b0b0d;color:var(--text-main)}
+.perfil-public-cover{height:170px;background:linear-gradient(135deg,rgba(201,168,76,.28),rgba(0,214,201,.18)),var(--surface-2);background-size:cover;background-position:center;position:relative}
+.perfil-public-body{padding:0 1.25rem 1.25rem}
+.perfil-public-avatar{width:98px;height:98px;border-radius:50%;border:4px solid #0b0b0d;background:linear-gradient(135deg,var(--accent),var(--teal));margin-top:-49px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.8rem;color:#fff;background-size:cover;background-position:center;position:relative}
+.perfil-public-name{font-family:var(--font-display);font-size:1.65rem;font-weight:500;color:#fff;letter-spacing:0;margin:.75rem 0 .25rem}
+.perfil-public-meta{font-size:13px;color:var(--mu);line-height:1.5}
+.perfil-public-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin:.85rem 0}
+.perfil-public-badge{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:var(--radius-full);padding:.45rem .65rem;font-size:11px;color:var(--text-main);font-weight:600}
+.perfil-public-badge.is-gold{border-color:var(--accent);color:var(--accent);background:var(--accent-tint)}
+.perfil-public-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin:1rem 0}
+@media (min-width:720px){.perfil-public-stats{grid-template-columns:repeat(4,1fr)}}
+.perfil-public-stat{background:rgba(255,255,255,.035);padding:.9rem;text-align:center}
+.perfil-public-stat strong{display:block;font-family:var(--font-display);font-size:1.2rem;color:#fff;font-weight:500}
+.perfil-public-stat span{display:block;font-size:10px;color:var(--mu);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem}
+.perfil-public-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem}
+@media (min-width:860px){.perfil-public-grid{grid-template-columns:1.1fr .9fr}}
+.perfil-public-box{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem}
+.perfil-public-box h4{font-family:var(--font-display);font-size:1rem;font-weight:500;color:#fff;margin:0 0 .65rem}
+.perfil-public-box p,.perfil-public-box li{font-size:13px;line-height:1.65;color:var(--text-main)}
+.perfil-public-box ul{margin:.2rem 0 0;padding-left:1rem}
+.perfil-public-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin-top:.75rem}
+.perfil-public-photo{aspect-ratio:1;background:var(--surface-2);border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.perfil-public-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.perfil-form-shell{padding:1.25rem 1.5rem 2rem;max-width:760px;margin:0 auto}
 
 /* Banner de próxima cita */
 .dw-cita{display:flex;align-items:center;gap:14px;background:var(--accent-tint);border:1px solid var(--accent);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.25rem}
@@ -1565,7 +1598,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 </head>
 <body onload="ocultarSplashManual()">
 <!-- Tag de versión -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.4 Radar IA</div>
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.5 Perfil Cliente</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -1716,7 +1749,7 @@ function ocultarSplashManual() {
       <span class="plan-pill" id="plan-pill-tb" onclick="go('planes')"></span>
       <button class="tb-btn-login" onclick="go('login')">Iniciar sesión</button>
       <button class="tb-btn-cuenta" onclick="irMiCuenta()">👤 Mi cuenta</button>
-      <span class="tb-ver">v12.7.4</span>
+      <span class="tb-ver">v12.7.5</span>
     </div>
   </div>
 </div>
@@ -2669,8 +2702,21 @@ function ocultarSplashManual() {
 
       <!-- SECCIÓN: Perfil -->
       <div id="sec-perfil" class="dash-section" style="display:none">
-        <div style="padding:1.5rem 1.5rem 2rem">
-          <button class="btn-p" onclick="previsualizarMiPerfil()" style="background:var(--trust);margin-bottom:1.25rem">👁️ Ver mi perfil como cliente</button>
+        <div class="perfil-preview-shell">
+          <div class="perfil-preview-top">
+            <div>
+              <div class="perfil-preview-k">Vista pública permanente</div>
+              <h2 class="perfil-preview-title">Así te ve el cliente</h2>
+              <p class="perfil-preview-sub">Esta vista debe vender confianza antes de que el cliente escriba. Edita abajo solo lo que mejore claridad, prueba, precio y disponibilidad.</p>
+            </div>
+            <div class="perfil-preview-actions">
+              <button class="btn-s" onclick="previsualizarMiPerfil()">Abrir vista cliente</button>
+              <button class="btn-p" onclick="document.getElementById('profile-form-start').scrollIntoView({behavior:'smooth'})">Editar datos</button>
+            </div>
+          </div>
+          <div id="perfil-edit-content" class="perfil-preview-card"></div>
+        </div>
+        <div id="profile-form-start" class="perfil-form-shell">
           <div id="badges-display" style="margin-bottom:1rem"></div>
           <label class="fl">Descripción corta (aparece en resultados)</label>
           <textarea class="ft" id="p-desc" placeholder="Ej: Gásfiter certificado SEC con 10 años de experiencia..." maxlength="500"></textarea>
@@ -4604,7 +4650,7 @@ function irSeccion(sec) {
     });
 
     // Mostrar la seleccionada
-    var targetId = (sec === 'perfil' ? 'sec-perfil-exec' : 'sec-' + sec);
+    var targetId = 'sec-' + sec;
     var el = document.getElementById(targetId) || document.getElementById(sec + '-content');
 
     if (el) {
@@ -4626,7 +4672,7 @@ function irSeccion(sec) {
     if (sec === 'verificar') cargarVerificacion();
     if (sec === 'referidos') cargarReferidos();
     if (sec === 'plan') cargarMiPlan();
-    if (sec === 'perfil') cargarPerfilExecutive();
+    if (sec === 'perfil') { cargarPerfilExecutive(); cargarPerfilEdit(); }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -4920,35 +4966,57 @@ async function cargarSolicitudesExec() {
     }
 }
 
+function renderPerfilPublicoLocal(p){
+    p = p || {};
+    var nombre = p.nombre || 'Profesional MasterMatch';
+    var iniciales = nombre.split(' ').map(function(n){return n.charAt(0);}).join('').slice(0,2).toUpperCase() || 'MM';
+    var oficios = (p.oficios || []).join(' · ') || 'Especialista MasterMatch';
+    var zona = p.zona || p.comuna || p.region || 'Zona por completar';
+    var fotos = p.fotos || [];
+    var rating = Number(p.rating || 0);
+    var pct = calcularPerfilCompleto(p);
+    var nivel = (typeof calcularGamificacionPro === 'function') ? calcularGamificacionPro() : {info:{emoji:'◆',nombre:'Inicial'},rank:18,xp:0};
+    var badges = '';
+    if(p.verificado) badges += '<span class="perfil-public-badge is-gold">✓ Verificado</span>';
+    badges += '<span class="perfil-public-badge">'+nivel.info.emoji+' Nivel '+nivel.info.nombre+'</span>';
+    if(p.plan === 'premium') badges += '<span class="perfil-public-badge is-gold">Premium</span>';
+    if(p.herramientasPropias) badges += '<span class="perfil-public-badge">Herramientas propias</span>';
+    if(p.disponeVehiculo) badges += '<span class="perfil-public-badge">Vehículo propio</span>';
+    var servicios = (p.serviciosOfrecidos && p.serviciosOfrecidos.length ? p.serviciosOfrecidos : (p.oficios || ['Servicio principal por definir'])).slice(0,8);
+    var tarifas = [p.tarifaHora && ('Hora: '+p.tarifaHora), p.tarifaVisita && ('Visita: '+p.tarifaVisita)].filter(Boolean).join(' · ') || 'Tarifa por completar';
+    var pagos = (p.metodosPago && p.metodosPago.length) ? p.metodosPago.join(', ') : 'Métodos de pago por completar';
+    var cover = p.fotoPortada ? 'background-image:linear-gradient(135deg,rgba(0,0,0,.28),rgba(0,0,0,.1)),url('+p.fotoPortada+')' : '';
+    var avatar = p.fotoPerfil ? 'style="background-image:url('+p.fotoPerfil+');color:transparent"' : '';
+    var gal = fotos.length ? fotos.slice(0,6).map(function(f){return '<div class="perfil-public-photo"><img src="'+f+'" alt=""></div>';}).join('') : '<div class="perfil-public-photo"></div><div class="perfil-public-photo"></div><div class="perfil-public-photo"></div>';
+    var redes = [p.instagram&&('Instagram @'+p.instagram),p.facebook&&'Facebook',p.tiktok&&('TikTok @'+p.tiktok),p.sitioWeb&&'Sitio web'].filter(Boolean).join(' · ') || 'Redes por completar';
+    return '<div class="perfil-preview-note"><span><strong>Preview real:</strong> optimizado para que el profesional entienda qué verá el cliente antes de contactarlo.</span><span>'+pct+'% completo</span></div>'+
+      '<div class="perfil-public-sim">'+
+        '<div class="perfil-public-cover" style="'+cover+'"></div>'+
+        '<div class="perfil-public-body">'+
+          '<div class="perfil-public-avatar" '+avatar+'>'+iniciales+'</div>'+
+          '<h3 class="perfil-public-name">'+nombre+'</h3>'+
+          '<div class="perfil-public-meta">'+oficios+' · '+zona+'</div>'+
+          '<div class="perfil-public-badges">'+badges+'</div>'+
+          '<div class="perfil-public-stats">'+
+            '<div class="perfil-public-stat"><strong>'+(rating ? rating.toFixed(1) : 'Nuevo')+'</strong><span>Rating</span></div>'+
+            '<div class="perfil-public-stat"><strong>'+fotos.length+'</strong><span>Fotos</span></div>'+
+            '<div class="perfil-public-stat"><strong>'+(p.trabajosCerrados||0)+'</strong><span>Trabajos</span></div>'+
+            '<div class="perfil-public-stat"><strong>#'+nivel.rank+'</strong><span>Ranking</span></div>'+
+          '</div>'+
+          '<div class="perfil-public-grid">'+
+            '<div class="perfil-public-box"><h4>Sobre '+nombre.split(' ')[0]+'</h4><p>'+(p.biografia || p.descripcion || 'Aún falta una biografía convincente. Aquí debe aparecer experiencia, especialidad, forma de trabajar, garantías y por qué el cliente debería elegirte.')+'</p></div>'+
+            '<div class="perfil-public-box"><h4>Datos para decidir</h4><p><strong>Tarifas:</strong> '+tarifas+'</p><p><strong>Horario:</strong> '+(p.horarioAtencion||'Por completar')+'</p><p><strong>Pagos:</strong> '+pagos+'</p><p><strong>Redes:</strong> '+redes+'</p></div>'+
+            '<div class="perfil-public-box"><h4>Servicios</h4><ul>'+servicios.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul></div>'+
+            '<div class="perfil-public-box"><h4>Evidencia visual</h4><div class="perfil-public-gallery">'+gal+'</div></div>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+}
+
 async function cargarPerfilExecutive() {
     var cont = document.getElementById('perfil-edit-content');
     if(!cont) return;
-    cont.innerHTML = '<div class="loader">Generando vista previa...</div>';
-
-    try {
-        // Obtenemos el HTML de la vista pública de forma asíncrona
-        await verPerfil(miPerfil.id);
-        var publicContent = document.getElementById('perfil-content');
-        var profileHtml = publicContent ? publicContent.innerHTML : '';
-
-        cont.innerHTML = `
-          <div style="position:relative;background:var(--bg-deep);border-radius:16px;overflow:hidden;border:1px solid var(--border)">
-            <div style="padding:10px;background:var(--accent-tint);text-align:center;font-size:12px;color:var(--accent);border-bottom:1px solid var(--border)">
-              👀 ESTA ES TU VISTA PÚBLICA (Como te ve el cliente)
-            </div>
-            <div style="pointer-events:none; opacity:0.9">
-                ${profileHtml}
-            </div>
-            <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);backdrop-filter:blur(1px)">
-                <button class="btn-p" onclick="go('perfil-edit-form')" style="box-shadow:0 10px 40px rgba(0,0,0,0.5)">
-                    ✍️ EDITAR PERFIL COMPLETO
-                </button>
-            </div>
-          </div>
-        `;
-    } catch(e) {
-        cont.innerHTML = '<div class="empty">Error al cargar vista previa</div>';
-    }
+    cont.innerHTML = renderPerfilPublicoLocal(miPerfil);
 }
 async function aceptarTrabajo(solId){
   if(!miPerfil){alert('Registrate primero');return;}
@@ -6588,6 +6656,8 @@ async function guardarPerfil(){
       saveLocal('miPerfil',miPerfil);
       alert('✓ Perfil actualizado');
       cargarPerfilEdit();
+      cargarPerfilExecutive();
+      renderDashboardPremiumPulse();
     }else alert('Error: '+(data.error||''));
   }catch(e){alert('Error de conexión');}
 }
