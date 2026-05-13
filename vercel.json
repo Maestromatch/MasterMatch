@@ -1,0 +1,26 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/profesional/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/servicios/:oficio/:comuna",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/planes",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/precios-2026",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://master-match.vercel.app/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://master-match.vercel.app/#planes</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://master-match.vercel.app/#blog</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://master-match.vercel.app/#registro</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://master-match.vercel.app/planes</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://master-match.vercel.app/precios-2026</loc><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://master-match.vercel.app/blog</loc><changefreq>daily</changefreq><priority>0.75</priority></url>
+  <url><loc>https://master-match.vercel.app/servicios/gasfiteria/santiago</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://master-match.vercel.app/servicios/electricidad/santiago</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://master-match.vercel.app/servicios/pintura/maipu</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://master-match.vercel.app/servicios/carpinteria/providencia</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://master-match.vercel.app/servicios/psicologo/santiago</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://master-match.vercel.app/servicios/kinesiologo/santiago</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
 </urlset>

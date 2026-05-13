@@ -5603,6 +5603,67 @@ function rotarTestimonios(){
 }
 setInterval(rotarTestimonios, 5000);
 
+
+function slugBasico(txt){return seoText(txt).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+function actualizarSeoServicio(oficioSlug, comunaSlug){
+  var oficio=(oficioSlug||'profesionales').replace(/-/g,' ');
+  var comuna=(comunaSlug||'chile').replace(/-/g,' ');
+  var title=oficio.charAt(0).toUpperCase()+oficio.slice(1)+' en '+comuna+' | Profesionales verificados | MasterMatch';
+  var desc='Encuentra '+oficio+' verificados en '+comuna+'. Compara perfiles, reseñas, disponibilidad y contrata con pago protegido en MasterMatch.';
+  var url='https://master-match.vercel.app/servicios/'+oficioSlug+'/'+comunaSlug;
+  document.title=title;
+  setMetaAttr('meta[name="description"]','content',desc);
+  setMetaAttr('link[rel="canonical"]','href',url);
+  setMetaAttr('meta[property="og:title"]','content',title);
+  setMetaAttr('meta[property="og:description"]','content',desc);
+  setMetaAttr('meta[property="og:url"]','content',url);
+  setJsonLd('schema-servicio-local', {
+    '@context':'https://schema.org',
+    '@type':'CollectionPage',
+    name:title,
+    url:url,
+    description:desc,
+    inLanguage:'es-CL',
+    about:{'@type':'Service',name:oficio,areaServed:comuna}
+  });
+}
+function oficioDesdeSlug(slug){
+  var target=(slug||'').toLowerCase();
+  var found=null;
+  Object.keys(MM_NEED_GROUPS||{}).some(function(k){
+    return MM_NEED_GROUPS[k].items.some(function(item){
+      var nameSlug=slugBasico(formatOficio(item[1]));
+      var codeSlug=slugBasico(item[1]);
+      if(nameSlug===target || codeSlug===target){found=item[1];return true;}
+      return false;
+    });
+  });
+  return found;
+}
+function handleSeoPath(){
+  var path=(window.location.pathname||'/').replace(/\/+$/,'')||'/';
+  if(path==='/' || path==='/index.html') return false;
+  if(path==='/planes'){go('planes');actualizarSeoBase();setMetaAttr('link[rel="canonical"]','href','https://master-match.vercel.app/planes');return true;}
+  if(path==='/blog' || path==='/precios-2026'){go('blog');setMetaAttr('link[rel="canonical"]','href','https://master-match.vercel.app/precios-2026');return true;}
+  var m=path.match(/^\/profesional\/([^\/]+)$/);
+  if(m){verPerfil(m[1]);return true;}
+  m=path.match(/^\/servicios\/([^\/]+)\/([^\/]+)$/);
+  if(m){
+    var oficio=oficioDesdeSlug(m[1]);
+    go('home');
+    actualizarSeoServicio(m[1],m[2]);
+    setTimeout(function(){
+      var need='hogar';
+      Object.keys(MM_NEED_GROUPS||{}).some(function(k){
+        return MM_NEED_GROUPS[k].items.some(function(item){if(item[1]===oficio){need=k;return true;}return false;});
+      });
+      filtrarPorNecesidad(need);
+    },300);
+    return true;
+  }
+  return false;
+}
+
 function handleHash(){
   var h=window.location.hash;
   if(h.startsWith('#perfil-')){verPerfil(h.slice(8));}
@@ -7665,7 +7726,7 @@ document.addEventListener('DOMContentLoaded',function(){
   if(ci)ci.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();enviar();}});
   procesarRef();
   cargarStats();
-  handleHash();
+  if(!handleSeoPath()) handleHash();
   setMaxDate();
 });
 window.addEventListener('hashchange',handleHash);
@@ -7707,7 +7768,6 @@ function verificarLimiteFotos() {
   }
 }
 </script>
-
 
 
 
