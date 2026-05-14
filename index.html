@@ -1342,6 +1342,18 @@ input:checked+.slider:before{transform:translateX(20px)}
 .perfil-preview-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 18px 52px rgba(0,0,0,.24)}
 .perfil-preview-note{background:linear-gradient(135deg,rgba(0,214,201,.12),rgba(201,168,76,.09));border-bottom:1px solid rgba(255,255,255,.08);padding:.85rem 1rem;font-size:12px;color:var(--text-main);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .perfil-preview-note strong{color:var(--accent)}
+.perfil-coach{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:1rem}
+@media (min-width:820px){.perfil-coach{grid-template-columns:.95fr 1.05fr}}
+.perfil-coach-score{background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(0,214,201,.09));padding:1rem;display:flex;gap:1rem;align-items:center}
+.perfil-coach-ring{width:72px;height:72px;border-radius:50%;background:conic-gradient(var(--accent) var(--perfil-pct,0%),rgba(255,255,255,.08) 0);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.perfil-coach-ring span{width:54px;height:54px;border-radius:50%;background:#0b0b0d;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.05rem;color:#fff}
+.perfil-coach-score h3{font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:#fff;margin:0 0 .3rem;letter-spacing:0}
+.perfil-coach-score p{font-size:12px;color:var(--mu);line-height:1.55;margin:0}
+.perfil-coach-list{background:rgba(10,10,11,.62);padding:.85rem;display:grid;gap:.55rem}
+.perfil-coach-item{display:flex;gap:.7rem;align-items:flex-start;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-md);padding:.75rem}
+.perfil-coach-item i{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:12px;font-weight:800}
+.perfil-coach-item b{display:block;color:#fff;font-size:12px;margin-bottom:.15rem}
+.perfil-coach-item small{display:block;color:var(--mu);font-size:11px;line-height:1.4}
 .perfil-public-sim{background:#0b0b0d;color:var(--text-main)}
 .perfil-public-cover{height:170px;background:linear-gradient(135deg,rgba(201,168,76,.28),rgba(0,214,201,.18)),var(--surface-2);background-size:cover;background-position:center;position:relative}
 .perfil-public-body{padding:0 1.25rem 1.25rem}
@@ -1598,7 +1610,7 @@ input:checked+.slider:before{transform:translateX(20px)}
 </head>
 <body onload="ocultarSplashManual()">
 <!-- Tag de versión -->
-<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.5 Perfil Cliente</div>
+<div style="position:fixed;bottom:10px;right:10px;font-size:9px;color:rgba(255,255,255,0.2);z-index:99999;pointer-events:none;font-family:monospace">v12.7.6 Coach Perfil</div>
 
 <div id="splash">
   <div class="splash-brand">Master<span>Match</span></div>
@@ -1749,7 +1761,7 @@ function ocultarSplashManual() {
       <span class="plan-pill" id="plan-pill-tb" onclick="go('planes')"></span>
       <button class="tb-btn-login" onclick="go('login')">Iniciar sesión</button>
       <button class="tb-btn-cuenta" onclick="irMiCuenta()">👤 Mi cuenta</button>
-      <span class="tb-ver">v12.7.5</span>
+      <span class="tb-ver">v12.7.6</span>
     </div>
   </div>
 </div>
@@ -2714,6 +2726,7 @@ function ocultarSplashManual() {
               <button class="btn-p" onclick="document.getElementById('profile-form-start').scrollIntoView({behavior:'smooth'})">Editar datos</button>
             </div>
           </div>
+          <div id="perfil-coach-content"></div>
           <div id="perfil-edit-content" class="perfil-preview-card"></div>
         </div>
         <div id="profile-form-start" class="perfil-form-shell">
@@ -5013,9 +5026,35 @@ function renderPerfilPublicoLocal(p){
       '</div>';
 }
 
+function renderPerfilCoach(p){
+    p = p || {};
+    var pct = calcularPerfilCompleto(p);
+    var acciones = [];
+    if(!p.fotoPerfil) acciones.push(['Foto principal', 'Sube un rostro claro o logo profesional. Es lo primero que el cliente mira.']);
+    if(!p.fotoPortada) acciones.push(['Portada de trabajo', 'Agrega una imagen horizontal de una obra real para dar contexto inmediato.']);
+    if(!(p.biografia||'').trim() || (p.biografia||'').length < 120) acciones.push(['Historia comercial', 'Escribe una bio con experiencia, proceso, garantías y tipo de cliente ideal.']);
+    if(!p.tarifaHora && !p.tarifaVisita) acciones.push(['Tarifa referencial', 'Publica al menos visita o rango por hora para filtrar curiosos.']);
+    if(!p.horarioAtencion) acciones.push(['Disponibilidad', 'Define horario para que el cliente sepa cuándo esperarte.']);
+    if(!(p.serviciosOfrecidos||[]).length || (p.serviciosOfrecidos||[]).length < 3) acciones.push(['Servicios específicos', 'Lista 3 a 8 servicios concretos. Eso mejora SEO interno y matching.']);
+    if((p.fotos||[]).length < 3) acciones.push(['Evidencia visual', 'Sube al menos 3 fotos de trabajos reales. La confianza se construye con prueba.']);
+    if(!p.verificado) acciones.push(['Verificación', 'Completa identidad/documentos para desbloquear más confianza y mejor ranking.']);
+    if(!(p.metodosPago||[]).length) acciones.push(['Métodos de pago', 'Indica si aceptas transferencia, efectivo, tarjeta o factura.']);
+    if(!acciones.length) acciones.push(['Mantener ventaja', 'Tu perfil está fuerte. Ahora suma reseñas, antes/después y respuesta rápida.']);
+    acciones = acciones.slice(0,4);
+    var label = pct >= 80 ? 'Perfil competitivo' : pct >= 55 ? 'Buen avance, falta prueba' : 'Perfil con baja conversión';
+    var copy = pct >= 80 ? 'Ya puedes competir mejor por leads premium. El foco ahora es evidencia y reseñas.' : 'Completa los puntos críticos para que el cliente entienda rápido por qué elegirte.';
+    return '<div class="perfil-coach" style="--perfil-pct:'+pct+'%">'+
+      '<div class="perfil-coach-score"><div class="perfil-coach-ring"><span>'+pct+'%</span></div><div><h3>'+label+'</h3><p>'+copy+'</p></div></div>'+
+      '<div class="perfil-coach-list">'+acciones.map(function(a,i){return '<div class="perfil-coach-item"><i>'+(i+1)+'</i><span><b>'+a[0]+'</b><small>'+a[1]+'</small></span></div>';}).join('')+'</div>'+
+    '</div>';
+}
+window.renderPerfilCoach = renderPerfilCoach;
+
 async function cargarPerfilExecutive() {
     var cont = document.getElementById('perfil-edit-content');
+    var coach = document.getElementById('perfil-coach-content');
     if(!cont) return;
+    if(coach) coach.innerHTML = renderPerfilCoach(miPerfil);
     cont.innerHTML = renderPerfilPublicoLocal(miPerfil);
 }
 async function aceptarTrabajo(solId){
